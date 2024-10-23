@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.ui.theme
+package com.poulastaa.mflix.core.presentation.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

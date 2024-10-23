@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -40,7 +43,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -51,6 +53,17 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.material3WindowSizeClass)
+
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.dagger.hilt)
+    implementation(libs.hilt.navigation.compose)
+    kapt(libs.dagger.hilt.compiler)
+    kapt(libs.hilt.compiler)
+
+    implementation(libs.okhttp.url.connection)
+    implementation(libs.navigation.compose)
+    implementation(libs.core.splash.screen)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,9 +1,9 @@
-package com.poulastaa.mflix.ui.theme
+package com.poulastaa.mflix.core.presentation.designsystem.theme
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-internal data class Dimens(
+data class Dimens(
     val small1: Dp = 4.dp,
     val small2: Dp = 6.dp,
     val small3: Dp = 8.dp,
@@ -47,11 +47,13 @@ internal val CompactDimens = Dimens(
 
 internal val MediumDimens = Dimens(
     small1 = 8.dp,
-    small2 = 16.dp,
-    small3 = 20.dp,
-    medium1 = 32.dp,
-    medium2 = 38.dp,
-    medium3 = 42.dp,
+    small2 = 12.dp,
+    small3 = 18.dp,
+    medium1 = 24.dp,
+    medium2 = 28.dp,
+    medium3 = 32.dp,
+    large1 = 36.dp,
+    large2 = 42.dp
 )
 
 internal val ExpandedDimens = Dimens(

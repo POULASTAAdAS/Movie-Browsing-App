@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.ui.theme
+package com.poulastaa.mflix.core.presentation.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
@@ -100,7 +100,7 @@ private val LightColorScheme = lightColorScheme(
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun MFlixTheme(
+fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     colorScheme: ColorScheme = when {
         darkTheme -> DarkColorScheme
@@ -175,3 +175,28 @@ private val LocalAppDimens = compositionLocalOf {
 internal val MaterialTheme.dimens
     @Composable
     get() = LocalAppDimens.current
+
+
+@Composable
+fun PrevThem(
+    isDarkTheme: Boolean = isSystemInDarkTheme(),
+    colorScheme: ColorScheme = when {
+        isDarkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    },
+    appDimens: Dimens = CompactMediumDimens,
+    content: @Composable () -> Unit,
+) {
+    val dimens = remember {
+        appDimens
+    }
+
+    CompositionLocalProvider(value = LocalAppDimens provides dimens) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = AppTypography,
+            shapes = AppShape,
+            content = content
+        )
+    }
+}

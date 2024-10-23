@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">mFlix</string>
+    <string name="intro_desc">"Welcome to the biggest movie library.\nExplore millions of movies,save them on your library."</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_email">Continue with Email</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="dont_have_account">Don\'t have an account ?</string>
+    <string name="login">LogIn</string>
+    <string name="signUp">SignUp</string>
+    <string name="continue_text">C O N T I N U E</string>
 </resources>
