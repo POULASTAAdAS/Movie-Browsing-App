@@ -27,14 +27,37 @@ class IntroViewmodel @Inject constructor() : ViewModel() {
                 }
             }
 
-            IntroUiAction.OnGoogleClick -> {
+            IntroUiAction.OnGoogleAuthClick -> {
                 if (_state.value.isMakingApiCall) return
 
                 viewModelScope.launch {
-                    _uiEvent.send(IntroUiEvent.StartGoogleAuth)
                     _state.update {
                         it.copy(
                             isMakingApiCall = true
+                        )
+                    }
+                }
+            }
+
+            IntroUiAction.OnGoogleAuthCanceled -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            isMakingApiCall = false
+                        )
+                    }
+                }
+            }
+
+            is IntroUiAction.OnGoogleAuthSuccess -> {
+                val displayCountry = action.activity.resources.configuration.locales[0]
+                    .displayCountry
+
+
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            isMakingApiCall = false
                         )
                     }
                 }

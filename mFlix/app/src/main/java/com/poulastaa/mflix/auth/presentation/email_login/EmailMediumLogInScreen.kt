@@ -51,6 +51,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.AppBackButton
 import com.poulastaa.mflix.auth.presentation.email_login.components.DontHaveAccount
 import com.poulastaa.mflix.auth.presentation.email_login.components.ForgotPassword
+import com.poulastaa.mflix.core.presentation.designsystem.ArrowDownIcon
 import com.poulastaa.mflix.core.presentation.ui.SubmitButton
 
 @Composable
@@ -103,7 +104,7 @@ private fun EmailMediumLogInScreen(
         topBar = {
             AppBackButton(
                 modifier = Modifier.padding(start = MaterialTheme.dimens.medium1),
-                icon = ArrowBackIcon,
+                icon = ArrowDownIcon,
                 onClick = navigateBack
             )
         }
@@ -173,7 +174,7 @@ private fun EmailMediumLogInScreen(
                         )
                     },
                     trailingIcon = {
-                        if (state.isCorrectEmail) Icon(
+                        if (state.isValidEmail) Icon(
                             imageVector = CheckIcon,
                             contentDescription = null
                         )

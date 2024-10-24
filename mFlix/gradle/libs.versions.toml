@@ -22,6 +22,9 @@ navigation = "2.8.3"
 
 splashScreen = "1.0.1"
 
+credentials = "1.3.0"
+googleid = "1.1.1"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,6 +54,10 @@ okhttp-url-connection = { group = "com.squareup.okhttp3", name = "okhttp-urlconn
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 core-splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashScreen" }
+
+credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+credentialsPlayServicesAuth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
+googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 
 
 [plugins]

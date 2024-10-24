@@ -52,10 +52,6 @@ fun IntroRootSmallScreen(
             ).show()
 
             IntroUiEvent.NavigateToEmailLogIn -> navigateToEmailLogIn()
-
-            IntroUiEvent.StartGoogleAuth -> {
-
-            }
         }
     }
 
@@ -125,7 +121,7 @@ private fun IntroSmallScreen(
                     )
                 },
                 onClick = {
-                    onAction(IntroUiAction.OnGoogleClick)
+                    onAction(IntroUiAction.OnGoogleAuthClick)
                 }
             )
 

@@ -1,6 +1,8 @@
 package com.poulastaa.mflix.core.navigation
 
 import android.app.Activity
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
@@ -9,15 +11,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.poulastaa.mflix.auth.presentation.email_login.EmailExpandedLogInRootScreen
 import com.poulastaa.mflix.auth.presentation.email_login.EmailLogInViewModel
-import com.poulastaa.mflix.auth.presentation.email_login.EmailMediumLogInRootScreen
-import com.poulastaa.mflix.auth.presentation.email_login.EmailSmallLogInRootScreen
-import com.poulastaa.mflix.auth.presentation.intro.IntroRootExpandedScreen
-import com.poulastaa.mflix.auth.presentation.intro.IntroRootMediumScreen
-import com.poulastaa.mflix.auth.presentation.intro.IntroRootSmallScreen
+import com.poulastaa.mflix.auth.presentation.email_login.EmailLoginRootScreen
+import com.poulastaa.mflix.auth.presentation.email_signup.EmailSignUpRootScreen
+import com.poulastaa.mflix.auth.presentation.email_signup.EmailSignUpViewModel
+import com.poulastaa.mflix.auth.presentation.intro.IntroRootScreen
 import com.poulastaa.mflix.auth.presentation.intro.IntroViewmodel
-import com.poulastaa.mflix.core.presentation.designsystem.AppScreenWindowSize
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -35,110 +34,74 @@ fun AppNavigation(
         composable<Screen.Intro> {
             val viewmodel = hiltViewModel<IntroViewmodel>()
 
-            AppScreenWindowSize(
+            IntroRootScreen(
                 windowSizeClass = windowSizeClass,
-                compactContent = {
-                    IntroRootSmallScreen(
-                        viewmodel = viewmodel,
-                        navigateToEmailLogIn = {
-                            navController.navigate(Screen.EmailLogIn)
-                        }
-                    )
-                },
-                mediumContent = {
-                    IntroRootMediumScreen(
-                        viewmodel = viewmodel,
-                        navigateToEmailLogIn = {
-                            navController.navigate(Screen.EmailLogIn)
-                        }
-                    )
-                },
-                expandedContent = {
-                    IntroRootExpandedScreen(
-                        viewmodel = viewmodel,
-                        navigateToEmailLogIn = {
-                            navController.navigate(Screen.EmailLogIn)
-                        }
-                    )
+                viewmodel = viewmodel,
+                navigateToEmailLogIn = {
+                    navController.navigate(Screen.EmailLogIn)
                 }
             )
         }
 
-        composable<Screen.EmailLogIn> {
+        composable<Screen.EmailLogIn>(
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                    animationSpec = tween(400)
+                )
+            },
+            popExitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                    animationSpec = tween(400)
+                )
+            }
+        ) {
             val viewmodel = hiltViewModel<EmailLogInViewModel>()
 
-            AppScreenWindowSize(
+            EmailLoginRootScreen(
                 windowSizeClass = windowSizeClass,
-                compactContent = {
-                    EmailSmallLogInRootScreen(
-                        viewModel = viewmodel,
-                        navigateToEmailSingUp = {
-                            navController.navigate(Screen.EmailSignUp) {
-                                popUpTo(Screen.EmailLogIn) {
-                                    inclusive = true
-                                }
-                            }
-                        },
-                        navigateToForgotPassword = {
-                            navController.navigate(Screen.ForgotPassword)
-                        },
-                        navigateBack = {
-                            navController.popBackStack()
-                        }
-                    )
+                viewmodel = viewmodel,
+                navigateToEmailSingUp = {
+                    navController.navigate(Screen.EmailSignUp)
                 },
-                mediumContent = {
-                    EmailMediumLogInRootScreen(
-                        viewModel = viewmodel,
-                        navigateToEmailSingUp = {
-                            navController.navigate(Screen.EmailSignUp)
-                        },
-                        navigateToForgotPassword = {
-                            navController.navigate(Screen.ForgotPassword)
-                        },
-                        navigateBack = {
-                            navController.popBackStack()
-                        }
-                    )
+                navigateToForgotPassword = {
+                    navController.navigate(Screen.ForgotPassword)
                 },
-                expandedContent = {
-                    EmailExpandedLogInRootScreen(
-                        viewModel = viewmodel,
-                        navigateToEmailSingUp = {
-                            navController.navigate(Screen.EmailSignUp) {
-                                popUpTo(Screen.EmailLogIn) {
-                                    inclusive = true
-                                }
-                            }
-                        },
-                        navigateToForgotPassword = {
-                            navController.navigate(Screen.ForgotPassword)
-                        },
-                        navigateBack = {
-                            navController.popBackStack()
-                        }
-                    )
+                navigateBack = {
+                    navController.popBackStack()
                 }
             )
         }
 
-        composable<Screen.EmailSignUp> {
+        composable<Screen.EmailSignUp>(
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                    animationSpec = tween(400)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                    animationSpec = tween(400)
+                )
+            }
+        ) {
+            val viewmodel = hiltViewModel<EmailSignUpViewModel>()
 
+            EmailSignUpRootScreen(
+                viewModel = viewmodel,
+                windowSizeClass = windowSizeClass,
+                navigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable<Screen.ForgotPassword> {
-            AppScreenWindowSize(
-                windowSizeClass = windowSizeClass,
-                compactContent = {
 
-                },
-                mediumContent = {
-
-                },
-                expandedContent = {
-
-                }
-            )
         }
     }
 }
+

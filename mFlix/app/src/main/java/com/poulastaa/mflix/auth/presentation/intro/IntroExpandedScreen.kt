@@ -56,10 +56,6 @@ fun IntroRootExpandedScreen(
             ).show()
 
             IntroUiEvent.NavigateToEmailLogIn -> navigateToEmailLogIn()
-
-            IntroUiEvent.StartGoogleAuth -> {
-
-            }
         }
     }
 
@@ -137,7 +133,7 @@ private fun IntroExpandedScreen(
                         )
                     },
                     onClick = {
-                        onAction(IntroUiAction.OnGoogleClick)
+                        onAction(IntroUiAction.OnGoogleAuthClick)
                     }
                 )
 

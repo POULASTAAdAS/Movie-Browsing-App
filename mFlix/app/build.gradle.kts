@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -22,12 +24,20 @@ android {
     }
 
     buildTypes {
+        val clientId = gradleLocalProperties(rootDir, providers).getProperty("CLIENT_ID")
+
         release {
-            isMinifyEnabled = false
+            buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$clientId\"")
+
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$clientId\"")
         }
     }
     compileOptions {
@@ -39,6 +49,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -72,4 +83,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.credentials)
+    implementation(libs.credentialsPlayServicesAuth)
+    implementation(libs.googleid)
 }

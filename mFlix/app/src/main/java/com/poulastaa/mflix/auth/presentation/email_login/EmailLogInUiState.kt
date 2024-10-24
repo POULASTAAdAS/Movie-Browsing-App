@@ -5,7 +5,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.TextHolder
 data class EmailLogInUiState(
     val isMakingApiCall: Boolean = false,
 
-    val isCorrectEmail: Boolean = false,
+    val isValidEmail: Boolean = false,
     val email: TextHolder = TextHolder(),
 
     val isPasswordVisible: Boolean = false,

@@ -10,4 +10,7 @@
     <string name="login">LogIn</string>
     <string name="signUp">SignUp</string>
     <string name="continue_text">C O N T I N U E</string>
+    <string name="username">Username</string>
+    <string name="conform_password">Conform password</string>
+    <string name="already_have_an_account">Already have an account ?</string>
 </resources>

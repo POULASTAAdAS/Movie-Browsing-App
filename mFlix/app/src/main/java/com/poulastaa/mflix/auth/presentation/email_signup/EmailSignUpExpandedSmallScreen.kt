@@ -1,19 +1,17 @@
-package com.poulastaa.mflix.auth.presentation.email_login
+package com.poulastaa.mflix.auth.presentation.email_signup
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.widget.Toast
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -26,12 +24,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
@@ -42,90 +38,40 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.poulastaa.mflix.R
-import com.poulastaa.mflix.core.presentation.designsystem.ArrowBackIcon
+import com.poulastaa.mflix.auth.presentation.email_signup.components.AlreadyHaveAnAccount
 import com.poulastaa.mflix.core.presentation.designsystem.CheckIcon
 import com.poulastaa.mflix.core.presentation.designsystem.EmailIcon
 import com.poulastaa.mflix.core.presentation.designsystem.EyeCloseIcon
 import com.poulastaa.mflix.core.presentation.designsystem.EyeOpenIcon
-import com.poulastaa.mflix.core.presentation.designsystem.ObserveAsEvent
 import com.poulastaa.mflix.core.presentation.designsystem.PasswordIcon
+import com.poulastaa.mflix.core.presentation.designsystem.UserIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
-import com.poulastaa.mflix.core.presentation.ui.AppBackButton
-import com.poulastaa.mflix.auth.presentation.email_login.components.DontHaveAccount
-import com.poulastaa.mflix.auth.presentation.email_login.components.ForgotPassword
 import com.poulastaa.mflix.core.presentation.ui.SubmitButton
 
 @Composable
-fun EmailExpandedLogInRootScreen(
-    viewModel: EmailLogInViewModel,
-    navigateToEmailSingUp: () -> Unit,
-    navigateToForgotPassword: () -> Unit,
-    navigateBack: () -> Unit
-) {
-    val context = LocalContext.current
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
-    ObserveAsEvent(viewModel.uiEvent) {
-        when (it) {
-            is EmailLogInUiEvent.EmitToast -> Toast.makeText(
-                context,
-                it.message.asString(context),
-                Toast.LENGTH_LONG
-            ).show()
-
-            is EmailLogInUiEvent.Navigate -> {
-                when (it.screen) {
-                    EmailLogInUiEvent.NavigationScreen.FORGOT_PASSWORD -> navigateToForgotPassword()
-                    EmailLogInUiEvent.NavigationScreen.EMAIL_SIGNUP -> navigateToEmailSingUp()
-                }
-            }
-        }
-    }
-
-    EmailExpandedLogInScreen(
-        state = state,
-        onAction = viewModel::onAction,
-        navigateBack = navigateBack
-    )
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-private fun EmailExpandedLogInScreen(
-    state: EmailLogInUiState,
-    onAction: (EmailLogInUiAction) -> Unit,
-    navigateBack: () -> Unit
+fun EmailSignUpExpandedSmallScreen(
+    state: EmailSignUpUiState,
+    onAction: (EmailSignUpUiAction) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     val haptic = LocalHapticFeedback.current
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
-        topBar = {
-            AppBackButton(
-                modifier = Modifier.padding(start = MaterialTheme.dimens.medium1),
-                icon = ArrowBackIcon,
-                onClick = navigateBack
-            )
-        }
-    ) {
+        modifier = Modifier.fillMaxSize()
+    ) { paddingValues ->
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(MaterialTheme.dimens.medium1),
+                .padding(paddingValues),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth(.3f)
-                    .padding(MaterialTheme.dimens.medium1),
+                    .fillMaxWidth(.4f),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -134,21 +80,34 @@ private fun EmailExpandedLogInScreen(
                     fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 4.sp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
                 )
+
+                Spacer(Modifier.height(MaterialTheme.dimens.large1))
+
+                AlreadyHaveAnAccount(onAction)
+
+                Spacer(Modifier.height(MaterialTheme.dimens.large2))
+
+                SubmitButton(
+                    modifier = Modifier.fillMaxWidth(.75f),
+                    isLoading = state.isMakingApiCall
+                ) {
+                    onAction(EmailSignUpUiAction.OnSubmitClicked)
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                }
             }
 
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth(.8f)
-                    .padding(horizontal = MaterialTheme.dimens.large1)
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(R.string.login).lowercase().replace('l', 'L'),
+                    text = stringResource(R.string.signUp),
                     fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                     fontWeight = FontWeight.Black,
                     color = MaterialTheme.colorScheme.primary,
@@ -160,9 +119,50 @@ private fun EmailExpandedLogInScreen(
                 Spacer(Modifier.height(MaterialTheme.dimens.medium1))
 
                 OutlinedTextField(
+                    value = state.userName.text,
+                    onValueChange = {
+                        onAction(EmailSignUpUiAction.OnUserNameChanged(it))
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = CircleShape,
+                    label = {
+                        Text(text = stringResource(R.string.username))
+                    },
+                    isError = state.userName.isError,
+                    supportingText = {
+                        if (state.userName.isError) Text(
+                            text = state.userName.error.asString(),
+                            color = MaterialTheme.colorScheme.error,
+                            fontWeight = FontWeight.ExtraLight
+                        )
+                    },
+                    singleLine = true,
+                    leadingIcon = {
+                        Icon(
+                            imageVector = UserIcon,
+                            contentDescription = null
+                        )
+                    },
+                    trailingIcon = {
+                        if (state.isValidUserName) Icon(
+                            imageVector = CheckIcon,
+                            contentDescription = null
+                        )
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+
+                OutlinedTextField(
                     value = state.email.text,
                     onValueChange = {
-                        onAction(EmailLogInUiAction.EmailChanged(it))
+                        onAction(EmailSignUpUiAction.OnEmailChanged(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = CircleShape,
@@ -185,7 +185,7 @@ private fun EmailExpandedLogInScreen(
                         )
                     },
                     trailingIcon = {
-                        if (state.isCorrectEmail) Icon(
+                        if (state.isValidEmail) Icon(
                             imageVector = CheckIcon,
                             contentDescription = null
                         )
@@ -202,9 +202,9 @@ private fun EmailExpandedLogInScreen(
                 )
 
                 OutlinedTextField(
-                    value = state.email.text,
+                    value = state.password.text,
                     onValueChange = {
-                        onAction(EmailLogInUiAction.EmailChanged(it))
+                        onAction(EmailSignUpUiAction.OnPasswordChanged(it))
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = CircleShape,
@@ -229,11 +229,12 @@ private fun EmailExpandedLogInScreen(
                     trailingIcon = {
                         IconButton(
                             onClick = {
-                                onAction(EmailLogInUiAction.OnPasswordVisibilityChange)
+                                onAction(EmailSignUpUiAction.OnTogglePasswordVisibilityClicked)
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             }
                         ) {
                             AnimatedContent(
-                                state.isPasswordVisible,
+                                state.isValidPassword,
                                 label = "password visibility animation"
                             ) {
                                 when (it) {
@@ -250,8 +251,51 @@ private fun EmailExpandedLogInScreen(
                             }
                         }
                     },
-                    visualTransformation = if (state.isPasswordVisible) VisualTransformation.None
+                    visualTransformation = if (state.isValidPassword) VisualTransformation.None
                     else PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Password
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+
+                OutlinedTextField(
+                    value = state.conformPassword.text,
+                    onValueChange = {
+                        onAction(EmailSignUpUiAction.OnConformPasswordChanged(it))
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = CircleShape,
+                    label = {
+                        Text(text = stringResource(R.string.conform_password))
+                    },
+                    isError = state.conformPassword.isError,
+                    supportingText = {
+                        if (state.conformPassword.isError) Text(
+                            text = state.conformPassword.error.asString(),
+                            color = MaterialTheme.colorScheme.error,
+                            fontWeight = FontWeight.ExtraLight
+                        )
+                    },
+                    singleLine = true,
+                    leadingIcon = {
+                        Icon(
+                            imageVector = PasswordIcon,
+                            contentDescription = null
+                        )
+                    },
+                    trailingIcon = {
+                        if (state.areSamePassword) Icon(
+                            imageVector = CheckIcon,
+                            contentDescription = null
+                        )
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
                         keyboardType = KeyboardType.Password
@@ -259,32 +303,10 @@ private fun EmailExpandedLogInScreen(
                     keyboardActions = KeyboardActions(
                         onDone = {
                             focusManager.clearFocus()
-                            onAction(EmailLogInUiAction.OnSubmitClick)
+                            onAction(EmailSignUpUiAction.OnSubmitClicked)
                         }
                     )
                 )
-
-                Spacer(Modifier.height(MaterialTheme.dimens.small1))
-
-                ForgotPassword(onAction)
-
-                Spacer(Modifier.height(MaterialTheme.dimens.large2))
-
-                DontHaveAccount(
-                    text = stringResource(id = R.string.signUp)
-                ) {
-                    onAction(EmailLogInUiAction.OnEmailSingUpClick)
-                }
-
-                Spacer(Modifier.height(MaterialTheme.dimens.large2))
-
-                SubmitButton(
-                    modifier = Modifier.fillMaxWidth(.75f),
-                    isLoading = state.isMakingApiCall
-                ) {
-                    onAction(EmailLogInUiAction.OnSubmitClick)
-                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                }
             }
         }
     }
@@ -303,9 +325,8 @@ private fun EmailExpandedLogInScreen(
 @Composable
 private fun Preview() {
     PrevThem {
-        EmailExpandedLogInScreen(
-            state = EmailLogInUiState(),
-            onAction = {}
+        EmailSignUpExpandedSmallScreen(
+            state = EmailSignUpUiState()
         ) { }
     }
 }
