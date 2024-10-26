@@ -8,6 +8,7 @@ import com.poulastaa.mflix.core.domain.repository.auth.RemoteAuthDataSource
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository
 import com.poulastaa.mflix.core.domain.repository.home.RemoteHomeDataSource
 import com.poulastaa.mflix.home.data.repository.OnlineFirstHomeRepository
+import com.poulastaa.mflix.home.network.HomeMorePagerSource
 import com.poulastaa.mflix.home.network.OkHttpRemoteHomeDataSource
 import dagger.Module
 import dagger.Provides
@@ -43,9 +44,15 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
+    fun provideHomeMorePagerSource(client: OkHttpClient): HomeMorePagerSource =
+        HomeMorePagerSource(client)
+
+    @Provides
+    @ViewModelScoped
     fun provideHomeRemoteDataSource(
-        client: OkHttpClient
-    ): RemoteHomeDataSource = OkHttpRemoteHomeDataSource(client)
+        client: OkHttpClient,
+        pager: HomeMorePagerSource
+    ): RemoteHomeDataSource = OkHttpRemoteHomeDataSource(client, pager)
 
     @Provides
     @ViewModelScoped

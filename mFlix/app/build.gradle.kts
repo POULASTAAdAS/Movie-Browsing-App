@@ -105,4 +105,8 @@ dependencies {
     implementation(libs.datastore.preferences)
 
     implementation(libs.coil.compose)
+
+    implementation(libs.pagingRuntimeKtx)
+    implementation(libs.pagingCompose)
+    implementation(libs.pagingCommon)
 }

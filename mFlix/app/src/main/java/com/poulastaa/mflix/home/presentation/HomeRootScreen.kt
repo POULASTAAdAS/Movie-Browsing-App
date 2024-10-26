@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.poulastaa.mflix.core.presentation.designsystem.AppScreenWindowSize
 
 @Composable
@@ -20,11 +21,16 @@ fun HomeRootScreen(
         compactContent = {
             HomeSmallScreen(
                 state = state,
+                more = viewModel.more.collectAsLazyPagingItems(),
                 onAction = viewModel::onAction
             )
         },
         mediumContent = {
-
+            HomeSmallScreen(
+                state = state,
+                more = viewModel.more.collectAsLazyPagingItems(),
+                onAction = viewModel::onAction
+            )
         },
         expandedContent = {
 

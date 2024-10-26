@@ -19,4 +19,7 @@
     <string name="popular">Popular</string>
     <string name="top_rated">Top rated</string>
     <string name="explore">Explore</string>
+    <string name="all">All</string>
+    <string name="tv_shows">Tv shows</string>
+    <string name="movie">Movie</string>
 </resources>

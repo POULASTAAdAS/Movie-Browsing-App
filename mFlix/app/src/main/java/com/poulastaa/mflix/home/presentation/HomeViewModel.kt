@@ -2,6 +2,11 @@ package com.poulastaa.mflix.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.map
+import com.poulastaa.mflix.R
+import com.poulastaa.mflix.core.domain.model.PrevItem
 import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.domain.model.UiPrevItemType
@@ -10,10 +15,15 @@ import com.poulastaa.mflix.core.domain.repository.DataStoreRepository
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository
 import com.poulastaa.mflix.core.domain.utils.DataError
 import com.poulastaa.mflix.core.domain.utils.Result
+import com.poulastaa.mflix.core.presentation.ui.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -30,6 +40,7 @@ class HomeViewModel @Inject constructor(
         .onStart {
             loadUser()
             loadPopularData()
+            loadTopRatedData()
         }
         .stateIn(
             viewModelScope,
@@ -37,14 +48,63 @@ class HomeViewModel @Inject constructor(
             initialValue = HomeUiState(),
         )
 
+    private val _uiEvent = Channel<HomeUiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
+
+    private val _more: MutableStateFlow<PagingData<UiPrevItem>> =
+        MutableStateFlow(PagingData.empty())
+    val more = _more
+        .onStart {
+            loadMoreJob?.cancel()
+            loadMoreJob = loadMore()
+        }
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = PagingData.empty()
+        )
+
+    private var loadMoreJob: Job? = null
+
     fun onAction(action: HomeUiAction) {
         when (action) {
             HomeUiAction.OnSearchClick -> {
-
+                viewModelScope.launch {
+                    _uiEvent.send(HomeUiEvent.NavigateToSearch)
+                }
             }
 
             is HomeUiAction.OnItemClick -> {
+                viewModelScope.launch {
+                    _uiEvent.send(
+                        HomeUiEvent.NavigateToDetails(
+                            id = action.id,
+                            type = action.type.toPrevItemType()
+                        )
+                    )
+                }
+            }
 
+            is HomeUiAction.OnFilterTypeChange -> {
+                if (_state.value.filterType == action.type) return
+
+                _state.update {
+                    it.copy(
+                        filterType = action.type
+                    )
+                }
+
+                _state.update {
+                    it.copy(
+                        popularList = emptyList(),
+                        topRated = emptyList(),
+                    )
+                }
+
+                loadPopularData()
+                loadTopRatedData()
+                loadMoreJob?.cancel()
+                loadMoreJob = loadMore()
             }
         }
     }
@@ -70,13 +130,21 @@ class HomeViewModel @Inject constructor(
             when (val result = repo.getPopularData()) {
                 is Result.Error -> {
                     when (result.error) {
-                        DataError.Network.NO_INTERNET -> {
+                        DataError.Network.NO_INTERNET -> _uiEvent.send(
+                            HomeUiEvent.EmitToast(
+                                UiText.StringResource(
+                                    R.string.error_no_internet
+                                )
+                            )
+                        )
 
-                        }
-
-                        else -> {
-
-                        }
+                        else -> _uiEvent.send(
+                            HomeUiEvent.EmitToast(
+                                UiText.StringResource(
+                                    R.string.error_something_went_wrong
+                                )
+                            )
+                        )
                     }
                 }
 
@@ -105,8 +173,79 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun loadTopRatedData() {
+        viewModelScope.launch {
+            when (val result = repo.getTopRatedData()) {
+                is Result.Error -> when (result.error) {
+                    DataError.Network.NO_INTERNET -> _uiEvent.send(
+                        HomeUiEvent.EmitToast(
+                            UiText.StringResource(
+                                R.string.error_no_internet
+                            )
+                        )
+                    )
+
+                    else -> _uiEvent.send(
+                        HomeUiEvent.EmitToast(
+                            UiText.StringResource(
+                                R.string.error_something_went_wrong
+                            )
+                        )
+                    )
+                }
+
+                is Result.Success -> _state.update {
+                    it.copy(
+                        topRated = result.data.map { item ->
+                            UiPrevItem(
+                                id = item.id,
+                                title = item.title,
+                                description = item.description,
+                                rating = item.rating,
+                                imageUrl = item.coverImage,
+                                type = item.type.toUiPrevItemType(),
+                                isInFavourite = false
+                            )
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    private fun loadMore() = viewModelScope.launch {
+        _more.update {
+            PagingData.empty()
+        }
+
+        repo.getPagingMore()
+            .cachedIn(viewModelScope)
+            .collectLatest { pagingData ->
+                _more.update {
+                    pagingData.map { item ->
+                        item.toUiPrevItem()
+                    }
+                }
+            }
+    }
+
     private fun PrevItemType.toUiPrevItemType() = when (this) {
         PrevItemType.MOVIE -> UiPrevItemType.MOVIE
         PrevItemType.TV_SERIES -> UiPrevItemType.TV_SHOW
     }
+
+    private fun UiPrevItemType.toPrevItemType() = when (this) {
+        UiPrevItemType.MOVIE -> PrevItemType.MOVIE
+        UiPrevItemType.TV_SHOW -> PrevItemType.TV_SERIES
+    }
+
+    private fun PrevItem.toUiPrevItem() = UiPrevItem(
+        id = id,
+        title = title,
+        description = description,
+        rating = rating,
+        imageUrl = coverImage,
+        type = type.toUiPrevItemType(),
+        isInFavourite = isInFavourite
+    )
 }

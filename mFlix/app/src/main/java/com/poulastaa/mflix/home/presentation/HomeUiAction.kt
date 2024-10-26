@@ -8,4 +8,6 @@ sealed interface HomeUiAction {
         val id: Long,
         val type: UiPrevItemType
     ) : HomeUiAction
+
+    data class OnFilterTypeChange(val type: UiHomeFilterType) : HomeUiAction
 }

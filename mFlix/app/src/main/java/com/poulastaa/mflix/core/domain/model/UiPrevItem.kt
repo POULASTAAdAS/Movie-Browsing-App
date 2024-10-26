@@ -10,7 +10,6 @@ data class UiPrevItem(
     val type: UiPrevItemType = UiPrevItemType.MOVIE
 )
 
-
 enum class UiPrevItemType {
     MOVIE,
     TV_SHOW

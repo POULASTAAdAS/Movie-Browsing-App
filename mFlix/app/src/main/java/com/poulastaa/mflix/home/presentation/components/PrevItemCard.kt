@@ -26,8 +26,8 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 
 @Composable
 fun PrevItemCard(
-    item: UiPrevItem,
     modifier: Modifier = Modifier,
+    item: UiPrevItem,
     onClick: () -> Unit
 ) {
     Card(
@@ -45,41 +45,39 @@ fun PrevItemCard(
             ),
             onClick = onClick
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                SubcomposeAsyncImage(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentScale = ContentScale.FillBounds,
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(item.imageUrl)
-                        .build(),
-                    contentDescription = null,
-                    error = {
-                        Box(
+            SubcomposeAsyncImage(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentScale = ContentScale.FillBounds,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(item.imageUrl)
+                    .build(),
+                contentDescription = null,
+                error = {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = MovieIcon,
+                            contentDescription = null,
                             modifier = Modifier
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                imageVector = MovieIcon,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(horizontal = MaterialTheme.dimens.medium1)
-                            )
-                        }
-                    },
-                    loading = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
-                        }
+                                .fillMaxSize()
+                                .padding(horizontal = MaterialTheme.dimens.medium1)
+                        )
                     }
-                )
-            }
+                },
+                loading = {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+            )
         }
     }
 }

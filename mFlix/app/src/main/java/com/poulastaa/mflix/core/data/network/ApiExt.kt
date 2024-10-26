@@ -65,7 +65,7 @@ suspend inline fun <reified Request : Any, reified Response : Any> OkHttpClient.
 
 suspend inline fun <reified Response : Any> OkHttpClient.get(
     route: String,
-    params: List<Pair<String, String>>,
+    params: List<Pair<String, String>> = emptyList(),
     gson: Gson = Gson(),
     isApi: Boolean = true
 ): Result<Response, DataError.Network> {
@@ -87,7 +87,6 @@ suspend inline fun <reified Response : Any> OkHttpClient.get(
         val response = makeCall(req)
         responseToResult<Response>(response, gson)
     } catch (e: Exception) {
-
         handleOtherException(e)
     }
 }
