@@ -24,9 +24,8 @@ mFlix is a movie browsing navite android application build using jetpack compose
 
 # Preview
 
-[<img scr= 'https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/auth_mFlix.gif' aligh='left' width = '200' hspace='10' vsapce='10'](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/auth_mFlix.gif)
-
-[<img scr= 'https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/home_mFlix.gif.crdownload' aligh='left' width = '200' hspace='10' vsapce='10'](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/home_mFlix.gif.crdownload)
+[![Auth Preview](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/auth_mFlix.gif)](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/auth_mFlix.gif)
+[![Home Preview](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/home_mFlix.gif)](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/home_mFlix.gif)
 
 # Setup
 
