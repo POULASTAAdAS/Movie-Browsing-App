@@ -3,8 +3,8 @@ package com.poulastaa.plugins
 import com.poulastaa.core.model.UserSession
 import com.poulastaa.core.repository.AuthRepository
 import com.poulastaa.route.auth.auth
+import com.poulastaa.route.home
 import io.ktor.server.application.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.get
 import io.ktor.server.sessions.sessions
@@ -16,6 +16,7 @@ fun Application.configureRouting() {
 
     routing {
         sessionInterceptor()
+        home()
         auth(auth)
     }
 }

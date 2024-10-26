@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -41,3 +42,19 @@ val PasswordIcon: ImageVector
 val UserIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_user)
+
+val MovieIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_movie)
+
+val FavoriteEmptyIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_favorite_empty)
+
+val FavoriteFillIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_favorite_fill)
+
+val SearchIcon: ImageVector
+    @Composable
+    get() =  ImageVector.vectorResource(id = R.drawable.ic_search)

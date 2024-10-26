@@ -25,9 +25,17 @@ android {
 
     buildTypes {
         val clientId = gradleLocalProperties(rootDir, providers).getProperty("CLIENT_ID")
+        val baseUrl = gradleLocalProperties(rootDir, providers).getProperty("BASE_URL")
+        val apiBaseUrl = gradleLocalProperties(rootDir, providers).getProperty("API_BASE_URL")
+        val token = gradleLocalProperties(rootDir, providers).getProperty("API_TOKEN")
+        val imageUrl = gradleLocalProperties(rootDir, providers).getProperty("API_IMAGE_URL")
 
         release {
             buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$clientId\"")
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+            buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
+            buildConfigField("String", "API_TOKEN", "\"$token\"")
+            buildConfigField("String", "IMAGE_URL", "\"$imageUrl\"")
 
             isMinifyEnabled = true
             proguardFiles(
@@ -38,6 +46,10 @@ android {
 
         debug {
             buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$clientId\"")
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+            buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
+            buildConfigField("String", "API_TOKEN", "\"$token\"")
+            buildConfigField("String", "IMAGE_URL", "\"$imageUrl\"")
         }
     }
     compileOptions {
@@ -87,4 +99,10 @@ dependencies {
     implementation(libs.credentials)
     implementation(libs.credentialsPlayServicesAuth)
     implementation(libs.googleid)
+
+    implementation(libs.gson)
+
+    implementation(libs.datastore.preferences)
+
+    implementation(libs.coil.compose)
 }

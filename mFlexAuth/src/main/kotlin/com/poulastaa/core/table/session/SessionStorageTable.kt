@@ -2,7 +2,6 @@ package com.poulastaa.core.table.session
 
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.Column
-import org.jetbrains.exposed.sql.Table
 
 object SessionStorageTable : IntIdTable() {
     val sessionId: Column<String> = varchar("sessionId", 100).uniqueIndex()

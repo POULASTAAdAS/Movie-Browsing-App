@@ -1,7 +1,6 @@
 package com.poulastaa.core.table
 
 import org.jetbrains.exposed.dao.id.LongIdTable
-import org.jetbrains.exposed.sql.Column
 
 object UserTable : LongIdTable() {
     val userName = text("username")

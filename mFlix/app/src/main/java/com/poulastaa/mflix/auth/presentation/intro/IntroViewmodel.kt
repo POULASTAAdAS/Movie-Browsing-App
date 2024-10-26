@@ -1,7 +1,13 @@
 package com.poulastaa.mflix.auth.presentation.intro
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.poulastaa.mflix.R
+import com.poulastaa.mflix.core.domain.repository.auth.AuthRepository
+import com.poulastaa.mflix.core.domain.utils.DataError
+import com.poulastaa.mflix.core.domain.utils.Result
+import com.poulastaa.mflix.core.presentation.ui.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +18,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class IntroViewmodel @Inject constructor() : ViewModel() {
+class IntroViewmodel @Inject constructor(
+    private val repo: AuthRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(IntroUiState())
     val state = _state.asStateFlow()
 
@@ -53,8 +61,39 @@ class IntroViewmodel @Inject constructor() : ViewModel() {
                 val displayCountry = action.activity.resources.configuration.locales[0]
                     .displayCountry
 
-
                 viewModelScope.launch {
+                    val result = repo.googleAuth(
+                        token = action.token,
+                        country = displayCountry
+                    )
+
+                    when (result) {
+                        is Result.Error -> {
+                            when (result.error) {
+                                DataError.Network.NO_INTERNET -> _uiEvent.send(
+                                    IntroUiEvent.EmitToast(
+                                        UiText.StringResource(R.string.error_no_internet)
+                                    )
+                                )
+
+
+                                else -> _uiEvent.send(
+                                    IntroUiEvent.EmitToast(
+                                        UiText.StringResource(R.string.error_something_went_wrong)
+                                    )
+                                )
+                            }
+                        }
+
+                        is Result.Success -> {
+                            _uiEvent.send(
+                                IntroUiEvent.EmitToast(
+                                    UiText.StringResource(R.string.auth_success)
+                                )
+                            )
+                        }
+                    }
+
                     _state.update {
                         it.copy(
                             isMakingApiCall = false

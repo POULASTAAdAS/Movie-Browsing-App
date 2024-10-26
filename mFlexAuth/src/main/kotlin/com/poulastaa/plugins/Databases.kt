@@ -1,13 +1,10 @@
 package com.poulastaa.plugins
 
+import com.poulastaa.core.table.UserTable
 import com.poulastaa.core.table.session.SessionStorageTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -26,6 +23,7 @@ fun Application.configureDatabases() {
 
     transaction(db) {
         SchemaUtils.create(SessionStorageTable)
+        SchemaUtils.create(UserTable)
     }
 }
 

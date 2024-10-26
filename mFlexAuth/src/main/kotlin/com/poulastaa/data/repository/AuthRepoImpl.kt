@@ -6,7 +6,6 @@ import com.poulastaa.core.model.UserAuthStatus
 import com.poulastaa.core.model.dto.UserDto
 import com.poulastaa.core.repository.AuthRepository
 import com.poulastaa.core.repository.DatabaseRepository
-import com.poulastaa.data.dao.UserDao
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
