@@ -55,7 +55,7 @@ fun LazyGridScope.spotlightMediumCard(
     userName: String,
     spotlight: UiPrevItem,
     onAction: (HomeUiAction) -> Unit,
-    scroll: TopAppBarScrollBehavior
+    scroll: TopAppBarScrollBehavior,
 ) {
     item(
         span = {

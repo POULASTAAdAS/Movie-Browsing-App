@@ -8,7 +8,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 
 @HiltAndroidApp
-class MFlix : Application(){
+class MFlix : Application() {
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     fun applicationScope() = applicationScope

@@ -50,7 +50,7 @@ fun SpotlightSmallCard(
     isInFavourite: Boolean,
     coverImage: String,
     onFavouriteClick: () -> Unit,
-    onCardClick: () -> Unit
+    onCardClick: () -> Unit,
 ) {
     val context = LocalContext.current
 

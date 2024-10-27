@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AuthDto(
     val status: AuthStatusDto = AuthStatusDto.SOMETHING_WENT_WRONG,
-    val user: UserDto = UserDto()
+    val user: UserDto = UserDto(),
 )

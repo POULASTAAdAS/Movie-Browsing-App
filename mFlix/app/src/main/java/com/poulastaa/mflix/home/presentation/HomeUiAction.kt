@@ -6,7 +6,7 @@ sealed interface HomeUiAction {
     data object OnSearchClick : HomeUiAction
     data class OnItemClick(
         val id: Long,
-        val type: UiPrevItemType
+        val type: UiPrevItemType,
     ) : HomeUiAction
 
     data object OnSpotlightFavouriteClick : HomeUiAction

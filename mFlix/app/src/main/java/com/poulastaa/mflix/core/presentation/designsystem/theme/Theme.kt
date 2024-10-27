@@ -106,7 +106,7 @@ fun AppTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     },
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val activity = LocalContext.current
 

@@ -39,18 +39,18 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.poulastaa.mflix.R
+import com.poulastaa.mflix.auth.presentation.email_login.components.DontHaveAccount
+import com.poulastaa.mflix.auth.presentation.email_login.components.ForgotPassword
+import com.poulastaa.mflix.core.presentation.designsystem.theme.ArrowDownIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.CheckIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EmailIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeCloseIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeOpenIcon
-import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PasswordIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
+import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 import com.poulastaa.mflix.core.presentation.ui.AppBackButton
-import com.poulastaa.mflix.auth.presentation.email_login.components.DontHaveAccount
-import com.poulastaa.mflix.auth.presentation.email_login.components.ForgotPassword
-import com.poulastaa.mflix.core.presentation.designsystem.theme.ArrowDownIcon
 import com.poulastaa.mflix.core.presentation.ui.SubmitButton
 
 @Composable
@@ -58,7 +58,7 @@ fun EmailMediumLogInRootScreen(
     viewModel: EmailLogInViewModel,
     navigateToEmailSingUp: () -> Unit,
     navigateToForgotPassword: () -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -91,7 +91,7 @@ fun EmailMediumLogInRootScreen(
 private fun EmailMediumLogInScreen(
     state: EmailLogInUiState,
     onAction: (EmailLogInUiAction) -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     val haptic = LocalHapticFeedback.current

@@ -19,14 +19,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.Dp
-import com.poulastaa.mflix.core.presentation.designsystem.utils.animatedNavBarMeasurePolicy
 import com.poulastaa.mflix.core.presentation.designsystem.model.BallAnimInfo
 import com.poulastaa.mflix.core.presentation.designsystem.model.ShapeCornerRadius
 import com.poulastaa.mflix.core.presentation.designsystem.repository.BallAnimation
-import com.poulastaa.mflix.core.presentation.designsystem.repository.IndentAnimation
-import com.poulastaa.mflix.core.presentation.designsystem.theme.ballSize
 import com.poulastaa.mflix.core.presentation.designsystem.repository.Height
+import com.poulastaa.mflix.core.presentation.designsystem.repository.IndentAnimation
 import com.poulastaa.mflix.core.presentation.designsystem.repository.Parabolic
+import com.poulastaa.mflix.core.presentation.designsystem.theme.ballSize
+import com.poulastaa.mflix.core.presentation.designsystem.utils.animatedNavBarMeasurePolicy
 import com.poulastaa.mflix.core.presentation.designsystem.utils.ballTransform
 import com.poulastaa.mflix.core.presentation.designsystem.utils.shapeCornerRadius
 

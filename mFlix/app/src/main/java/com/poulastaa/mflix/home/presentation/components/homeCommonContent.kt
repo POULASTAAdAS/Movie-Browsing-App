@@ -20,7 +20,7 @@ import com.poulastaa.mflix.home.presentation.HomeUiState
 fun LazyGridScope.homeCommonContent(
     state: HomeUiState,
     onAction: (HomeUiAction) -> Unit,
-    more: LazyPagingItems<UiPrevItem>
+    more: LazyPagingItems<UiPrevItem>,
 ) {
     heading(R.string.popular)
 

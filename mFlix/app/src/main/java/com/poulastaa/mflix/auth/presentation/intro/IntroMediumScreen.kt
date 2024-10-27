@@ -38,7 +38,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 @Composable
 fun IntroRootMediumScreen(
     viewmodel: IntroViewmodel,
-    navigateToEmailLogIn: () -> Unit
+    navigateToEmailLogIn: () -> Unit,
 ) {
     val context = LocalContext.current
     val state by viewmodel.state.collectAsState()
@@ -64,7 +64,7 @@ fun IntroRootMediumScreen(
 @Composable
 private fun IntroMediumScreen(
     state: IntroUiState,
-    onAction: (IntroUiAction) -> Unit
+    onAction: (IntroUiAction) -> Unit,
 ) {
     Box(
         modifier = Modifier

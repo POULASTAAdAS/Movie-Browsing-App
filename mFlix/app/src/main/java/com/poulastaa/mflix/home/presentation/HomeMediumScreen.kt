@@ -43,7 +43,7 @@ import kotlin.random.Random
 fun HomeMediumScreen(
     state: HomeUiState,
     more: LazyPagingItems<UiPrevItem>,
-    onAction: (HomeUiAction) -> Unit
+    onAction: (HomeUiAction) -> Unit,
 ) {
     val scroll = TopAppBarDefaults.enterAlwaysScrollBehavior()
     var cardHeight by remember { mutableIntStateOf(0) }
@@ -103,8 +103,6 @@ fun HomeMediumScreen(
         }
     }
 }
-
-
 
 
 @Preview(

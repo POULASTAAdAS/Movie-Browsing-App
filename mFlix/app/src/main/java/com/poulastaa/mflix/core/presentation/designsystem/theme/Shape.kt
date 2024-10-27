@@ -11,9 +11,9 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.poulastaa.mflix.core.presentation.designsystem.model.IndentPath
 import com.poulastaa.mflix.core.presentation.designsystem.model.IndentShapeData
 import com.poulastaa.mflix.core.presentation.designsystem.model.ShapeCornerRadius
-import com.poulastaa.mflix.core.presentation.designsystem.model.IndentPath
 
 internal val AppShape = Shapes(
     extraSmall = RoundedCornerShape(4.dp),

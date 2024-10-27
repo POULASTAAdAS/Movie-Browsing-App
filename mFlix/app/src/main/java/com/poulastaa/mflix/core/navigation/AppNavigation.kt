@@ -41,7 +41,7 @@ fun AppNavigation(
 
 private fun NavGraphBuilder.authGraph(
     windowSizeClass: WindowSizeClass,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     composable<Screen.Intro> {
         val viewmodel = hiltViewModel<IntroViewmodel>()
@@ -118,7 +118,7 @@ private fun NavGraphBuilder.authGraph(
 
 private fun NavGraphBuilder.appGraph(
     windowSizeClass: WindowSizeClass,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     composable<Screen.App> {
         CoreNavigation(windowSizeClass) {

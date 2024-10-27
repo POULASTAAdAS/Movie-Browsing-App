@@ -7,14 +7,14 @@ import androidx.compose.ui.layout.Placeable
 
 @Composable
 fun animatedNavBarMeasurePolicy(
-    onBallPositionsCalculated: (ArrayList<Float>) -> Unit
+    onBallPositionsCalculated: (ArrayList<Float>) -> Unit,
 ) = remember {
     barMeasurePolicy(onBallPositionsCalculated = onBallPositionsCalculated)
 }
 
 internal fun barMeasurePolicy(onBallPositionsCalculated: (ArrayList<Float>) -> Unit) =
     MeasurePolicy { measurables, constraints ->
-        check(measurables.isNotEmpty()){
+        check(measurables.isNotEmpty()) {
             "There must be at least one element"
         }
         val itemWidth = constraints.maxWidth / measurables.size

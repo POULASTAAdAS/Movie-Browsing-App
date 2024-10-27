@@ -14,7 +14,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 fun EmailSignUpRootScreen(
     viewModel: EmailSignUpViewModel,
     windowSizeClass: WindowSizeClass,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()

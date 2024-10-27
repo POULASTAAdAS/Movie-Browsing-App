@@ -26,7 +26,7 @@ import kotlin.random.Random
 
 class OkHttpRemoteHomeDataSource @Inject constructor(
     private val client: OkHttpClient,
-    private val pager: HomeMorePagerSource
+    private val pager: HomeMorePagerSource,
 ) : RemoteHomeDataSource {
     override suspend fun getPopularData(type: HomeDataType): Result<List<PrevPopular>, DataError.Network> {
         val result = when (type) {

@@ -16,5 +16,5 @@ data class EmailSignUpUiState(
     val password: TextHolder = TextHolder(),
 
     val areSamePassword: Boolean = false,
-    val conformPassword: TextHolder = TextHolder()
+    val conformPassword: TextHolder = TextHolder(),
 )

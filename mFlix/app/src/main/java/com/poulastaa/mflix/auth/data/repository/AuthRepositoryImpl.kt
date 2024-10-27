@@ -17,11 +17,11 @@ class AuthRepositoryImpl @Inject constructor(
     private val cookieManager: CookieManager,
     private val ds: DataStoreRepository,
     private val scope: CoroutineScope,
-    private val remote: RemoteAuthDataSource
+    private val remote: RemoteAuthDataSource,
 ) : AuthRepository {
     override suspend fun googleAuth(
         token: String,
-        country: String
+        country: String,
     ): EmptyResult<DataError.Network> {
         return when (val result = remote.googleAuth(token, country)) {
             is Result.Error -> result.asEmptyDataResult()

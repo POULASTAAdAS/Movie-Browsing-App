@@ -30,7 +30,7 @@ import com.poulastaa.mflix.home.presentation.HomeUiState
 fun SmallHomeTopBar(
     state: HomeUiState,
     scroll: TopAppBarScrollBehavior,
-    onSearchClick: () -> Unit
+    onSearchClick: () -> Unit,
 ) {
     TopAppBar(
         title = {

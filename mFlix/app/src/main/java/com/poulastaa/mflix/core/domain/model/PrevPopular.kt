@@ -7,5 +7,5 @@ data class PrevPopular(
     val type: PrevItemType,
     val rating: Double,
     val coverImage: String,
-    val isInFavourite: Boolean = false
+    val isInFavourite: Boolean = false,
 )

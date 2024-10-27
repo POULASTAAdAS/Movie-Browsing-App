@@ -35,7 +35,7 @@ fun IntroButton(
     isLoading: Boolean = false,
     title: String,
     icon: @Composable RowScope.() -> Unit,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),

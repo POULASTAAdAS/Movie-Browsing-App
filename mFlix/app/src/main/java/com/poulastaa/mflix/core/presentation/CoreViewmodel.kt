@@ -14,18 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoreViewmodel @Inject constructor(
-    private val ds: DataStoreRepository
+    private val ds: DataStoreRepository,
 ) : ViewModel() {
     var state by mutableStateOf(CoreUiState())
         private set
-
-    init {
-        viewModelScope.launch {
-            state = state.copy(
-                profile = ds.readUser().profilePic
-            )
-        }
-    }
 
     fun changeScreen(bottomBarScreen: BottomBarScreen) {
         if (state.bottomBarScreen == bottomBarScreen) return

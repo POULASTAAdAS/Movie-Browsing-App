@@ -14,11 +14,11 @@ sealed class EndPoints(val route: String) {
 
     data class MoreMovie(
         val page: Int,
-        val includeAdults: Boolean
+        val includeAdults: Boolean,
     ) : EndPoints(route = "/discover/movie?include_adult=$includeAdults&include_video=false&language=en-US&page=$page&primary_release_year=${LocalDate.now().year}&sort_by=popularity.desc")
 
     data class MoreTv(
         val page: Int,
-        val includeAdults: Boolean
+        val includeAdults: Boolean,
     ) : EndPoints(route = "/discover/tv?first_air_date_year=${LocalDate.now().year}&include_adult=$includeAdults&include_null_first_air_dates=true&language=en-US&page=$page&sort_by=popularity.desc")
 }

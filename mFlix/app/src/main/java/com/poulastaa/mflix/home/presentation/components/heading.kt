@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 
 fun LazyGridScope.heading(
-    @StringRes id: Int
+    @StringRes id: Int,
 ) {
     item(
         span = {

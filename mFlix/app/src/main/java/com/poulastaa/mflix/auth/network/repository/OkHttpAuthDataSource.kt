@@ -15,11 +15,11 @@ import okhttp3.OkHttpClient
 import javax.inject.Inject
 
 class OkHttpAuthDataSource @Inject constructor(
-    private val client: OkHttpClient
+    private val client: OkHttpClient,
 ) : RemoteAuthDataSource {
     override suspend fun googleAuth(
         token: String,
-        country: String
+        country: String,
     ): Result<AuthPayload, DataError.Network> {
         val result = client.post<GoogleAuthReq, AuthDto>(
             route = EndPoints.Auth.route,

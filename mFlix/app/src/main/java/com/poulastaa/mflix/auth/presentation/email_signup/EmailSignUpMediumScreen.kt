@@ -40,8 +40,8 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.CheckIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EmailIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeCloseIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeOpenIcon
-import com.poulastaa.mflix.core.presentation.designsystem.theme.PasswordIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FilledUserIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.PasswordIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.SubmitButton
@@ -49,7 +49,7 @@ import com.poulastaa.mflix.core.presentation.ui.SubmitButton
 @Composable
 fun EmailSignUpMediumScreen(
     state: EmailSignUpUiState,
-    onAction: (EmailSignUpUiAction) -> Unit
+    onAction: (EmailSignUpUiAction) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     val haptic = LocalHapticFeedback.current

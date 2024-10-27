@@ -20,7 +20,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 @Composable
 fun ItemList(
     list: List<UiPrevItem>,
-    onClick: (id: Long, type: UiPrevItemType) -> Unit
+    onClick: (id: Long, type: UiPrevItemType) -> Unit,
 ) {
     LazyRow(
         modifier = Modifier

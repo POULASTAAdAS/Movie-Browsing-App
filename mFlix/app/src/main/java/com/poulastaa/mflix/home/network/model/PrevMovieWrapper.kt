@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PrevMovieWrapper(
-    val results: List<PrevMovieDto>
+    val results: List<PrevMovieDto>,
 )

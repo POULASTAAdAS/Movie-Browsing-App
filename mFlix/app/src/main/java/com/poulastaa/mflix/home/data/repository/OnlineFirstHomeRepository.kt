@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class OnlineFirstHomeRepository @Inject constructor(
     private val remote: RemoteHomeDataSource,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
 ) : HomeRepository {
     override suspend fun getPopularData(type: HomeDataType): Result<List<PrevPopular>, DataError.Network> =
         remote.getPopularData(type)  // todo add isItemInFavorite for spotlight item

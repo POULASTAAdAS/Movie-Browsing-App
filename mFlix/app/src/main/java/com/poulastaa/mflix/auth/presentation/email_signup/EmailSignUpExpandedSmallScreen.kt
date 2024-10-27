@@ -43,8 +43,8 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.CheckIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EmailIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeCloseIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeOpenIcon
-import com.poulastaa.mflix.core.presentation.designsystem.theme.PasswordIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FilledUserIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.PasswordIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.SubmitButton
@@ -52,7 +52,7 @@ import com.poulastaa.mflix.core.presentation.ui.SubmitButton
 @Composable
 fun EmailSignUpExpandedSmallScreen(
     state: EmailSignUpUiState,
-    onAction: (EmailSignUpUiAction) -> Unit
+    onAction: (EmailSignUpUiAction) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     val haptic = LocalHapticFeedback.current
@@ -74,7 +74,8 @@ fun EmailSignUpExpandedSmallScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(// todo replace with app icon
+                Text(
+// todo replace with app icon
                     text = stringResource(R.string.app_name),
                     fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                     fontWeight = FontWeight.Bold,

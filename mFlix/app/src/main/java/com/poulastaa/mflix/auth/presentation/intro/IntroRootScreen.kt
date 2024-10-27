@@ -14,7 +14,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowS
 fun IntroRootScreen(
     viewmodel: IntroViewmodel,
     windowSizeClass: WindowSizeClass,
-    navigateToEmailLogIn: () -> Unit
+    navigateToEmailLogIn: () -> Unit,
 ) {
     val state by viewmodel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current as Activity

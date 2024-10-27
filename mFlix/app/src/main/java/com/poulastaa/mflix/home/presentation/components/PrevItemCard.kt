@@ -28,7 +28,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 fun PrevItemCard(
     modifier: Modifier = Modifier,
     item: UiPrevItem,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         shape = MaterialTheme.shapes.extraSmall,

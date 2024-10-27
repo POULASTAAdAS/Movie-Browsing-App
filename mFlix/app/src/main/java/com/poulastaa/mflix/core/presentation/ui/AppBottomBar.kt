@@ -6,7 +6,6 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +13,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
@@ -32,8 +30,6 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.shapeCornerRadiu
 
 @Stable
 private const val Duration = 500
-@Stable
-private const val DoubleDuration = 700
 
 @Stable
 private val wiggleButtonItems = listOf(
@@ -71,7 +67,7 @@ fun AppBottomBar(
             indentWidth = 56.dp,
             indentHeight = 15.dp,
             animationSpec = tween(
-                DoubleDuration,
+                durationMillis = 700,
                 easing = { OvershootInterpolator().getInterpolation(it) })
         )
     ) {

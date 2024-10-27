@@ -9,7 +9,7 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class RequestInterceptor @Inject constructor(
-    private val ds: DataStoreRepository
+    private val ds: DataStoreRepository,
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val oldReq = chain.request()

@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val ds: DataStoreRepository
+    private val ds: DataStoreRepository,
 ) : ViewModel() {
     private val _route = MutableStateFlow<RouteExt?>(null)
     val route = _route
@@ -38,7 +38,8 @@ class MainViewModel @Inject constructor(
                 Screen.EmailLogIn,
                 Screen.ForgotPassword,
                 Screen.EmailSignUp,
-                Screen.Intro -> RouteExt(Screen.Intro)
+                Screen.Intro,
+                    -> RouteExt(Screen.Intro)
 
                 Screen.App -> RouteExt(Screen.App)
             }.let { route ->

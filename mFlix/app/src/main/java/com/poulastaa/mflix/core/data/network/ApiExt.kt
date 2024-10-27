@@ -27,7 +27,7 @@ suspend inline fun <reified Request : Any, reified Response : Any> OkHttpClient.
     route: String,
     body: Request,
     gson: Gson = Gson(),
-    isApi: Boolean = true
+    isApi: Boolean = true,
 ): Result<Response, DataError.Network> {
     val url = if (isApi) constructApiRoute(route) else constructRoute(route)
 
@@ -48,7 +48,7 @@ suspend inline fun <reified Request : Any, reified Response : Any> OkHttpClient.
     route: String,
     body: Request,
     gson: Gson = Gson(),
-    isApi: Boolean = true
+    isApi: Boolean = true,
 ): Result<Response, DataError.Network> {
     val url = if (isApi) constructApiRoute(route) else constructRoute(route)
 
@@ -67,7 +67,7 @@ suspend inline fun <reified Response : Any> OkHttpClient.get(
     route: String,
     params: List<Pair<String, String>> = emptyList(),
     gson: Gson = Gson(),
-    isApi: Boolean = true
+    isApi: Boolean = true,
 ): Result<Response, DataError.Network> {
     val urlBuilder =
         when {

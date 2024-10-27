@@ -25,7 +25,7 @@ import com.poulastaa.mflix.home.presentation.UiHomeFilterType
 fun HomeFilterChip(
     modifier: Modifier = Modifier,
     filterType: UiHomeFilterType,
-    onClick: (UiHomeFilterType) -> Unit
+    onClick: (UiHomeFilterType) -> Unit,
 ) {
     Row(
         modifier = modifier

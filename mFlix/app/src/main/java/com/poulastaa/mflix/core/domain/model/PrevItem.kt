@@ -7,5 +7,5 @@ data class PrevItem(
     val rating: Double,
     val coverImage: String,
     val type: PrevItemType,
-    val isInFavourite: Boolean = false
+    val isInFavourite: Boolean = false,
 )

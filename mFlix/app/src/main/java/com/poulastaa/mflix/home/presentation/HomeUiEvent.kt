@@ -9,6 +9,6 @@ sealed interface HomeUiEvent {
     data object NavigateToSearch : HomeUiEvent
     data class NavigateToDetails(
         val id: Long,
-        val type: PrevItemType
+        val type: PrevItemType,
     ) : HomeUiEvent
 }

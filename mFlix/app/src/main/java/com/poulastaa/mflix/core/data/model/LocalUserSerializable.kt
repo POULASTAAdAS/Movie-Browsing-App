@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class LocalUserSerializable(
     val name: String,
     val email: String,
-    val profile: String
+    val profile: String,
 )
 
 

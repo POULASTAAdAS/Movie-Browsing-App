@@ -20,7 +20,7 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 class PreferencesDatastore @Inject constructor(
-    private val ds: DataStore<Preferences>
+    private val ds: DataStore<Preferences>,
 ) : DataStoreRepository {
     private object PreferencesKeys {
         val COOKIE = stringPreferencesKey(name = "cookie")

@@ -6,6 +6,6 @@ import com.poulastaa.mflix.core.domain.utils.EmptyResult
 interface AuthRepository {
     suspend fun googleAuth(
         token: String,
-        country: String
+        country: String,
     ): EmptyResult<DataError.Network>
 }

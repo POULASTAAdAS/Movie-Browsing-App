@@ -4,5 +4,5 @@ import androidx.compose.ui.geometry.Offset
 
 data class BallAnimInfo(
     val scale: Float = 1f,
-    val offset: Offset = Offset.Unspecified
+    val offset: Offset = Offset.Unspecified,
 )

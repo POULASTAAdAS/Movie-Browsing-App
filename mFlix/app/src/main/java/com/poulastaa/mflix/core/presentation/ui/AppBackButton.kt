@@ -17,7 +17,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 fun AppBackButton(
     modifier: Modifier = Modifier,
     icon: ImageVector,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     IconButton(
         modifier = modifier,

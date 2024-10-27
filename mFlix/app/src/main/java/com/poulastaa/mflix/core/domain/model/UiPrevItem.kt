@@ -7,7 +7,7 @@ data class UiPrevItem(
     val rating: Double = 0.0,
     val isInFavourite: Boolean = false,
     val imageUrl: String = "",
-    val type: UiPrevItemType = UiPrevItemType.MOVIE
+    val type: UiPrevItemType = UiPrevItemType.MOVIE,
 )
 
 enum class UiPrevItemType {

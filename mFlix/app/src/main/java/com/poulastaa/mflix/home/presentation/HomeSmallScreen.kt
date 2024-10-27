@@ -44,7 +44,7 @@ import kotlin.random.Random
 fun HomeSmallScreen(
     state: HomeUiState,
     more: LazyPagingItems<UiPrevItem>,
-    onAction: (HomeUiAction) -> Unit
+    onAction: (HomeUiAction) -> Unit,
 ) {
     val scroll = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -54,7 +54,7 @@ fun HomeSmallScreen(
                 onAction(HomeUiAction.OnSearchClick)
             }
         },
-        contentWindowInsets = WindowInsets(0,0,0,0)
+        contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { paddingValues ->
         AnimatedContent(state.dataLoaded, label = "home loading animation") {
             when (it) {

@@ -7,6 +7,6 @@ import com.poulastaa.mflix.core.domain.utils.Result
 interface RemoteAuthDataSource {
     suspend fun googleAuth(
         token: String,
-        country: String
+        country: String,
     ): Result<AuthPayload, DataError.Network>
 }

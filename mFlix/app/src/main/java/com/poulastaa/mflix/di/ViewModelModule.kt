@@ -25,7 +25,7 @@ object ViewModelModule {
     @Provides
     @ViewModelScoped
     fun provideRemoteAuthDatasource(
-        client: OkHttpClient
+        client: OkHttpClient,
     ): RemoteAuthDataSource = OkHttpAuthDataSource(client)
 
     @Provides
@@ -34,7 +34,7 @@ object ViewModelModule {
         cookieManager: CookieManager,
         ds: DataStoreRepository,
         scope: CoroutineScope,
-        remote: RemoteAuthDataSource
+        remote: RemoteAuthDataSource,
     ): AuthRepository = AuthRepositoryImpl(
         cookieManager = cookieManager,
         ds = ds,
@@ -46,20 +46,20 @@ object ViewModelModule {
     @ViewModelScoped
     fun provideHomeMorePagerSource(
         client: OkHttpClient,
-        ds: DataStoreRepository
+        ds: DataStoreRepository,
     ): HomeMorePagerSource = HomeMorePagerSource(client, ds)
 
     @Provides
     @ViewModelScoped
     fun provideHomeRemoteDataSource(
         client: OkHttpClient,
-        pager: HomeMorePagerSource
+        pager: HomeMorePagerSource,
     ): RemoteHomeDataSource = OkHttpRemoteHomeDataSource(client, pager)
 
     @Provides
     @ViewModelScoped
     fun provideHomeRepository(
         remote: RemoteHomeDataSource,
-        scope: CoroutineScope
+        scope: CoroutineScope,
     ): HomeRepository = OnlineFirstHomeRepository(remote, scope)
 }

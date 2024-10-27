@@ -1,7 +1,6 @@
 package com.poulastaa.mflix.core.presentation.ui
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
@@ -25,7 +24,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 fun SubmitButton(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         modifier = modifier,

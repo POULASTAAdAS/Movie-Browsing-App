@@ -34,7 +34,7 @@ import kotlin.random.Random
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val ds: DataStoreRepository,
-    private val repo: HomeRepository
+    private val repo: HomeRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(HomeUiState())
     val state = _state
