@@ -9,5 +9,7 @@ sealed interface HomeUiAction {
         val type: UiPrevItemType
     ) : HomeUiAction
 
+    data object OnSpotlightFavouriteClick : HomeUiAction
+
     data class OnFilterTypeChange(val type: UiHomeFilterType) : HomeUiAction
 }

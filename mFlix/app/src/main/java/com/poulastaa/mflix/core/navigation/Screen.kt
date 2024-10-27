@@ -16,5 +16,13 @@ sealed interface Screen {
     data object ForgotPassword : Screen
 
     @Serializable
-    data object Home : Screen
+    data object App : Screen
+}
+
+sealed interface AppScreen {
+    @Serializable
+    data object Home : AppScreen
+
+    @Serializable
+    data object Profile : AppScreen
 }

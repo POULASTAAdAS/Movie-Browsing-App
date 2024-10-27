@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
-import com.poulastaa.mflix.core.presentation.ui.shimmerEffect
+import com.poulastaa.mflix.core.presentation.designsystem.utils.shimmerEffect
 
 @Composable
 fun HomeSmallLoadingScreen(paddingValues: PaddingValues) {

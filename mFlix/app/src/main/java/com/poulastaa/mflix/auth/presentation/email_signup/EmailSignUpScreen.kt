@@ -7,8 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.poulastaa.mflix.core.presentation.designsystem.AppScreenWindowSize
-import com.poulastaa.mflix.core.presentation.designsystem.ObserveAsEvent
+import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
+import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 
 @Composable
 fun EmailSignUpRootScreen(

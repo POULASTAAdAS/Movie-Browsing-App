@@ -1,6 +1,6 @@
 package com.poulastaa.mflix.auth.presentation.email_signup
 
-import com.poulastaa.mflix.core.presentation.designsystem.TextHolder
+import com.poulastaa.mflix.core.presentation.designsystem.model.TextHolder
 
 data class EmailSignUpUiState(
     val isMakingApiCall: Boolean = false,

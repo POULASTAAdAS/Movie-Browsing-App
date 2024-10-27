@@ -1,6 +1,7 @@
 package com.poulastaa.mflix.home.data.repository
 
 import androidx.paging.PagingData
+import com.poulastaa.mflix.core.domain.model.HomeDataType
 import com.poulastaa.mflix.core.domain.model.PrevItem
 import com.poulastaa.mflix.core.domain.model.PrevPopular
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository
@@ -15,11 +16,12 @@ class OnlineFirstHomeRepository @Inject constructor(
     private val remote: RemoteHomeDataSource,
     private val scope: CoroutineScope
 ) : HomeRepository {
-    override suspend fun getPopularData(): Result<List<PrevPopular>, DataError.Network> =
-        remote.getPopularData() // todo add isItemInFavorite
+    override suspend fun getPopularData(type: HomeDataType): Result<List<PrevPopular>, DataError.Network> =
+        remote.getPopularData(type)  // todo add isItemInFavorite for spotlight item
 
-    override suspend fun getTopRatedData(): Result<List<PrevItem>, DataError.Network> =
-        remote.getTopRatedData() // todo add isItemInFavorite
+    override suspend fun getTopRatedData(type: HomeDataType): Result<List<PrevItem>, DataError.Network> =
+        remote.getTopRatedData(type)
 
-    override fun getPagingMore(): Flow<PagingData<PrevItem>> = remote.getPagingMore() // todo add isItemInFavorite
+    override fun getPagingMore(type: HomeDataType): Flow<PagingData<PrevItem>> =
+        remote.getPagingMore(type)
 }

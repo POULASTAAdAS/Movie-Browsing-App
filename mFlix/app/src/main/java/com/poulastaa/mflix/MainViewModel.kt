@@ -40,7 +40,7 @@ class MainViewModel @Inject constructor(
                 Screen.EmailSignUp,
                 Screen.Intro -> RouteExt(Screen.Intro)
 
-                Screen.Home -> RouteExt(Screen.Home)
+                Screen.App -> RouteExt(Screen.App)
             }.let { route ->
                 _route.update { route }
                 if (_route.value != null) _keepSplashOn.value = false

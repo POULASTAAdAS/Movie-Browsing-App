@@ -19,8 +19,7 @@ import com.poulastaa.mflix.auth.presentation.email_signup.EmailSignUpRootScreen
 import com.poulastaa.mflix.auth.presentation.email_signup.EmailSignUpViewModel
 import com.poulastaa.mflix.auth.presentation.intro.IntroRootScreen
 import com.poulastaa.mflix.auth.presentation.intro.IntroViewmodel
-import com.poulastaa.mflix.home.presentation.HomeRootScreen
-import com.poulastaa.mflix.home.presentation.HomeViewModel
+import com.poulastaa.mflix.core.presentation.CoreNavigation
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -121,13 +120,13 @@ private fun NavGraphBuilder.appGraph(
     windowSizeClass: WindowSizeClass,
     navController: NavHostController
 ) {
-    composable<Screen.Home> {
-        val viewmodel = hiltViewModel<HomeViewModel>()
-
-        HomeRootScreen(
-            windowSizeClass = windowSizeClass,
-            viewModel = viewmodel
-        )
+    composable<Screen.App> {
+        CoreNavigation(windowSizeClass) {
+            navController.navigate(Screen.Intro) {
+                popUpTo(Screen.Intro) {
+                    inclusive = true
+                }
+            }
+        }
     }
 }
-

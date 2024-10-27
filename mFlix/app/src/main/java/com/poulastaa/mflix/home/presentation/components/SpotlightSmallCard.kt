@@ -35,14 +35,14 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
-import com.poulastaa.mflix.core.presentation.designsystem.FavoriteEmptyIcon
-import com.poulastaa.mflix.core.presentation.designsystem.FavoriteFillIcon
-import com.poulastaa.mflix.core.presentation.designsystem.MovieIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteEmptyIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteFillIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 
 @Composable
-fun SpotlightCard(
+fun SpotlightSmallCard(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
@@ -251,7 +251,7 @@ private fun Preview() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                SpotlightCard(
+                SpotlightSmallCard(
                     title = "That Cool Movie",
                     description = "This is a cool movie about a boy and a girl who are in love",
                     rating = 4.5,

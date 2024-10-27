@@ -1,6 +1,6 @@
 package com.poulastaa.mflix.auth.presentation.intro
 
-import com.poulastaa.mflix.core.presentation.ui.UiText
+import com.poulastaa.mflix.core.presentation.designsystem.repository.UiText
 
 sealed interface IntroUiEvent {
     data object NavigateToEmailLogIn : IntroUiEvent

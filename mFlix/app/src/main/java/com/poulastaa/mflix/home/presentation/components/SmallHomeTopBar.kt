@@ -21,13 +21,13 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.poulastaa.mflix.core.presentation.designsystem.SearchIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.SearchIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.home.presentation.HomeUiState
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun HomeTopBar(
+fun SmallHomeTopBar(
     state: HomeUiState,
     scroll: TopAppBarScrollBehavior,
     onSearchClick: () -> Unit

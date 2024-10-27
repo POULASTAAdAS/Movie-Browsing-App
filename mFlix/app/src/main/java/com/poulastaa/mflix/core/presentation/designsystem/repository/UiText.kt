@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.core.presentation.ui
+package com.poulastaa.mflix.core.presentation.designsystem.repository
 
 import android.content.Context
 import androidx.annotation.StringRes

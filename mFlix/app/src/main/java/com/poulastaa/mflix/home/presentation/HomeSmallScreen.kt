@@ -1,56 +1,41 @@
 package com.poulastaa.mflix.home.presentation
 
-import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
-import com.poulastaa.mflix.core.domain.model.UiPrevItemType
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
-import com.poulastaa.mflix.home.presentation.components.HomeSmallLoadingScreen
-import com.poulastaa.mflix.home.presentation.components.HomeTopBar
 import com.poulastaa.mflix.home.presentation.components.HomeFilterChip
-import com.poulastaa.mflix.home.presentation.components.PrevItemCard
-import com.poulastaa.mflix.home.presentation.components.PrevMoreItemCard
-import com.poulastaa.mflix.home.presentation.components.SpotlightCard
+import com.poulastaa.mflix.home.presentation.components.HomeSmallLoadingScreen
+import com.poulastaa.mflix.home.presentation.components.SmallHomeTopBar
+import com.poulastaa.mflix.home.presentation.components.SpotlightSmallCard
+import com.poulastaa.mflix.home.presentation.components.homeCommonContent
 import kotlinx.coroutines.flow.flowOf
 import kotlin.random.Random
 
@@ -65,10 +50,11 @@ fun HomeSmallScreen(
 
     Scaffold(
         topBar = {
-            HomeTopBar(state, scroll) {
+            SmallHomeTopBar(state, scroll) {
                 onAction(HomeUiAction.OnSearchClick)
             }
-        }
+        },
+        contentWindowInsets = WindowInsets(0,0,0,0)
     ) { paddingValues ->
         AnimatedContent(state.dataLoaded, label = "home loading animation") {
             when (it) {
@@ -112,7 +98,7 @@ fun HomeSmallScreen(
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            SpotlightCard(
+                            SpotlightSmallCard(
                                 modifier = Modifier
                                     .fillMaxWidth(.85f)
                                     .fillMaxSize(),
@@ -122,7 +108,7 @@ fun HomeSmallScreen(
                                 coverImage = state.spotLight.imageUrl,
                                 isInFavourite = state.spotLight.isInFavourite,
                                 onFavouriteClick = {
-
+                                    onAction(HomeUiAction.OnSpotlightFavouriteClick)
                                 },
                                 onCardClick = {
                                     onAction(
@@ -144,135 +130,11 @@ fun HomeSmallScreen(
                         Spacer(Modifier.height(MaterialTheme.dimens.small3))
                     }
 
-                    heading(R.string.popular)
-
-                    item(
-                        span = {
-                            GridItemSpan(maxLineSpan)
-                        }
-                    ) {
-                        ItemList(state.popularList) { id, type ->
-                            onAction(
-                                HomeUiAction.OnItemClick(
-                                    id = id,
-                                    type = type
-                                )
-                            )
-                        }
-                    }
-
-                    heading(R.string.top_rated)
-
-                    item(
-                        span = {
-                            GridItemSpan(maxLineSpan)
-                        }
-                    ) {
-                        ItemList(state.topRated) { id, type ->
-                            onAction(
-                                HomeUiAction.OnItemClick(
-                                    id = id,
-                                    type = type
-                                )
-                            )
-                        }
-                    }
-
-                    item(
-                        span = {
-                            GridItemSpan(maxLineSpan)
-                        }
-                    ) {
-                        Spacer(Modifier.height(MaterialTheme.dimens.large1))
-                    }
-
-                    heading(R.string.explore)
-
-                    items(more.itemCount) { index ->
-                        more[index]?.let { item ->
-                            Box(
-                                modifier = Modifier
-                                    .aspectRatio(1f / 1.3f)
-                                    .padding(MaterialTheme.dimens.small3)
-                            ) {
-                                PrevMoreItemCard(
-                                    modifier = Modifier,
-                                    item = item,
-                                    onClick = {
-                                        onAction(HomeUiAction.OnItemClick(item.id, item.type))
-                                    }
-                                )
-                            }
-                        }
-                    }
+                    homeCommonContent(state, onAction, more)
                 }
 
                 false -> HomeSmallLoadingScreen(paddingValues)
             }
-        }
-    }
-}
-
-private fun LazyGridScope.heading(
-    @StringRes id: Int
-) {
-    item(
-        span = {
-            GridItemSpan(maxLineSpan)
-        }
-    ) {
-        Spacer(Modifier.height(MaterialTheme.dimens.medium1))
-    }
-
-    item(
-        span = {
-            GridItemSpan(maxLineSpan)
-        }
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = MaterialTheme.dimens.medium1)
-        ) {
-            Text(
-                text = stringResource(id),
-                fontWeight = FontWeight.Bold,
-                fontSize = MaterialTheme.typography.headlineMedium.fontSize
-            )
-        }
-    }
-
-    item(
-        span = {
-            GridItemSpan(maxLineSpan)
-        }
-    ) {
-        Spacer(Modifier.height(MaterialTheme.dimens.medium1))
-    }
-}
-
-@Composable
-private fun ItemList(
-    list: List<UiPrevItem>,
-    onClick: (id: Long, type: UiPrevItemType) -> Unit
-) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.small3),
-        contentPadding = PaddingValues(horizontal = MaterialTheme.dimens.medium1)
-    ) {
-        items(list) { item ->
-            PrevItemCard(
-                modifier = Modifier
-                    .width(150.dp)
-                    .padding(MaterialTheme.dimens.small2),
-                item = item,
-                onClick = {
-                    onClick(item.id, item.type)
-                }
-            )
         }
     }
 }

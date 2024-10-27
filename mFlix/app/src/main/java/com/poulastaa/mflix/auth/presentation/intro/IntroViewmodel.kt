@@ -1,13 +1,12 @@
 package com.poulastaa.mflix.auth.presentation.intro
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.repository.auth.AuthRepository
 import com.poulastaa.mflix.core.domain.utils.DataError
 import com.poulastaa.mflix.core.domain.utils.Result
-import com.poulastaa.mflix.core.presentation.ui.UiText
+import com.poulastaa.mflix.core.presentation.designsystem.repository.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.core.presentation.designsystem
+package com.poulastaa.mflix.core.presentation.designsystem.utils
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass

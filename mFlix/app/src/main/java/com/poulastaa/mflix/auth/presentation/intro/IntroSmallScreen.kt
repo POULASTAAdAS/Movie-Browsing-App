@@ -33,7 +33,7 @@ import com.poulastaa.mflix.R
 import com.poulastaa.mflix.auth.presentation.intro.components.IntroButton
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
-import com.poulastaa.mflix.core.presentation.designsystem.ObserveAsEvent
+import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 
 @Composable
 fun IntroRootSmallScreen(

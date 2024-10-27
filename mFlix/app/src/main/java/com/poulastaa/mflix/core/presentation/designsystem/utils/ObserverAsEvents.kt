@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.core.presentation.designsystem
+package com.poulastaa.mflix.core.presentation.designsystem.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

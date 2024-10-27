@@ -64,3 +64,5 @@ internal val ExpandedDimens = Dimens(
     medium2 = 24.dp,
     medium3 = 28.dp,
 )
+
+val ballSize = 10.dp

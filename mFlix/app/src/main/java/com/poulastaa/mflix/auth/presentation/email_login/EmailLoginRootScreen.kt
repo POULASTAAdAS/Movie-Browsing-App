@@ -3,7 +3,7 @@ package com.poulastaa.mflix.auth.presentation.email_login
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
-import com.poulastaa.mflix.core.presentation.designsystem.AppScreenWindowSize
+import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
 
 @Composable
 fun EmailLoginRootScreen(

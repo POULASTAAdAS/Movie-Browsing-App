@@ -44,8 +44,10 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun provideHomeMorePagerSource(client: OkHttpClient): HomeMorePagerSource =
-        HomeMorePagerSource(client)
+    fun provideHomeMorePagerSource(
+        client: OkHttpClient,
+        ds: DataStoreRepository
+    ): HomeMorePagerSource = HomeMorePagerSource(client, ds)
 
     @Provides
     @ViewModelScoped

@@ -1,19 +1,12 @@
-package com.poulastaa.mflix.core.presentation.designsystem
+package com.poulastaa.mflix.core.presentation.designsystem.theme
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.poulastaa.mflix.R
-
-val ArrowBackIcon: ImageVector
-    @Composable
-    get() = Icons.AutoMirrored.Rounded.ArrowBack
-
 
 val ArrowDownIcon: ImageVector
     @Composable
@@ -39,9 +32,13 @@ val PasswordIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_password)
 
-val UserIcon: ImageVector
+val FilledUserIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.ic_user)
+    get() = ImageVector.vectorResource(id = R.drawable.ic_user_filled)
+
+val EmptyUserIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_user_filled)
 
 val MovieIcon: ImageVector
     @Composable
@@ -57,4 +54,4 @@ val FavoriteFillIcon: ImageVector
 
 val SearchIcon: ImageVector
     @Composable
-    get() =  ImageVector.vectorResource(id = R.drawable.ic_search)
+    get() = ImageVector.vectorResource(id = R.drawable.ic_search)

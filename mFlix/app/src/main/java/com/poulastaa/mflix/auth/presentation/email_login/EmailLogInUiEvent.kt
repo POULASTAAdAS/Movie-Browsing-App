@@ -1,6 +1,6 @@
 package com.poulastaa.mflix.auth.presentation.email_login
 
-import com.poulastaa.mflix.core.presentation.ui.UiText
+import com.poulastaa.mflix.core.presentation.designsystem.repository.UiText
 
 sealed interface EmailLogInUiEvent {
     data class Navigate(val screen: NavigationScreen) : EmailLogInUiEvent

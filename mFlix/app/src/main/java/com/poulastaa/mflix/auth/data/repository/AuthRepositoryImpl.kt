@@ -28,7 +28,7 @@ class AuthRepositoryImpl @Inject constructor(
             is Result.Success -> {
                 val user = result.data.user ?: return result.asEmptyDataResult()
                 ds.storeUser(user.toLocalUser())
-                ds.storeSignInState(Screen.Home)
+                ds.storeSignInState(Screen.App)
 
                 result.asEmptyDataResult()
             }

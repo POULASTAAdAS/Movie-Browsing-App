@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,12 +39,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.auth.presentation.email_signup.components.AlreadyHaveAnAccount
-import com.poulastaa.mflix.core.presentation.designsystem.CheckIcon
-import com.poulastaa.mflix.core.presentation.designsystem.EmailIcon
-import com.poulastaa.mflix.core.presentation.designsystem.EyeCloseIcon
-import com.poulastaa.mflix.core.presentation.designsystem.EyeOpenIcon
-import com.poulastaa.mflix.core.presentation.designsystem.PasswordIcon
-import com.poulastaa.mflix.core.presentation.designsystem.UserIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.CheckIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.EmailIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeCloseIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeOpenIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.PasswordIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.FilledUserIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.SubmitButton
@@ -139,7 +138,7 @@ fun EmailSignUpExpandedSmallScreen(
                     singleLine = true,
                     leadingIcon = {
                         Icon(
-                            imageVector = UserIcon,
+                            imageVector = FilledUserIcon,
                             contentDescription = null
                         )
                     },

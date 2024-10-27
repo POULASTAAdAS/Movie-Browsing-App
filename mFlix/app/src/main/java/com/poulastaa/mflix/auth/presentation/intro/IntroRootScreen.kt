@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.poulastaa.mflix.BuildConfig
 import com.poulastaa.mflix.auth.presentation.intro.components.StartActivityForResult
-import com.poulastaa.mflix.core.presentation.designsystem.AppScreenWindowSize
+import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
 
 @Composable
 fun IntroRootScreen(

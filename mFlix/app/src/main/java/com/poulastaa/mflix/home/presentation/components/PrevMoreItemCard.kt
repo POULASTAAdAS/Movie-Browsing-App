@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
-import com.poulastaa.mflix.core.presentation.designsystem.MovieIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 

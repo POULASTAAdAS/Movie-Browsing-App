@@ -53,7 +53,7 @@ class PreferencesDatastore @Inject constructor(
 
         when (screen) {
             Screen.Intro.toString() -> Screen.Intro
-            Screen.Home.toString() -> Screen.Home
+            Screen.App.toString() -> Screen.App
             else -> Screen.Intro
         }
     }.first()

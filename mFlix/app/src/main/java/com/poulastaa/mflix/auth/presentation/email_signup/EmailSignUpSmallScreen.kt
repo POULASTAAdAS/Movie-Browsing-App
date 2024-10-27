@@ -1,17 +1,13 @@
 package com.poulastaa.mflix.auth.presentation.email_signup
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -36,16 +32,15 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.auth.presentation.email_signup.components.AlreadyHaveAnAccount
-import com.poulastaa.mflix.core.presentation.designsystem.CheckIcon
-import com.poulastaa.mflix.core.presentation.designsystem.EmailIcon
-import com.poulastaa.mflix.core.presentation.designsystem.EyeCloseIcon
-import com.poulastaa.mflix.core.presentation.designsystem.EyeOpenIcon
-import com.poulastaa.mflix.core.presentation.designsystem.PasswordIcon
-import com.poulastaa.mflix.core.presentation.designsystem.UserIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.CheckIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.EmailIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeCloseIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.EyeOpenIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.PasswordIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.FilledUserIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.SubmitButton
@@ -103,7 +98,7 @@ fun EmailSignUpSmallScreen(
                 singleLine = true,
                 leadingIcon = {
                     Icon(
-                        imageVector = UserIcon,
+                        imageVector = FilledUserIcon,
                         contentDescription = null
                     )
                 },

@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.poulastaa.mflix.R
+import com.poulastaa.mflix.core.domain.model.HomeDataType
 import com.poulastaa.mflix.core.domain.model.PrevItem
 import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
@@ -15,7 +16,7 @@ import com.poulastaa.mflix.core.domain.repository.DataStoreRepository
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository
 import com.poulastaa.mflix.core.domain.utils.DataError
 import com.poulastaa.mflix.core.domain.utils.Result
-import com.poulastaa.mflix.core.presentation.ui.UiText
+import com.poulastaa.mflix.core.presentation.designsystem.repository.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -74,15 +75,9 @@ class HomeViewModel @Inject constructor(
                 }
             }
 
-            is HomeUiAction.OnItemClick -> {
-                viewModelScope.launch {
-                    _uiEvent.send(
-                        HomeUiEvent.NavigateToDetails(
-                            id = action.id,
-                            type = action.type.toPrevItemType()
-                        )
-                    )
-                }
+
+            HomeUiAction.OnSpotlightFavouriteClick -> {
+
             }
 
             is HomeUiAction.OnFilterTypeChange -> {
@@ -106,6 +101,17 @@ class HomeViewModel @Inject constructor(
                 loadMoreJob?.cancel()
                 loadMoreJob = loadMore()
             }
+
+            is HomeUiAction.OnItemClick -> {
+                viewModelScope.launch {
+                    _uiEvent.send(
+                        HomeUiEvent.NavigateToDetails(
+                            id = action.id,
+                            type = action.type.toPrevItemType()
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -127,7 +133,7 @@ class HomeViewModel @Inject constructor(
 
     private fun loadPopularData() {
         viewModelScope.launch {
-            when (val result = repo.getPopularData()) {
+            when (val result = repo.getPopularData(_state.value.filterType.toHomeDataType())) {
                 is Result.Error -> {
                     when (result.error) {
                         DataError.Network.NO_INTERNET -> _uiEvent.send(
@@ -175,7 +181,7 @@ class HomeViewModel @Inject constructor(
 
     private fun loadTopRatedData() {
         viewModelScope.launch {
-            when (val result = repo.getTopRatedData()) {
+            when (val result = repo.getTopRatedData(_state.value.filterType.toHomeDataType())) {
                 is Result.Error -> when (result.error) {
                     DataError.Network.NO_INTERNET -> _uiEvent.send(
                         HomeUiEvent.EmitToast(
@@ -218,7 +224,7 @@ class HomeViewModel @Inject constructor(
             PagingData.empty()
         }
 
-        repo.getPagingMore()
+        repo.getPagingMore(_state.value.filterType.toHomeDataType())
             .cachedIn(viewModelScope)
             .collectLatest { pagingData ->
                 _more.update {
@@ -248,4 +254,10 @@ class HomeViewModel @Inject constructor(
         type = type.toUiPrevItemType(),
         isInFavourite = isInFavourite
     )
+
+    private fun UiHomeFilterType.toHomeDataType() = when (this) {
+        UiHomeFilterType.ALL -> HomeDataType.ALL
+        UiHomeFilterType.MOVIE -> HomeDataType.MOVIE
+        UiHomeFilterType.TV -> HomeDataType.TV
+    }
 }
