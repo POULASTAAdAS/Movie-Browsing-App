@@ -38,7 +38,7 @@ val FilledUserIcon: ImageVector
 
 val EmptyUserIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.ic_user_filled)
+    get() = ImageVector.vectorResource(id = R.drawable.ic_user_empty)
 
 val MovieIcon: ImageVector
     @Composable
@@ -59,3 +59,11 @@ val SearchIcon: ImageVector
 val EditIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_edit)
+
+val HomeFilledIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_home_filled)
+
+val HomeEmptyIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_home_empty)

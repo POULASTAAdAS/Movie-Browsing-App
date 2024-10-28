@@ -114,7 +114,7 @@ fun HomeMediumScreen(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-private fun LazyGridScope.spotlightMediumCard(
+fun LazyGridScope.spotlightMediumCard(
     cardHeight: Int,
     userName: String,
     spotlight: UiPrevItem,
