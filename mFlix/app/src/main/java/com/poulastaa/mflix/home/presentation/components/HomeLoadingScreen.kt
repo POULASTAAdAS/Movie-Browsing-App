@@ -37,7 +37,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.shimmerEffect
 
 
 @Composable
-fun HomeMediumLoadingScreen(
+fun HomeLoadingScreen(
     paddingValues: PaddingValues,
     cardHeight: Int,
 ) {
@@ -263,7 +263,7 @@ fun HomeMediumLoadingScreen(
 private fun Preview() {
     PrevThem {
         Surface {
-            HomeMediumLoadingScreen(
+            HomeLoadingScreen(
                 paddingValues = PaddingValues(0.dp),
                 cardHeight = 900
             )

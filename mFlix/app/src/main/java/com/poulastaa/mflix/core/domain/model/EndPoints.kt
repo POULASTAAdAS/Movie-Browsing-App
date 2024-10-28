@@ -21,4 +21,7 @@ sealed class EndPoints(val route: String) {
         val page: Int,
         val includeAdults: Boolean,
     ) : EndPoints(route = "/discover/tv?first_air_date_year=${LocalDate.now().year}&include_adult=$includeAdults&include_null_first_air_dates=true&language=en-US&page=$page&sort_by=popularity.desc")
+
+    data object UpComingMovies : EndPoints(route = "/movie/upcoming?language=en-US&page=1")
+    data object UpComingTv : EndPoints(route = "/tv/on_the_air?language=en-US&page=1")
 }

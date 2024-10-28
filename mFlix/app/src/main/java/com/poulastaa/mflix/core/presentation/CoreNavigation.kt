@@ -25,6 +25,8 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.AppBottomBar
 import com.poulastaa.mflix.home.presentation.HomeRootScreen
 import com.poulastaa.mflix.home.presentation.HomeViewModel
+import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
+import com.poulastaa.mflix.profile.presentation.ProfileViewmodel
 
 
 @Composable
@@ -50,7 +52,12 @@ fun CoreNavigation(
             }
 
             composable<AppScreen.Profile> {
+                val profileViewModel = hiltViewModel<ProfileViewmodel>()
 
+                ProfileRootScreen(
+                    windowSizeClass = windowSizeClass,
+                    viewmodel = profileViewModel
+                )
             }
         }
 

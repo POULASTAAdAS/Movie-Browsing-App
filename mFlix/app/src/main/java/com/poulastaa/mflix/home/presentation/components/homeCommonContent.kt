@@ -22,6 +22,28 @@ fun LazyGridScope.homeCommonContent(
     onAction: (HomeUiAction) -> Unit,
     more: LazyPagingItems<UiPrevItem>,
 ) {
+    item(
+        span = {
+            GridItemSpan(maxLineSpan)
+        }
+    ) {
+        Spacer(Modifier.height(MaterialTheme.dimens.medium1))
+    }
+
+    item(
+        span = {
+            GridItemSpan(maxLineSpan)
+        }
+    ) {
+        HomeFilterChip(
+            modifier = Modifier.padding(horizontal = MaterialTheme.dimens.medium1),
+            filterType = state.filterType,
+            onClick = { filterType ->
+                onAction(HomeUiAction.OnFilterTypeChange(filterType))
+            }
+        )
+    }
+
     heading(R.string.popular)
 
     item(

@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.domain.model.UiPrevItemType
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
+import com.poulastaa.mflix.core.presentation.ui.PrevItemCard
 
 
 @Composable

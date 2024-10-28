@@ -38,11 +38,7 @@ fun HomeRootScreen(
             )
         },
         expandedContent = {
-            HomeSmallScreen(
-                state = state,
-                more = viewModel.more.collectAsLazyPagingItems(),
-                onAction = viewModel::onAction
-            )
+            // todo expand home content
         }
     )
 }

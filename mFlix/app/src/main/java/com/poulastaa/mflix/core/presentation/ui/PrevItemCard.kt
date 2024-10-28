@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.home.presentation.components
+package com.poulastaa.mflix.core.presentation.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

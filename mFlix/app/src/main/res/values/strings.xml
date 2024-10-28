@@ -24,4 +24,8 @@
     <string name="movie">Movie</string>
     <string name="home">Home</string>
     <string name="user">User</string>
+    <string name="profile">Profile</string>
+    <string name="favourites">Favourites</string>
+    <string name="upcoming_movies">Upcoming movies</string>
+    <string name="upcoming_tv">Upcoming Tv shows</string>
 </resources>

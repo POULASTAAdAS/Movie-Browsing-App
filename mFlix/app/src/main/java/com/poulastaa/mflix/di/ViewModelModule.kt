@@ -7,9 +7,13 @@ import com.poulastaa.mflix.core.domain.repository.auth.AuthRepository
 import com.poulastaa.mflix.core.domain.repository.auth.RemoteAuthDataSource
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository
 import com.poulastaa.mflix.core.domain.repository.home.RemoteHomeDataSource
+import com.poulastaa.mflix.core.domain.repository.profile.ProfileRepository
+import com.poulastaa.mflix.core.domain.repository.profile.RemoteProfileDatasource
 import com.poulastaa.mflix.home.data.repository.OnlineFirstHomeRepository
 import com.poulastaa.mflix.home.network.HomeMorePagerSource
 import com.poulastaa.mflix.home.network.OkHttpRemoteHomeDataSource
+import com.poulastaa.mflix.profile.network.OkHttpProfileDataSource
+import com.poulastaa.mflix.profile.network.model.OfflineFirstProfileRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -62,4 +66,17 @@ object ViewModelModule {
         remote: RemoteHomeDataSource,
         scope: CoroutineScope,
     ): HomeRepository = OnlineFirstHomeRepository(remote, scope)
+
+    @Provides
+    @ViewModelScoped
+    fun provideProfileRemoteDataSource(
+        client: OkHttpClient,
+    ): RemoteProfileDatasource = OkHttpProfileDataSource(client)
+
+    @Provides
+    @ViewModelScoped
+    fun provideProfileRepository(
+        remote: RemoteProfileDatasource,
+        scope: CoroutineScope,
+    ): ProfileRepository = OfflineFirstProfileRepository(remote, scope)
 }
