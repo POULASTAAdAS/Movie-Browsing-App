@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.home.data.mapper
+package com.poulastaa.mflix.home.network
 
 import com.poulastaa.mflix.BuildConfig
 import com.poulastaa.mflix.core.domain.model.PrevItem

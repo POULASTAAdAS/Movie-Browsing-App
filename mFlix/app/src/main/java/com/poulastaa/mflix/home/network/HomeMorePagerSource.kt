@@ -9,7 +9,6 @@ import com.poulastaa.mflix.core.domain.model.PrevItem
 import com.poulastaa.mflix.core.domain.repository.DataStoreRepository
 import com.poulastaa.mflix.core.domain.utils.OtherRemoteException
 import com.poulastaa.mflix.core.domain.utils.Result
-import com.poulastaa.mflix.home.data.mapper.toPrevItem
 import com.poulastaa.mflix.home.network.model.PrevMovieWrapper
 import com.poulastaa.mflix.home.network.model.PrevTvWrapper
 import kotlinx.coroutines.CoroutineScope

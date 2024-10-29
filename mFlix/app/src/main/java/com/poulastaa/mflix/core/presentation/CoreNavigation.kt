@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -38,6 +40,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.BottomBarScreen
 import com.poulastaa.mflix.core.navigation.AppScreen
@@ -47,6 +50,8 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.HomeEmptyIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.HomeFilledIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.AppBottomBar
+import com.poulastaa.mflix.details.presentation.DetailsRootScreen
+import com.poulastaa.mflix.details.presentation.DetailsViewModel
 import com.poulastaa.mflix.home.presentation.HomeRootScreen
 import com.poulastaa.mflix.home.presentation.HomeViewModel
 import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
@@ -107,7 +112,14 @@ private fun CommonContent(
 
                 HomeRootScreen(
                     windowSizeClass = windowSizeClass,
-                    viewModel = homeViewModel
+                    viewModel = homeViewModel,
+                    navigateToDetails = { id, type ->
+                        viewmodel.makeNonVisible()
+                        navController.navigate(AppScreen.Details(id, type))
+                    },
+                    navigateToSearch = {
+
+                    }
                 )
             }
 
@@ -119,6 +131,24 @@ private fun CommonContent(
                     viewmodel = profileViewModel
                 )
             }
+
+            composable<AppScreen.Details> {
+                val detailsViewModel = hiltViewModel<DetailsViewModel>()
+                val payload = it.toRoute<AppScreen.Details>()
+
+                LaunchedEffect(payload) {
+//                    detailsViewModel.loadDetails(payload.id, payload.type)
+                }
+
+                DetailsRootScreen(
+                    viewModel = detailsViewModel,
+                    windowSizeClass = windowSizeClass,
+                    navigateBack = {
+                        viewmodel.makeVisible()
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
 
         AnimatedVisibility(
@@ -126,11 +156,13 @@ private fun CommonContent(
                     windowSizeClass.widthSizeClass != WindowWidthSizeClass.Expanded,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(MaterialTheme.dimens.medium3),
-            enter = fadeIn(animationSpec = tween(400)) +
-                    slideInVertically(animationSpec = tween(400)),
-            exit = fadeOut(animationSpec = tween(400)) +
-                    slideOutVertically(animationSpec = tween(400))
+                .padding(horizontal = MaterialTheme.dimens.medium3)
+                .navigationBarsPadding(),
+            enter = fadeIn(animationSpec = tween(600)) +
+                    slideInVertically(animationSpec = tween(600), initialOffsetY = { it }),
+            exit = fadeOut(animationSpec = tween(600)) +
+                    slideOutVertically(animationSpec = tween(600),
+                        targetOffsetY = { it })
         ) {
             AppBottomBar(
                 screen = viewmodel.state.bottomBarScreen,

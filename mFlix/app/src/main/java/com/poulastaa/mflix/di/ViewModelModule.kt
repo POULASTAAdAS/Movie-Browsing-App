@@ -5,15 +5,19 @@ import com.poulastaa.mflix.auth.network.repository.OkHttpAuthDataSource
 import com.poulastaa.mflix.core.domain.repository.DataStoreRepository
 import com.poulastaa.mflix.core.domain.repository.auth.AuthRepository
 import com.poulastaa.mflix.core.domain.repository.auth.RemoteAuthDataSource
+import com.poulastaa.mflix.core.domain.repository.details.DetailsRepository
+import com.poulastaa.mflix.core.domain.repository.details.RemoteDetailsDataSource
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository
 import com.poulastaa.mflix.core.domain.repository.home.RemoteHomeDataSource
 import com.poulastaa.mflix.core.domain.repository.profile.ProfileRepository
 import com.poulastaa.mflix.core.domain.repository.profile.RemoteProfileDatasource
+import com.poulastaa.mflix.details.data.repository.OnlineFirstDetailsRepository
+import com.poulastaa.mflix.details.network.OkHttpDetailsDataSource
 import com.poulastaa.mflix.home.data.repository.OnlineFirstHomeRepository
 import com.poulastaa.mflix.home.network.HomeMorePagerSource
 import com.poulastaa.mflix.home.network.OkHttpRemoteHomeDataSource
+import com.poulastaa.mflix.profile.data.OfflineFirstProfileRepository
 import com.poulastaa.mflix.profile.network.OkHttpProfileDataSource
-import com.poulastaa.mflix.profile.network.model.OfflineFirstProfileRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -79,4 +83,17 @@ object ViewModelModule {
         remote: RemoteProfileDatasource,
         scope: CoroutineScope,
     ): ProfileRepository = OfflineFirstProfileRepository(remote, scope)
+
+    @Provides
+    @ViewModelScoped
+    fun provideDetailsRemoteDataSource(
+        client: OkHttpClient,
+    ): RemoteDetailsDataSource = OkHttpDetailsDataSource(client)
+
+    @Provides
+    @ViewModelScoped
+    fun provideDetailsRepository(
+        remote: RemoteDetailsDataSource,
+        scope: CoroutineScope,
+    ): DetailsRepository = OnlineFirstDetailsRepository(remote, scope)
 }

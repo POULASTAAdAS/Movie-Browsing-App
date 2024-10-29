@@ -5,15 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.poulastaa.mflix.core.domain.model.BottomBarScreen
-import com.poulastaa.mflix.core.domain.repository.DataStoreRepository
 import com.poulastaa.mflix.core.navigation.AppScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CoreViewmodel @Inject constructor(
-    private val ds: DataStoreRepository,
-) : ViewModel() {
+class CoreViewmodel @Inject constructor() : ViewModel() {
     var state by mutableStateOf(CoreUiState())
         private set
 
@@ -29,5 +26,17 @@ class CoreViewmodel @Inject constructor(
                 screen = AppScreen.Profile
             )
         }
+    }
+
+    fun makeNonVisible() {
+        state = state.copy(
+            isVisible = false
+        )
+    }
+
+    fun makeVisible() {
+        state = state.copy(
+            isVisible = true
+        )
     }
 }

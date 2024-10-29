@@ -24,4 +24,6 @@ sealed class EndPoints(val route: String) {
 
     data object UpComingMovies : EndPoints(route = "/movie/upcoming?language=en-US&page=1")
     data object UpComingTv : EndPoints(route = "/tv/on_the_air?language=en-US&page=1")
+
+    data class MovieDetails(val id: Long) : EndPoints(route = "/movie/$id?language=en-US")
 }

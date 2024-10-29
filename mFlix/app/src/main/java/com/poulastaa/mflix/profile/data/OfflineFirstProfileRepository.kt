@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.profile.network.model
+package com.poulastaa.mflix.profile.data
 
 import com.poulastaa.mflix.core.domain.model.PrevItem
 import com.poulastaa.mflix.core.domain.repository.profile.ProfileRepository

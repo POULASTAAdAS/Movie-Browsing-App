@@ -28,4 +28,6 @@
     <string name="favourites">Favourites</string>
     <string name="upcoming_movies">Upcoming movies</string>
     <string name="upcoming_tv">Upcoming Tv shows</string>
+    <string name="crew_members">Crew members</string>
+    <string name="cast_members">Cast members</string>
 </resources>
