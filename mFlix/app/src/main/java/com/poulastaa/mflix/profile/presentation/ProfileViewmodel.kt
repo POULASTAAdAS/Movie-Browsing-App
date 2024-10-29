@@ -67,7 +67,8 @@ class ProfileViewmodel @Inject constructor(
                 it.copy(
                     user = UiUser(
                         name = user.name,
-                        coverImage = user.profilePic
+                        coverImage = user.profilePic,
+                        email = user.email
                     )
                 )
             }

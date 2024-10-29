@@ -1,5 +1,6 @@
 package com.poulastaa.mflix.profile.presentation
 
+import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -33,23 +35,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
@@ -63,6 +63,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.designsystem.utils.shimmerEffect
 import com.poulastaa.mflix.core.presentation.ui.PrevItemCard
+import com.poulastaa.mflix.profile.presentation.components.ProfileTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,6 +72,8 @@ fun ProfileSmallScreen(
     onAction: (ProfileUiAction) -> Unit,
 ) {
     val scroll = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val cardHeight =
+        (LocalConfiguration.current.screenHeightDp - LocalConfiguration.current.screenHeightDp / 2).dp
 
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
@@ -86,10 +89,14 @@ fun ProfileSmallScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ) {
-                    Box(modifier = Modifier.aspectRatio(.9f)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(cardHeight)
+                    ) {
                         Card(
                             modifier = Modifier
-                                .fillMaxWidth(.85f)
+                                .fillMaxWidth(.7f)
                                 .fillMaxHeight()
                                 .align(Alignment.TopCenter),
                             elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
@@ -146,276 +153,198 @@ fun ProfileSmallScreen(
 
                     Spacer(Modifier.height(MaterialTheme.dimens.medium1))
 
-                    if (state.favourite.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(MaterialTheme.dimens.medium1)
-                        ) {
-                            Text(
-                                text = stringResource(R.string.favourites),
-                                fontWeight = FontWeight.Bold,
-                                fontSize = MaterialTheme.typography.headlineSmall.fontSize
-                            )
-                        }
+                    ProfileContent(
+                        title = R.string.favourites,
+                        list = state.favourite,
+                        onAction = onAction
+                    )
 
-                        LazyRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentPadding = PaddingValues(horizontal = MaterialTheme.dimens.medium1),
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.small3)
-                        ) {
-                            items(state.favourite) { item ->
-                                PrevItemCard(
-                                    modifier = Modifier
-                                        .width(140.dp)
-                                        .height(200.dp),
-                                    item = item,
-                                    onClick = {
-                                        onAction(ProfileUiAction.OnItemClick(item.id, item.type))
-                                    }
-                                )
-                            }
+                    ProfileContent(
+                        title = R.string.upcoming_movies,
+                        list = state.upcomingMovie,
+                        onAction = onAction
+                    )
 
-                        }
-                    }
-
-                    if (state.upcomingMovie.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(MaterialTheme.dimens.medium1)
-                        ) {
-                            Text(
-                                text = stringResource(R.string.upcoming_movies),
-                                fontWeight = FontWeight.Bold,
-                                fontSize = MaterialTheme.typography.headlineSmall.fontSize
-                            )
-                        }
-
-                        LazyRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentPadding = PaddingValues(horizontal = MaterialTheme.dimens.medium1),
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.small3)
-                        ) {
-                            items(state.upcomingMovie) { item ->
-                                PrevItemCard(
-                                    modifier = Modifier
-                                        .width(140.dp)
-                                        .height(200.dp),
-                                    item = item,
-                                    onClick = {
-                                        onAction(ProfileUiAction.OnItemClick(item.id, item.type))
-                                    }
-                                )
-                            }
-
-                        }
-                    }
-
-                    if (state.upcomingTv.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(MaterialTheme.dimens.medium1)
-                        ) {
-                            Text(
-                                text = stringResource(R.string.upcoming_tv),
-                                fontWeight = FontWeight.Bold,
-                                fontSize = MaterialTheme.typography.headlineSmall.fontSize
-                            )
-                        }
-
-                        LazyRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentPadding = PaddingValues(
-                                start = MaterialTheme.dimens.medium1,
-                                end = MaterialTheme.dimens.medium1,
-                                bottom = 120.dp
-                            ),
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.small3)
-                        ) {
-                            items(state.upcomingTv) { item ->
-                                PrevItemCard(
-                                    modifier = Modifier
-                                        .width(140.dp)
-                                        .height(200.dp),
-                                    item = item,
-                                    onClick = {
-                                        onAction(ProfileUiAction.OnItemClick(item.id, item.type))
-                                    }
-                                )
-                            }
-
-                        }
-                    }
+                    ProfileContent(
+                        title = R.string.upcoming_tv,
+                        list = state.upcomingTv,
+                        onAction = onAction
+                    )
                 }
 
-                false -> Column(
+                false -> ProfileLoading(cardHeight, scroll)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ProfileLoading(
+    cardHeight: Dp,
+    scroll: TopAppBarScrollBehavior,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(cardHeight)
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(.7f)
+                    .fillMaxHeight()
+                    .align(Alignment.TopCenter),
+                elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
+                shape = RoundedCornerShape(
+                    bottomStart = 100.dp,
+                    bottomEnd = 100.dp
+                )
+            ) {
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
+                        .shimmerEffect()
                 ) {
-                    Box(modifier = Modifier.aspectRatio(.9f)) {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth(.85f)
-                                .fillMaxHeight()
-                                .align(Alignment.TopCenter),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-                            shape = RoundedCornerShape(
-                                bottomStart = 100.dp,
-                                bottomEnd = 100.dp
-                            )
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .shimmerEffect()
-                            ) {
-                                MovingCirclesWithMetaballEffect()
+                    MovingCirclesWithMetaballEffect()
 
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(top = 50.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.Center
-                                ) {
-
-                                }
-                            }
-                        }
-
-                        ProfileTopBar(scroll)
-
-                        Card(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .fillMaxWidth(.5f)
-                                .offset(y = 20.dp),
-                            shape = CircleShape,
-                            colors = CardDefaults.cardColors(
-                                contentColor = MaterialTheme.colorScheme.primary,
-                            ),
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 10.dp
-                            )
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .shimmerEffect()
-                                    .fillMaxWidth()
-                                    .padding(MaterialTheme.dimens.medium3)
-                            )
-                        }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 50.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
 
                     }
-
-                    Spacer(Modifier.height(MaterialTheme.dimens.large2))
-
-                    repeat(2) {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth(.5f)
-                                .height(40.dp)
-                                .padding(start = MaterialTheme.dimens.medium1),
-                            shape = MaterialTheme.shapes.extraSmall
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .shimmerEffect()
-                            )
-                        }
-
-                        Spacer(Modifier.height(MaterialTheme.dimens.medium1))
-
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = MaterialTheme.dimens.medium1)
-                                .horizontalScroll(rememberScrollState()),
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.small3)
-                        ) {
-                            repeat(7) {
-                                Card(
-                                    modifier = Modifier
-                                        .width(140.dp)
-                                        .height(200.dp),
-                                    shape = MaterialTheme.shapes.extraSmall
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .shimmerEffect()
-                                    )
-                                }
-                            }
-                        }
-
-                        Spacer(Modifier.height(MaterialTheme.dimens.medium1))
-                    }
-
-                    Spacer(Modifier.height(120.dp))
                 }
+            }
+
+            ProfileTopBar(scroll)
+
+            Card(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth(.5f)
+                    .offset(y = 20.dp),
+                shape = CircleShape,
+                colors = CardDefaults.cardColors(
+                    contentColor = MaterialTheme.colorScheme.primary,
+                ),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 10.dp
+                )
+            ) {
+                Box(
+                    modifier = Modifier
+                        .shimmerEffect()
+                        .fillMaxWidth()
+                        .padding(MaterialTheme.dimens.medium3)
+                )
+            }
+
+        }
+
+        Spacer(Modifier.height(MaterialTheme.dimens.large2))
+
+        repeat(2) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(.5f)
+                    .height(40.dp)
+                    .padding(start = MaterialTheme.dimens.medium1),
+                shape = MaterialTheme.shapes.extraSmall
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .shimmerEffect()
+                )
+            }
+
+            Spacer(Modifier.height(MaterialTheme.dimens.medium1))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = MaterialTheme.dimens.medium1)
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.small3)
+            ) {
+                repeat(7) {
+                    Card(
+                        modifier = Modifier
+                            .width(140.dp)
+                            .height(200.dp),
+                        shape = MaterialTheme.shapes.extraSmall
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .shimmerEffect()
+                        )
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(MaterialTheme.dimens.medium1))
+        }
+
+        Spacer(Modifier.height(120.dp))
+    }
+}
+
+@Composable
+fun ProfileContent(
+    @StringRes title: Int,
+    list: List<UiPrevItem>,
+    onAction: (ProfileUiAction) -> Unit,
+) {
+    if (list.isNotEmpty()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(MaterialTheme.dimens.medium1)
+        ) {
+            Text(
+                text = stringResource(title),
+                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.typography.headlineSmall.fontSize
+            )
+        }
+
+        ProfileLazyRow {
+            items(list) { item ->
+                PrevItemCard(
+                    modifier = Modifier
+                        .width(140.dp)
+                        .height(200.dp),
+                    item = item,
+                    onClick = {
+                        onAction(ProfileUiAction.OnItemClick(item.id, item.type))
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
-private fun ProfileTopBar(scroll: TopAppBarScrollBehavior) {
-    TopAppBar(
-        title = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = MaterialTheme.dimens.medium1),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "m ",
-                    fontStyle = FontStyle.Italic,
-                    fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                    fontWeight = FontWeight.Black,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(
-                        start = MaterialTheme.dimens.small3,
-                    ),
-                )
-
-                Spacer(Modifier.width(MaterialTheme.dimens.small3))
-
-                Text(
-                    text = stringResource(R.string.profile),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = MaterialTheme.typography.headlineLarge.fontSize,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-        },
-        windowInsets = WindowInsets(0, 0, 0, 0),
-        scrollBehavior = scroll,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Transparent
-        ),
-        modifier = Modifier
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.background,
-                        MaterialTheme.colorScheme.background.copy(.6f),
-                        Color.Transparent,
-                    )
-                )
-            )
-            .padding(vertical = MaterialTheme.dimens.medium2)
-    )
+fun ProfileLazyRow(
+    content: LazyListScope.() -> Unit,
+) {
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(horizontal = MaterialTheme.dimens.medium1),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.small3)
+    ) {
+        content()
+    }
 }
-
 
 @Composable
 fun ProfileImage(

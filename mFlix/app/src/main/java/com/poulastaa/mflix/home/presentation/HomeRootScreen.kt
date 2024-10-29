@@ -33,15 +33,15 @@ fun HomeRootScreen(
             )
         },
         expandedContent = {
-           if(config.screenWidthDp > 980)  HomeExpandedScreen(
-               state = state,
-               more = viewModel.more.collectAsLazyPagingItems(),
-               onAction = viewModel::onAction
-           ) else  HomeExpandedSmallScreen(
-               state = state,
-               more = viewModel.more.collectAsLazyPagingItems(),
-               onAction = viewModel::onAction
-           )
+            if (config.screenWidthDp > 980) HomeExpandedScreen(
+                state = state,
+                more = viewModel.more.collectAsLazyPagingItems(),
+                onAction = viewModel::onAction
+            ) else HomeExpandedSmallScreen(
+                state = state,
+                more = viewModel.more.collectAsLazyPagingItems(),
+                onAction = viewModel::onAction
+            )
         }
     )
 }

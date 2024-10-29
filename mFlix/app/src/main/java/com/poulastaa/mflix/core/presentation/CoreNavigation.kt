@@ -71,7 +71,7 @@ fun CoreNavigation(
                     modifier = Modifier
                         .width(6.dp)
                         .fillMaxHeight()
-                        .background(MaterialTheme.colorScheme.primary.copy(.3f))
+                        .background(MaterialTheme.colorScheme.primary.copy(.5f))
                         .background(
                             brush = Brush.horizontalGradient(
                                 colors = listOf(
