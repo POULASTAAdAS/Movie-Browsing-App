@@ -33,22 +33,19 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -76,14 +73,12 @@ fun HomeSmallScreen(
     onAction: (HomeUiAction) -> Unit,
 ) {
     val scroll = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    var cardHeight by remember { mutableIntStateOf(0) }
+    val config = LocalConfiguration.current
+    val cardHeight = (config.screenHeightDp - (config.screenHeightDp / 3.4).roundToInt()).dp
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .onGloballyPositioned {
-                cardHeight = (it.size.height / 3.9).roundToInt()
-            },
+            .fillMaxSize(),
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { paddingValues ->
         AnimatedContent(state.dataLoaded, label = "home loading animation") {
@@ -115,7 +110,7 @@ fun HomeSmallScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 private fun LazyGridScope.spotlightSmallCard(
-    cardHeight: Int,
+    cardHeight: Dp,
     userName: String,
     spotlight: UiPrevItem,
     onAction: (HomeUiAction) -> Unit,
@@ -129,7 +124,7 @@ private fun LazyGridScope.spotlightSmallCard(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(cardHeight.dp)
+                .height(cardHeight)
         ) {
             SubcomposeAsyncImage(
                 modifier = Modifier

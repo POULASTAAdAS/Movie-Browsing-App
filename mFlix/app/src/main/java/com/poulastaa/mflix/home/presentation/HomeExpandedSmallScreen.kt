@@ -1,5 +1,6 @@
 package com.poulastaa.mflix.home.presentation
 
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -61,14 +62,13 @@ import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeExpandedScreen(
+fun HomeExpandedSmallScreen(
     state: HomeUiState,
     more: LazyPagingItems<UiPrevItem>,
     onAction: (HomeUiAction) -> Unit,
 ) {
-    val config = LocalConfiguration.current
-    val cardHeight = (config.screenHeightDp - (config.screenHeightDp / 8)).dp
     val scroll = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val cardHeight = (LocalConfiguration.current.screenHeightDp - 20).dp
 
     Scaffold(
         modifier = Modifier
@@ -101,7 +101,7 @@ fun HomeExpandedScreen(
                                     Column(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .fillMaxHeight(.22f)
+                                            .fillMaxHeight(.28f)
                                             .align(Alignment.BottomCenter)
                                             .background(
                                                 brush = Brush.verticalGradient(
@@ -130,7 +130,7 @@ fun HomeExpandedScreen(
                                         ) {
                                             Text(
                                                 text = state.spotLight.title,
-                                                fontSize = MaterialTheme.typography.displaySmall.fontSize,
+                                                fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                                                 fontWeight = FontWeight.Black,
                                                 maxLines = 1,
                                                 overflow = TextOverflow.Ellipsis,
@@ -155,6 +155,7 @@ fun HomeExpandedScreen(
                                                 text = state.spotLight.description,
                                                 maxLines = 3,
                                                 overflow = TextOverflow.Ellipsis,
+                                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                                                 modifier = Modifier.fillMaxWidth(.8f)
                                             )
 
@@ -202,7 +203,7 @@ fun HomeExpandedScreen(
                                         .height(cardHeight)
                                         .fillMaxWidth()
                                         .padding(
-                                            top = 80.dp,
+                                            top = 95.dp,
                                             start = MaterialTheme.dimens.medium1,
                                             end = MaterialTheme.dimens.medium1
                                         )
@@ -215,12 +216,11 @@ fun HomeExpandedScreen(
                                         modifier = Modifier
                                             .fillMaxSize()
                                     ) {
-                                        val height = maxHeight / 2 - MaterialTheme.dimens.small2
                                         val width = maxWidth / 3 - MaterialTheme.dimens.small2
 
                                         SpotlightSideCard(
                                             modifier = Modifier
-                                                .height(height)
+                                                .fillMaxHeight()
                                                 .width(width),
                                             state = state,
                                             onAction = onAction
@@ -234,7 +234,7 @@ fun HomeExpandedScreen(
                             }
 
                             expandedPopular(
-                                list = state.popularList.drop(6),
+                                list = state.popularList.drop(3),
                                 onAction = onAction
                             )
 
@@ -279,8 +279,13 @@ fun HomeExpandedScreen(
 
 
 @Preview(
-    widthDp = 1280,
-    heightDp = 650
+    widthDp = 900,
+    heightDp = 480
+)
+@Preview(
+    widthDp = 900,
+    heightDp = 480,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 private fun Preview() {
@@ -292,11 +297,11 @@ private fun Preview() {
 
     PrevThem {
         Surface {
-            HomeExpandedScreen(
+            HomeExpandedSmallScreen(
                 state = HomeUiState(
                     spotLight = UiPrevItem(
                         id = 1,
-                        title = "",
+                        title = "Title",
                         description = "This is a cool movie about a boy and a girl who are in love",
                         rating = 4.5,
                         isInFavourite = true,

@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,7 +29,8 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -55,7 +58,6 @@ fun CoreNavigation(
     viewmodel: CoreViewmodel = hiltViewModel(),
     logOut: () -> Unit,
 ) {
-    val config = LocalConfiguration.current
     val navController = rememberNavController()
 
     when {
@@ -64,13 +66,29 @@ fun CoreNavigation(
                 modifier = Modifier.fillMaxSize()
             ) {
                 SideNavigationBar(viewmodel)
+
+                Spacer(
+                    modifier = Modifier
+                        .width(6.dp)
+                        .fillMaxHeight()
+                        .background(MaterialTheme.colorScheme.primary.copy(.3f))
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(
+                                    MaterialTheme.colorScheme.background,
+                                    MaterialTheme.colorScheme.background.copy(.6f),
+                                    Color.Transparent,
+                                )
+                            )
+                        )
+                )
+
                 CommonContent(navController, viewmodel, windowSizeClass)
             }
         }
 
         else -> CommonContent(navController, viewmodel, windowSizeClass)
     }
-
 }
 
 @Composable

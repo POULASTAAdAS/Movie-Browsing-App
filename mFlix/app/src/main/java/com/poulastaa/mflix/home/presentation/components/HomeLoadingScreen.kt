@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteFillIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
@@ -39,7 +40,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.shimmerEffect
 @Composable
 fun HomeLoadingScreen(
     paddingValues: PaddingValues,
-    cardHeight: Int,
+    cardHeight: Dp,
 ) {
     Column(
         modifier = Modifier
@@ -51,7 +52,7 @@ fun HomeLoadingScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(cardHeight.dp)
+                .height(cardHeight)
         ) {
             Spacer(
                 modifier = Modifier
@@ -265,7 +266,7 @@ private fun Preview() {
         Surface {
             HomeLoadingScreen(
                 paddingValues = PaddingValues(0.dp),
-                cardHeight = 900
+                cardHeight = 900.dp
             )
         }
     }
