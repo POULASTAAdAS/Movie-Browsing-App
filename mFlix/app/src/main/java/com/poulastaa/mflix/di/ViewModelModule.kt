@@ -12,6 +12,7 @@ import com.poulastaa.mflix.core.domain.repository.home.RemoteHomeDataSource
 import com.poulastaa.mflix.core.domain.repository.profile.ProfileRepository
 import com.poulastaa.mflix.core.domain.repository.profile.RemoteProfileDatasource
 import com.poulastaa.mflix.details.data.repository.OnlineFirstDetailsRepository
+import com.poulastaa.mflix.details.network.DetailsRecomPagerSource
 import com.poulastaa.mflix.details.network.OkHttpDetailsDataSource
 import com.poulastaa.mflix.home.data.repository.OnlineFirstHomeRepository
 import com.poulastaa.mflix.home.network.HomeMorePagerSource
@@ -86,9 +87,17 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
+    fun provideDetailsRecommendationPagerSource(
+        client: OkHttpClient,
+        ds: DataStoreRepository,
+    ): DetailsRecomPagerSource = DetailsRecomPagerSource(client, ds)
+
+    @Provides
+    @ViewModelScoped
     fun provideDetailsRemoteDataSource(
         client: OkHttpClient,
-    ): RemoteDetailsDataSource = OkHttpDetailsDataSource(client)
+        pager: DetailsRecomPagerSource,
+    ): RemoteDetailsDataSource = OkHttpDetailsDataSource(client, pager)
 
     @Provides
     @ViewModelScoped

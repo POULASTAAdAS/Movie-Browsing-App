@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieDetailsDto(
-    val belongs_to_collection: CollectionDto,
+    val belongs_to_collection: CollectionDto?,
     val budget: Long,
     val homepage: String,
     val id: Long,
@@ -16,6 +16,7 @@ data class MovieDetailsDto(
     val status: String,
     val title: String,
     val vote_average: Double,
+    val genres: List<GenreDto>?,
 )
 
 @Serializable
@@ -28,4 +29,10 @@ data class ProductionCompanyDto(
     val id: Long,
     val logo_path: String,
     val name: String,
+)
+
+@Serializable
+data class GenreDto(
+    val id: Long,
+    val name: String?,
 )

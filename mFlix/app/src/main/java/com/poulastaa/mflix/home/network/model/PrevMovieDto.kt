@@ -9,4 +9,5 @@ data class PrevMovieDto(
     val overview: String,
     val vote_average: Double,
     val poster_path: String,
+    val genre_ids: List<Long>?,
 )

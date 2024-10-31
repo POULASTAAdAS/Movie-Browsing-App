@@ -1,5 +1,6 @@
 package com.poulastaa.mflix.profile.presentation
 
+import android.provider.Settings
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -74,6 +76,7 @@ fun ProfileSmallScreen(
     val scroll = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val cardHeight =
         (LocalConfiguration.current.screenHeightDp - LocalConfiguration.current.screenHeightDp / 2).dp
+    val context = LocalContext.current
 
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
@@ -169,6 +172,20 @@ fun ProfileSmallScreen(
                         title = R.string.upcoming_tv,
                         list = state.upcomingTv,
                         onAction = onAction
+                    )
+
+                    Spacer(
+                        modifier = Modifier
+                            .padding(
+                                if (Settings.Secure.getInt(
+                                        context.contentResolver,
+                                        "navigation_mode",
+                                        0
+                                    ) == 2
+                                ) 60.dp
+                                else MaterialTheme.dimens.medium1
+                            )
+                            .navigationBarsPadding()
                     )
                 }
 

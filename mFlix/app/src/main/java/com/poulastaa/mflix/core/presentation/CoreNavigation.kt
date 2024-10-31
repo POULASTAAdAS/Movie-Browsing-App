@@ -1,5 +1,6 @@
 package com.poulastaa.mflix.core.presentation
 
+import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -33,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -102,6 +104,8 @@ private fun CommonContent(
     viewmodel: CoreViewmodel,
     windowSizeClass: WindowSizeClass,
 ) {
+    val context = LocalContext.current
+
     Box(modifier = Modifier.fillMaxSize()) {
         NavHost(
             navController = navController,
@@ -137,7 +141,7 @@ private fun CommonContent(
                 val payload = it.toRoute<AppScreen.Details>()
 
                 LaunchedEffect(payload) {
-//                    detailsViewModel.loadDetails(payload.id, payload.type)
+                    detailsViewModel.loadDetails(payload.id, payload.type)
                 }
 
                 DetailsRootScreen(
@@ -157,6 +161,15 @@ private fun CommonContent(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(horizontal = MaterialTheme.dimens.medium3)
+                .then(
+                    if (Settings.Secure.getInt(
+                            context.contentResolver,
+                            "navigation_mode",
+                            0
+                        ) == 2
+                    ) Modifier.padding(bottom = MaterialTheme.dimens.medium3)
+                    else Modifier
+                )
                 .navigationBarsPadding(),
             enter = fadeIn(animationSpec = tween(600)) +
                     slideInVertically(animationSpec = tween(600), initialOffsetY = { it }),

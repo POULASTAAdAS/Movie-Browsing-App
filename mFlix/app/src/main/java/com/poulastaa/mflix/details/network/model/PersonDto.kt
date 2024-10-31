@@ -8,5 +8,6 @@ data class PersonDto(
     val name: String,
     val profile_path: String?,
     val character: String?,
+    val department: String?,
     val order: Int?,
 )

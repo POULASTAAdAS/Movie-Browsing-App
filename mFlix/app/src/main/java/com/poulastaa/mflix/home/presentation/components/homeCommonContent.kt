@@ -96,7 +96,6 @@ fun LazyGridScope.homeCommonContent(
                     .padding(MaterialTheme.dimens.small2)
             ) {
                 PrevMoreItemCard(
-                    modifier = Modifier,
                     item = item,
                     onClick = {
                         onAction(HomeUiAction.OnItemClick(item.id, item.type))

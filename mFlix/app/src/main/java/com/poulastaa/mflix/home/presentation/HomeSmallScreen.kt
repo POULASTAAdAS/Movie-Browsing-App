@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -89,7 +90,7 @@ fun HomeSmallScreen(
                         .fillMaxSize()
                         .padding(paddingValues)
                         .nestedScroll(scroll.nestedScrollConnection),
-                    contentPadding = WindowInsets.systemBars.asPaddingValues()
+                    contentPadding = WindowInsets.systemBars.asPaddingValues(),
                 ) {
                     spotlightSmallCard(
                         cardHeight = cardHeight,

@@ -13,14 +13,20 @@ data class MovieDetails(
     val status: String,
     val title: String,
     val vote_average: Double,
+    val genreList: List<Genre>,
 )
 
 data class BelongsToCollection(
-    val id: Long,
+    val id: Long = -1,
 )
 
 data class MovieProductionCompany(
     val id: Long,
-    val logo_path: String,
+    val logo_path: String?,
     val name: String,
+)
+
+data class Genre(
+    val id: Long,
+    val type: String,
 )

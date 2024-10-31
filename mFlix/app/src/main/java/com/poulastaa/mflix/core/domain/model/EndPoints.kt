@@ -26,4 +26,14 @@ sealed class EndPoints(val route: String) {
     data object UpComingTv : EndPoints(route = "/tv/on_the_air?language=en-US&page=1")
 
     data class MovieDetails(val id: Long) : EndPoints(route = "/movie/$id?language=en-US")
+    data class MovieCollectionDetails(val id: Long) :
+        EndPoints(route = "/collection/$id?language=en-US")
+
+    data class MovieCredits(val id: Long) : EndPoints(route = "/movie/$id/credits?language=en-US")
+
+    data class MovieRecommendation(
+        val list: String,
+        val page: Int,
+        val includeAdults: Boolean,
+    ) : EndPoints(route = "/discover/movie?include_adult=$includeAdults&include_video=false&language=en-US&page=$page&primary_release_year=${LocalDate.now().year}&sort_by=popularity.desc&with_genres=$list")
 }

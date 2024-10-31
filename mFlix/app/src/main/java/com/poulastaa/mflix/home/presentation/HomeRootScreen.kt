@@ -1,9 +1,11 @@
 package com.poulastaa.mflix.home.presentation
 
 import android.widget.Toast
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle

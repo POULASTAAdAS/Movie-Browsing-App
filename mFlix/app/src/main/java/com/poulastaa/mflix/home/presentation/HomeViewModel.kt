@@ -1,5 +1,6 @@
 package com.poulastaa.mflix.home.presentation
 
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -45,7 +46,7 @@ class HomeViewModel @Inject constructor(
         }
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(6_00_000),
             initialValue = HomeUiState(),
         )
 
@@ -233,31 +234,5 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
-    }
-
-    private fun PrevItemType.toUiPrevItemType() = when (this) {
-        PrevItemType.MOVIE -> UiPrevItemType.MOVIE
-        PrevItemType.TV_SERIES -> UiPrevItemType.TV_SHOW
-    }
-
-    private fun UiPrevItemType.toPrevItemType() = when (this) {
-        UiPrevItemType.MOVIE -> PrevItemType.MOVIE
-        UiPrevItemType.TV_SHOW -> PrevItemType.TV_SERIES
-    }
-
-    private fun PrevItem.toUiPrevItem() = UiPrevItem(
-        id = id,
-        title = title,
-        description = description,
-        rating = rating,
-        imageUrl = coverImage,
-        type = type.toUiPrevItemType(),
-        isInFavourite = isInFavourite
-    )
-
-    private fun UiHomeFilterType.toHomeDataType() = when (this) {
-        UiHomeFilterType.ALL -> HomeDataType.ALL
-        UiHomeFilterType.MOVIE -> HomeDataType.MOVIE
-        UiHomeFilterType.TV -> HomeDataType.TV
     }
 }
