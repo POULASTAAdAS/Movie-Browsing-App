@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,17 +41,20 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteEmptyIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteFillIcon
@@ -60,6 +62,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.SearchIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
+import com.poulastaa.mflix.core.presentation.ui.RatingCard
 import com.poulastaa.mflix.home.presentation.components.HomeLoadingScreen
 import com.poulastaa.mflix.home.presentation.components.homeCommonContent
 import kotlinx.coroutines.flow.flowOf
@@ -170,7 +173,7 @@ private fun LazyGridScope.spotlightSmallCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "m ",
+                            text = stringResource(R.string.m),
                             fontStyle = FontStyle.Italic,
                             fontSize = MaterialTheme.typography.displayMedium.fontSize,
                             fontWeight = FontWeight.Black,
@@ -260,13 +263,13 @@ private fun LazyGridScope.spotlightSmallCard(
                         fontWeight = FontWeight.Black,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.fillMaxWidth(.85f)
                     )
 
-                    Text( // todo change to icons
-                        text = "Rating: ${spotlight.rating}",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize
+                    RatingCard(
+                        rawRating = spotlight.rating.toFloat(),
+                        modifier = Modifier.size(40.dp),
+                        fontSize = 12.sp
                     )
                 }
 

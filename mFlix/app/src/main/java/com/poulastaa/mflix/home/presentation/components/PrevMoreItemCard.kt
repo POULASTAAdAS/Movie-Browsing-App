@@ -36,7 +36,6 @@ fun PrevMoreItemCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp,
             pressedElevation = 0.dp
-
         ),
         onClick = onClick
     ) {

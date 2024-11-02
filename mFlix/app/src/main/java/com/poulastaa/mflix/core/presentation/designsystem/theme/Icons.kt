@@ -67,3 +67,7 @@ val HomeFilledIcon: ImageVector
 val HomeEmptyIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_home_empty)
+
+val DoubleArrowIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_double_arrow)

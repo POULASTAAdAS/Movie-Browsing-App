@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -48,6 +49,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteEmptyIco
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteFillIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
+import com.poulastaa.mflix.core.presentation.ui.RatingCard
 import com.poulastaa.mflix.home.presentation.components.ExpandedFilterChip
 import com.poulastaa.mflix.home.presentation.components.ExpandedHeading
 import com.poulastaa.mflix.home.presentation.components.ExpandedSpotlight
@@ -101,7 +103,7 @@ fun HomeExpandedSmallScreen(
                                     Column(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .fillMaxHeight(.28f)
+                                            .fillMaxHeight(.3f)
                                             .align(Alignment.BottomCenter)
                                             .background(
                                                 brush = Brush.verticalGradient(
@@ -134,13 +136,13 @@ fun HomeExpandedSmallScreen(
                                                 fontWeight = FontWeight.Black,
                                                 maxLines = 1,
                                                 overflow = TextOverflow.Ellipsis,
+                                                modifier = Modifier.fillMaxWidth(.85f)
                                             )
 
-                                            Text( // todo change to icons
-                                                text = "Rating: ${state.spotLight.rating}",
-                                                maxLines = 1,
-                                                overflow = TextOverflow.Ellipsis,
-                                                fontSize = MaterialTheme.typography.bodyMedium.fontSize
+                                            RatingCard(
+                                                rawRating = state.spotLight.rating.toFloat(),
+                                                modifier = Modifier.size(38.dp),
+                                                fontSize = 14.sp
                                             )
                                         }
 

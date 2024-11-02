@@ -4,17 +4,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import androidx.paging.map
 import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.domain.repository.details.DetailsRepository
 import com.poulastaa.mflix.core.domain.utils.Result
+import com.poulastaa.mflix.home.presentation.toPrevItemType
 import com.poulastaa.mflix.home.presentation.toUiPrevItem
+import com.poulastaa.mflix.home.presentation.toUiPrevItemType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -43,10 +48,19 @@ class DetailsViewModel @Inject constructor(
 
     private var loadRecomJob: Job? = null
 
+    private val _uiState = Channel<DetailsUiEvent>()
+    val uiState = _uiState.receiveAsFlow()
+
     fun loadDetails(
         id: Long,
         type: PrevItemType,
     ) {
+        _state.update {
+            it.copy(
+                type = type.toUiPrevItemType()
+            )
+        }
+
         viewModelScope.launch {
             when (type) {
                 PrevItemType.MOVIE -> {
@@ -86,6 +100,52 @@ class DetailsViewModel @Inject constructor(
             }
         }
     }
+
+    fun onAction(action: DetailsUiAction) {
+        when (action) {
+            is DetailsUiAction.OnCastMemberClick -> {
+
+            }
+
+            is DetailsUiAction.OnCrewMemberClick -> {
+
+            }
+
+            DetailsUiAction.OnCastMemberDetailsClick -> {
+                _state.update {
+                    it.copy(
+                        details = it.details.copy(
+                            isDetailsVisible = true,
+                            list = it.cast
+                        )
+                    )
+                }
+            }
+
+            DetailsUiAction.OnCrewMemberDetailsClick -> {
+                _state.update {
+                    it.copy(
+                        details = it.details.copy(
+                            isDetailsVisible = true,
+                            list = it.crew
+                        )
+                    )
+                }
+            }
+
+            is DetailsUiAction.OnItemClick -> {
+                viewModelScope.launch {
+                    _uiState.send(
+                        DetailsUiEvent.NavigateToDetails(
+                            action.id,
+                            action.type.toPrevItemType()
+                        )
+                    )
+                }
+            }
+        }
+    }
+
 
     private fun loadMovieCredits(movieId: Long) {
         viewModelScope.launch {
@@ -127,9 +187,11 @@ class DetailsViewModel @Inject constructor(
             .cachedIn(viewModelScope)
             .collectLatest { pagingData ->
                 _recom.update {
-                    pagingData.map { item ->
-                        item.toUiPrevItem()
-                    }
+                    pagingData
+                        .filter { it.id != _state.value.movie.id }
+                        .map { item ->
+                            item.toUiPrevItem()
+                        }
                 }
             }
     }

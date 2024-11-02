@@ -1,15 +1,18 @@
 package com.poulastaa.mflix.details.presentation
 
 import androidx.compose.runtime.Stable
-import com.poulastaa.mflix.core.domain.model.UiPrevItem
+import com.poulastaa.mflix.core.domain.model.UiPrevItemType
 
 @Stable
 data class DetailsUiState(
-    val isLoading: Boolean = false,
+    val type: UiPrevItemType = UiPrevItemType.MOVIE,
+
     val movie: UiMovieDetails = UiMovieDetails(),
     val collection: UiMovieCollection = UiMovieCollection(),
     val cast: List<UiPerson> = emptyList(),
     val crew: List<UiPerson> = emptyList(),
+
+    val details: UiDetails = UiDetails(),
 ) {
     val isDataLoaded: Boolean = movie.title.isNotEmpty() && cast.isNotEmpty() && crew.isNotEmpty()
 }
@@ -21,7 +24,7 @@ data class UiMovieDetails(
     val overview: String = "",
     val posterPath: String = "",
     val budget: Long = -1,
-    val voteAverage: Double = 0.0,
+    val voteAverage: Float = 0f,
     val releaseDate: String = "",
     val runtime: Int = -1,
     val status: String = "",
@@ -66,4 +69,9 @@ data class UiCollectionItem(
 data class UiGenre(
     val id: Long,
     val name: String,
+)
+
+data class UiDetails(
+    val isDetailsVisible: Boolean = false,
+    val list: List<UiPerson> = emptyList(),
 )

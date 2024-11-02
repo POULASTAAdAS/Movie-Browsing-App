@@ -58,6 +58,7 @@ import com.poulastaa.mflix.home.presentation.HomeRootScreen
 import com.poulastaa.mflix.home.presentation.HomeViewModel
 import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
 import com.poulastaa.mflix.profile.presentation.ProfileViewmodel
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CoreNavigation(
@@ -66,6 +67,13 @@ fun CoreNavigation(
     logOut: () -> Unit,
 ) {
     val navController = rememberNavController()
+
+    LaunchedEffect(navController.currentBackStackEntryFlow) {
+        navController.currentBackStackEntryFlow.collectLatest { backStack ->
+            viewmodel.update(
+                backStack.destination.route?.contains("Details").let { it?.not() ?: false })
+        }
+    }
 
     when {
         windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded -> {
@@ -118,7 +126,6 @@ private fun CommonContent(
                     windowSizeClass = windowSizeClass,
                     viewModel = homeViewModel,
                     navigateToDetails = { id, type ->
-                        viewmodel.makeNonVisible()
                         navController.navigate(AppScreen.Details(id, type))
                     },
                     navigateToSearch = {
@@ -136,7 +143,17 @@ private fun CommonContent(
                 )
             }
 
-            composable<AppScreen.Details> {
+            composable<AppScreen.Details>(
+                enterTransition = {
+                    fadeIn(animationSpec = tween(600)) +
+                            slideInVertically(animationSpec = tween(600), initialOffsetY = { it })
+                },
+                exitTransition = {
+                    fadeOut(animationSpec = tween(600)) +
+                            slideOutVertically(animationSpec = tween(600),
+                                targetOffsetY = { it })
+                }
+            ) {
                 val detailsViewModel = hiltViewModel<DetailsViewModel>()
                 val payload = it.toRoute<AppScreen.Details>()
 
@@ -147,8 +164,10 @@ private fun CommonContent(
                 DetailsRootScreen(
                     viewModel = detailsViewModel,
                     windowSizeClass = windowSizeClass,
+                    navigateToDetails = { id, type ->
+                        navController.navigate(AppScreen.Details(id, type))
+                    },
                     navigateBack = {
-                        viewmodel.makeVisible()
                         navController.popBackStack()
                     }
                 )

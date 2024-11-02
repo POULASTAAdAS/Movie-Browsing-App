@@ -60,6 +60,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.SearchIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
+import com.poulastaa.mflix.core.presentation.ui.RatingCard
 import com.poulastaa.mflix.home.presentation.components.HomeLoadingScreen
 import com.poulastaa.mflix.home.presentation.components.homeCommonContent
 import kotlinx.coroutines.flow.flowOf
@@ -74,7 +75,7 @@ fun HomeMediumScreen(
 ) {
     val scroll = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val config = LocalConfiguration.current
-    val cardHeight = (config.screenHeightDp - (config.screenHeightDp / 5.3)).dp
+    val cardHeight = (config.screenHeightDp - (config.screenHeightDp / 6.3)).dp
 
     Scaffold(
         modifier = Modifier
@@ -255,13 +256,12 @@ fun LazyGridScope.spotlightMediumCard(
                         fontWeight = FontWeight.Black,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.fillMaxWidth(.9f)
                     )
 
-                    Text( // todo change to icons
-                        text = "Rating: ${spotlight.rating}",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize
+                    RatingCard(
+                        rawRating = spotlight.rating.toFloat(),
+                        modifier = Modifier.size(60.dp),
                     )
                 }
 

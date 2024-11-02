@@ -34,7 +34,7 @@ import com.poulastaa.mflix.details.presentation.components.detailsSpotlight
 import com.poulastaa.mflix.home.presentation.components.PrevMoreItemCard
 
 @Composable
-fun DetailsSmallScreen(
+fun DetailsMediumScreen(
     state: DetailsUiState,
     recom: LazyPagingItems<UiPrevItem>,
     onAction: (DetailsUiAction) -> Unit,
@@ -50,7 +50,7 @@ fun DetailsSmallScreen(
         AnimatedContent(state.isDataLoaded, label = "details screen animation") {
             when (it) {
                 true -> LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
+                    columns = GridCells.Fixed(5),
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues),
@@ -66,7 +66,7 @@ fun DetailsSmallScreen(
                     item(
                         span = { GridItemSpan(maxLineSpan) }
                     ) {
-                        Spacer(Modifier.height(MaterialTheme.dimens.medium3))
+                        Spacer(Modifier.height(MaterialTheme.dimens.medium1))
                     }
 
                     if (state.collection.items.isNotEmpty()) collectionItems(
@@ -77,7 +77,7 @@ fun DetailsSmallScreen(
                     detailsLazyList(
                         title = R.string.cast_members,
                         list = state.cast,
-                        itemPadding = 4.dp,
+                        itemPadding = 6.dp,
                         onClick = {
                             onAction(DetailsUiAction.OnCastMemberClick(it))
                         },
@@ -94,7 +94,7 @@ fun DetailsSmallScreen(
                     detailsLazyList(
                         title = R.string.crew_members,
                         list = state.crew,
-                        itemPadding = 4.dp,
+                        itemPadding = 6.dp,
                         onClick = {
                             onAction(DetailsUiAction.OnCastMemberClick(it))
                         },

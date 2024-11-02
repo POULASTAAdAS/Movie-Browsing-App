@@ -28,15 +28,9 @@ class CoreViewmodel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun makeNonVisible() {
-        state = state.copy(
-            isVisible = false
-        )
-    }
-
-    fun makeVisible() {
-        state = state.copy(
-            isVisible = true
+    fun update(state: Boolean) {
+        this.state = this.state.copy(
+            isVisible = state
         )
     }
 }

@@ -30,4 +30,6 @@
     <string name="upcoming_tv">Upcoming Tv shows</string>
     <string name="crew_members">Crew members</string>
     <string name="cast_members">Cast members</string>
+    <string name="you_may_also_like">You may also like</string>
+    <string name="m">"m "</string>
 </resources>
