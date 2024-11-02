@@ -52,11 +52,11 @@ class OkHttpDetailsDataSource @Inject constructor(
 
     override suspend fun getRecommendation(
         list: String,
-        type: PrevItemType
+        type: PrevItemType,
     ): Flow<PagingData<PrevItem>> {
-        pager.init(list,type)
+        pager.init(list, type)
 
-        Log.d("called" , "called")
+        Log.d("called", "called")
 
         return Pager(
             config = PagingConfig(pageSize = 10),

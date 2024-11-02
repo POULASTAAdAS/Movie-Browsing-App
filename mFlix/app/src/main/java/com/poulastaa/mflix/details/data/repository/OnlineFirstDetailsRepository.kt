@@ -9,7 +9,6 @@ import com.poulastaa.mflix.core.domain.repository.details.DetailsRepository
 import com.poulastaa.mflix.core.domain.repository.details.RemoteDetailsDataSource
 import com.poulastaa.mflix.core.domain.utils.DataError
 import com.poulastaa.mflix.core.domain.utils.Result
-import com.poulastaa.mflix.home.network.model.PrevMovieWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

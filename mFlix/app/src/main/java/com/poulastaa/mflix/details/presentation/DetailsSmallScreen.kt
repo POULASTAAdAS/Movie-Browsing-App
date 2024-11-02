@@ -2,7 +2,6 @@ package com.poulastaa.mflix.details.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
@@ -15,23 +14,32 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
+import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
+import com.poulastaa.mflix.details.presentation.components.DetailsLoadingScreen
 import com.poulastaa.mflix.details.presentation.components.collectionItems
 import com.poulastaa.mflix.details.presentation.components.detailsItemDetails
 import com.poulastaa.mflix.details.presentation.components.detailsLazyList
 import com.poulastaa.mflix.details.presentation.components.detailsSpotlight
 import com.poulastaa.mflix.home.presentation.components.PrevMoreItemCard
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun DetailsSmallScreen(
@@ -42,6 +50,8 @@ fun DetailsSmallScreen(
 ) {
     val config = LocalConfiguration.current
     val cardHeight = (config.screenHeightDp - config.screenHeightDp / 3.1).dp
+
+    val haptic = LocalHapticFeedback.current
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -78,10 +88,11 @@ fun DetailsSmallScreen(
                         title = R.string.cast_members,
                         list = state.cast,
                         itemPadding = 4.dp,
-                        onClick = {
-                            onAction(DetailsUiAction.OnCastMemberClick(it))
+                        onClick = { id ->
+                            onAction(DetailsUiAction.OnPersonClick(id))
                         },
                         onViewDetailsClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             onAction(DetailsUiAction.OnCastMemberDetailsClick)
                         }
                     )
@@ -95,10 +106,11 @@ fun DetailsSmallScreen(
                         title = R.string.crew_members,
                         list = state.crew,
                         itemPadding = 4.dp,
-                        onClick = {
-                            onAction(DetailsUiAction.OnCastMemberClick(it))
+                        onClick = { id ->
+                            onAction(DetailsUiAction.OnPersonClick(id))
                         },
                         onViewDetailsClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             onAction(DetailsUiAction.OnCrewMemberDetailsClick)
                         }
                     )
@@ -149,8 +161,31 @@ fun DetailsSmallScreen(
                     }
                 }
 
-                false -> Column { }
+                false -> DetailsLoadingScreen(paddingValues, cardHeight)
             }
+        }
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun Preview() {
+    val dummyMoreItems = flowOf(
+        PagingData.from(
+            listOf<UiPrevItem>()
+        )
+    )
+
+    PrevThem {
+        Surface {
+            DetailsSmallScreen(
+                DetailsUiState(
+
+                ),
+                dummyMoreItems.collectAsLazyPagingItems(),
+                {},
+                {}
+            )
         }
     }
 }

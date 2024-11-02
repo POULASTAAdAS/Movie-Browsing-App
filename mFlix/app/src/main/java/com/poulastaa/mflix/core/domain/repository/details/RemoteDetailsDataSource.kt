@@ -16,7 +16,10 @@ interface RemoteDetailsDataSource {
     suspend fun getMovieCollection(id: Long): Result<MovieCollection, DataError.Network>
     suspend fun getMovieCastAndCrew(id: Long): Result<MovieCredits, DataError.Network>
 
-    suspend fun getRecommendation(list: String, type: PrevItemType = PrevItemType.MOVIE): Flow<PagingData<PrevItem>>
+    suspend fun getRecommendation(
+        list: String,
+        type: PrevItemType = PrevItemType.MOVIE,
+    ): Flow<PagingData<PrevItem>>
 
     suspend fun getTvShow(id: Long)
 }

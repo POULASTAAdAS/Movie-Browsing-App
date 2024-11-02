@@ -103,11 +103,7 @@ class DetailsViewModel @Inject constructor(
 
     fun onAction(action: DetailsUiAction) {
         when (action) {
-            is DetailsUiAction.OnCastMemberClick -> {
-
-            }
-
-            is DetailsUiAction.OnCrewMemberClick -> {
+            is DetailsUiAction.OnPersonClick -> {
 
             }
 
@@ -133,6 +129,14 @@ class DetailsViewModel @Inject constructor(
                 }
             }
 
+            DetailsUiAction.OnDetailsHide -> {
+                _state.update {
+                    it.copy(
+                        details = UiDetails()
+                    )
+                }
+            }
+
             is DetailsUiAction.OnItemClick -> {
                 viewModelScope.launch {
                     _uiState.send(
@@ -143,6 +147,7 @@ class DetailsViewModel @Inject constructor(
                     )
                 }
             }
+
         }
     }
 

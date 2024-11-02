@@ -1,17 +1,12 @@
 package com.poulastaa.mflix.home.presentation
 
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.poulastaa.mflix.R
-import com.poulastaa.mflix.core.domain.model.HomeDataType
-import com.poulastaa.mflix.core.domain.model.PrevItem
-import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
-import com.poulastaa.mflix.core.domain.model.UiPrevItemType
 import com.poulastaa.mflix.core.domain.model.UiUser
 import com.poulastaa.mflix.core.domain.repository.DataStoreRepository
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository

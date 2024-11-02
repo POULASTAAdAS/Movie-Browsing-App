@@ -34,9 +34,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -51,6 +53,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.ArrowDownIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.AppBackButton
 import com.poulastaa.mflix.core.presentation.ui.RatingCard
+import com.poulastaa.mflix.details.presentation.components.DetailsLoadingScreen
 import com.poulastaa.mflix.details.presentation.components.collectionItems
 import com.poulastaa.mflix.details.presentation.components.detailsLazyList
 import com.poulastaa.mflix.home.presentation.components.PrevMoreItemCard
@@ -64,6 +67,8 @@ fun DetailsSmallExpandedScreen(
 ) {
     val config = LocalConfiguration.current
     val cardHeight = (config.screenHeightDp - 20).dp
+
+    val haptic = LocalHapticFeedback.current
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -194,9 +199,10 @@ fun DetailsSmallExpandedScreen(
                         list = state.cast,
                         itemPadding = 6.dp,
                         onClick = {
-                            onAction(DetailsUiAction.OnCastMemberClick(it))
+                            onAction(DetailsUiAction.OnPersonClick(it))
                         },
                         onViewDetailsClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             onAction(DetailsUiAction.OnCastMemberDetailsClick)
                         }
                     )
@@ -211,9 +217,10 @@ fun DetailsSmallExpandedScreen(
                         list = state.crew,
                         itemPadding = 6.dp,
                         onClick = {
-                            onAction(DetailsUiAction.OnCastMemberClick(it))
+                            onAction(DetailsUiAction.OnPersonClick(it))
                         },
                         onViewDetailsClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             onAction(DetailsUiAction.OnCrewMemberDetailsClick)
                         }
                     )
@@ -264,7 +271,7 @@ fun DetailsSmallExpandedScreen(
                     }
                 }
 
-                false -> Column { }
+                false -> DetailsLoadingScreen(paddingValues, cardHeight)
             }
         }
     }

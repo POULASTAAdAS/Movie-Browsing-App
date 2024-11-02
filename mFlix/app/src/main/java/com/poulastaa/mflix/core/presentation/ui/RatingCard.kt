@@ -22,7 +22,7 @@ import java.util.Locale
 fun RatingCard(
     modifier: Modifier,
     rawRating: Float,
-    fontSize: TextUnit = MaterialTheme.typography.titleMedium.fontSize
+    fontSize: TextUnit = MaterialTheme.typography.titleMedium.fontSize,
 ) {
     val rating by animateFloatAsState(
         targetValue = rawRating,

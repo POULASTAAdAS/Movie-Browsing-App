@@ -30,13 +30,13 @@ fun ProfileRootScreen(
             )
         },
         expandedContent = {
-           if (config.screenWidthDp > 980)  ProfileExtendedScreen(
-               state = state,
-               onAction = viewmodel::onAction
-           )else  ProfileSmallExtendedScreen(
-               state = state,
-               onAction = viewmodel::onAction
-           )
+            if (config.screenWidthDp > 980) ProfileExtendedScreen(
+                state = state,
+                onAction = viewmodel::onAction
+            ) else ProfileSmallExtendedScreen(
+                state = state,
+                onAction = viewmodel::onAction
+            )
         }
     )
 }

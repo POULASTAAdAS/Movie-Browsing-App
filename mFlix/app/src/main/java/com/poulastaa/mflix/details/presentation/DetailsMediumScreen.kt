@@ -2,7 +2,6 @@ package com.poulastaa.mflix.details.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
@@ -13,12 +12,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -27,6 +29,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
+import com.poulastaa.mflix.details.presentation.components.DetailsLoadingScreen
 import com.poulastaa.mflix.details.presentation.components.collectionItems
 import com.poulastaa.mflix.details.presentation.components.detailsItemDetails
 import com.poulastaa.mflix.details.presentation.components.detailsLazyList
@@ -42,6 +45,8 @@ fun DetailsMediumScreen(
 ) {
     val config = LocalConfiguration.current
     val cardHeight = (config.screenHeightDp - config.screenHeightDp / 3.1).dp
+
+    val haptic = LocalHapticFeedback.current
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -79,9 +84,10 @@ fun DetailsMediumScreen(
                         list = state.cast,
                         itemPadding = 6.dp,
                         onClick = {
-                            onAction(DetailsUiAction.OnCastMemberClick(it))
+                            onAction(DetailsUiAction.OnPersonClick(it))
                         },
                         onViewDetailsClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             onAction(DetailsUiAction.OnCastMemberDetailsClick)
                         }
                     )
@@ -96,9 +102,10 @@ fun DetailsMediumScreen(
                         list = state.crew,
                         itemPadding = 6.dp,
                         onClick = {
-                            onAction(DetailsUiAction.OnCastMemberClick(it))
+                            onAction(DetailsUiAction.OnPersonClick(it))
                         },
                         onViewDetailsClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             onAction(DetailsUiAction.OnCrewMemberDetailsClick)
                         }
                     )
@@ -149,7 +156,7 @@ fun DetailsMediumScreen(
                     }
                 }
 
-                false -> Column { }
+                false -> DetailsLoadingScreen(paddingValues, cardHeight)
             }
         }
     }

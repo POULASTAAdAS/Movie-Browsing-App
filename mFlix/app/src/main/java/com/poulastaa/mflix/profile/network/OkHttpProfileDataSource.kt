@@ -7,9 +7,9 @@ import com.poulastaa.mflix.core.domain.repository.profile.RemoteProfileDatasourc
 import com.poulastaa.mflix.core.domain.utils.DataError
 import com.poulastaa.mflix.core.domain.utils.Result
 import com.poulastaa.mflix.core.domain.utils.map
-import com.poulastaa.mflix.home.network.toPrevItem
 import com.poulastaa.mflix.home.network.model.PrevMovieWrapper
 import com.poulastaa.mflix.home.network.model.PrevTvWrapper
+import com.poulastaa.mflix.home.network.toPrevItem
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
