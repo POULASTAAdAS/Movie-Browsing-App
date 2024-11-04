@@ -37,6 +37,7 @@ import com.poulastaa.mflix.details.presentation.components.DetailsLoadingScreen
 import com.poulastaa.mflix.details.presentation.components.collectionItems
 import com.poulastaa.mflix.details.presentation.components.detailsItemDetails
 import com.poulastaa.mflix.details.presentation.components.detailsLazyList
+import com.poulastaa.mflix.details.presentation.components.detailsReleaseDate
 import com.poulastaa.mflix.details.presentation.components.detailsSpotlight
 import com.poulastaa.mflix.home.presentation.components.PrevMoreItemCard
 import kotlinx.coroutines.flow.flowOf
@@ -72,6 +73,8 @@ fun DetailsSmallScreen(
                     )
 
                     detailsItemDetails(state.movie)
+
+                    detailsReleaseDate(state.movie.releaseDate)
 
                     item(
                         span = { GridItemSpan(maxLineSpan) }
@@ -166,6 +169,7 @@ fun DetailsSmallScreen(
         }
     }
 }
+
 
 @PreviewLightDark
 @Composable

@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -42,7 +41,6 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
@@ -52,8 +50,8 @@ import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.ArrowDownIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.AppBackButton
-import com.poulastaa.mflix.core.presentation.ui.RatingCard
 import com.poulastaa.mflix.details.presentation.components.DetailsLoadingScreen
+import com.poulastaa.mflix.details.presentation.components.ExtendedDetails
 import com.poulastaa.mflix.details.presentation.components.collectionItems
 import com.poulastaa.mflix.details.presentation.components.detailsLazyList
 import com.poulastaa.mflix.home.presentation.components.PrevMoreItemCard
@@ -146,37 +144,7 @@ fun DetailsSmallExpandedScreen(
                                             .padding(MaterialTheme.dimens.medium1),
                                         verticalArrangement = Arrangement.SpaceEvenly
                                     ) {
-                                        Row(
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Column(
-                                                modifier = Modifier.fillMaxWidth(.85f)
-                                            ) {
-                                                Text(
-                                                    text = state.movie.title,
-                                                    fontWeight = FontWeight.Black,
-                                                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
-                                                    maxLines = 1,
-                                                    overflow = TextOverflow.Ellipsis
-                                                )
-
-                                                Spacer(Modifier.height(MaterialTheme.dimens.small2))
-
-                                                Text(
-                                                    text = state.movie.overview,
-                                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                                    fontWeight = FontWeight.Light,
-                                                    maxLines = 5
-                                                )
-                                            }
-
-                                            Spacer(Modifier.weight(1f))
-
-                                            RatingCard(
-                                                modifier = Modifier.size(56.dp),
-                                                rawRating = state.movie.voteAverage
-                                            )
-                                        }
+                                        ExtendedDetails(state.movie)
                                     }
                                 }
                             }

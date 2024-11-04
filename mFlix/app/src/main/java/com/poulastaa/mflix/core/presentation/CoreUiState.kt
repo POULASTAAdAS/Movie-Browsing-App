@@ -9,6 +9,4 @@ data class CoreUiState(
 ) {
     val bottomBarScreen = if (screen == AppScreen.Home) BottomBarScreen.HOME
     else BottomBarScreen.PROFILE
-
-    val isBottomBarVisible = (screen == AppScreen.Home || screen == AppScreen.Profile) && isVisible
 }

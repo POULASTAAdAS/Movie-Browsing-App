@@ -34,6 +34,11 @@ sealed interface AppScreen {
     ) : AppScreen
 
     @Serializable
+    data class Person(
+        val id: Long,
+    ) : AppScreen
+
+    @Serializable
     data class Search(val type: SearchType) : AppScreen
 
     enum class SearchType {

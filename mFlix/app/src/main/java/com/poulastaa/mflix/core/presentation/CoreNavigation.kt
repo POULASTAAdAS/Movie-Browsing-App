@@ -1,6 +1,8 @@
 package com.poulastaa.mflix.core.presentation
 
+import android.content.Context
 import android.provider.Settings
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -10,6 +12,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -56,6 +59,8 @@ import com.poulastaa.mflix.details.presentation.DetailsRootScreen
 import com.poulastaa.mflix.details.presentation.DetailsViewModel
 import com.poulastaa.mflix.home.presentation.HomeRootScreen
 import com.poulastaa.mflix.home.presentation.HomeViewModel
+import com.poulastaa.mflix.person.PersonRootScreen
+import com.poulastaa.mflix.person.PersonViewModel
 import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
 import com.poulastaa.mflix.profile.presentation.ProfileViewmodel
 import kotlinx.coroutines.flow.collectLatest
@@ -71,7 +76,10 @@ fun CoreNavigation(
     LaunchedEffect(navController.currentBackStackEntryFlow) {
         navController.currentBackStackEntryFlow.collectLatest { backStack ->
             viewmodel.update(
-                backStack.destination.route?.contains("Details").let { it?.not() ?: false })
+                state = backStack.destination.route?.contains("Details")?.not() ?: false &&
+                        backStack.destination.route?.contains("Person")?.not() ?: false &&
+                        backStack.destination.route?.contains("Search")?.not() ?: false
+            )
         }
     }
 
@@ -167,6 +175,31 @@ private fun CommonContent(
                     navigateToDetails = { id, type ->
                         navController.navigate(AppScreen.Details(id, type))
                     },
+                    navigateToPerson = { id ->
+                        navController.navigate(AppScreen.Person(id))
+                    },
+                    navigateBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            composable<AppScreen.Person> {
+                val personViewModel = hiltViewModel<PersonViewModel>()
+                val payload = it.toRoute<AppScreen.Person>()
+
+                LaunchedEffect(payload) {
+                    personViewModel.loadData(payload.id)
+                }
+
+                Log.d("personId", payload.id.toString())
+
+                PersonRootScreen(
+                    viewModel = personViewModel,
+                    windowSizeClass = windowSizeClass,
+                    navigateToDetails = { id, type ->
+                        navController.navigate(AppScreen.Details(id, type))
+                    },
                     navigateBack = {
                         navController.popBackStack()
                     }
@@ -174,38 +207,47 @@ private fun CommonContent(
             }
         }
 
-        AnimatedVisibility(
-            viewmodel.state.isBottomBarVisible &&
-                    windowSizeClass.widthSizeClass != WindowWidthSizeClass.Expanded,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = MaterialTheme.dimens.medium3)
-                .then(
-                    if (Settings.Secure.getInt(
-                            context.contentResolver,
-                            "navigation_mode",
-                            0
-                        ) == 2
-                    ) Modifier.padding(bottom = MaterialTheme.dimens.medium3)
-                    else Modifier
-                )
-                .navigationBarsPadding(),
-            enter = fadeIn(animationSpec = tween(600)) +
-                    slideInVertically(animationSpec = tween(600), initialOffsetY = { it }),
-            exit = fadeOut(animationSpec = tween(600)) +
-                    slideOutVertically(animationSpec = tween(600),
-                        targetOffsetY = { it })
-        ) {
-            AppBottomBar(
-                screen = viewmodel.state.bottomBarScreen,
-                modifier = Modifier
-                    .fillMaxWidth(
-                        if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Medium) .65f else 1f
-                    )
-                    .padding(horizontal = MaterialTheme.dimens.medium1),
-                onClick = viewmodel::changeScreen
+        AnimatedBottomBar(viewmodel, windowSizeClass, context)
+    }
+}
+
+@Composable
+private fun BoxScope.AnimatedBottomBar(
+    viewmodel: CoreViewmodel,
+    windowSizeClass: WindowSizeClass,
+    context: Context,
+) {
+    AnimatedVisibility(
+        viewmodel.state.isVisible &&
+                windowSizeClass.widthSizeClass != WindowWidthSizeClass.Expanded,
+        modifier = Modifier.Companion
+            .align(Alignment.BottomCenter)
+            .padding(horizontal = MaterialTheme.dimens.medium3)
+            .then(
+                if (Settings.Secure.getInt(
+                        context.contentResolver,
+                        "navigation_mode",
+                        0
+                    ) == 2
+                ) Modifier.padding(bottom = MaterialTheme.dimens.medium3)
+                else Modifier
             )
-        }
+            .navigationBarsPadding(),
+        enter = fadeIn(animationSpec = tween(600)) +
+                slideInVertically(animationSpec = tween(600), initialOffsetY = { it }),
+        exit = fadeOut(animationSpec = tween(600)) +
+                slideOutVertically(animationSpec = tween(600),
+                    targetOffsetY = { it })
+    ) {
+        AppBottomBar(
+            screen = viewmodel.state.bottomBarScreen,
+            modifier = Modifier
+                .fillMaxWidth(
+                    if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Medium) .65f else 1f
+                )
+                .padding(horizontal = MaterialTheme.dimens.medium1),
+            onClick = viewmodel::changeScreen
+        )
     }
 }
 

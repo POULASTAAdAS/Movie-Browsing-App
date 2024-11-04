@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,6 +32,7 @@ import com.poulastaa.mflix.details.presentation.components.DetailsLoadingScreen
 import com.poulastaa.mflix.details.presentation.components.collectionItems
 import com.poulastaa.mflix.details.presentation.components.detailsItemDetails
 import com.poulastaa.mflix.details.presentation.components.detailsLazyList
+import com.poulastaa.mflix.details.presentation.components.detailsReleaseDate
 import com.poulastaa.mflix.details.presentation.components.detailsSpotlight
 import com.poulastaa.mflix.home.presentation.components.PrevMoreItemCard
 
@@ -67,6 +67,8 @@ fun DetailsMediumScreen(
                     )
 
                     detailsItemDetails(state.movie)
+
+                    detailsReleaseDate(state.movie.releaseDate)
 
                     item(
                         span = { GridItemSpan(maxLineSpan) }

@@ -104,7 +104,9 @@ class DetailsViewModel @Inject constructor(
     fun onAction(action: DetailsUiAction) {
         when (action) {
             is DetailsUiAction.OnPersonClick -> {
-
+                viewModelScope.launch {
+                    _uiState.send(DetailsUiEvent.NavigateToPerson(action.id))
+                }
             }
 
             DetailsUiAction.OnCastMemberDetailsClick -> {

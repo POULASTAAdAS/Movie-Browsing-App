@@ -51,6 +51,7 @@ fun DetailsRootScreen(
     viewModel: DetailsViewModel,
     windowSizeClass: WindowSizeClass,
     navigateToDetails: (Long, PrevItemType) -> Unit,
+    navigateToPerson: (Long) -> Unit,
     navigateBack: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -64,9 +65,10 @@ fun DetailsRootScreen(
     }
 
 
-    ObserveAsEvent(viewModel.uiState) {
-        when (it) {
-            is DetailsUiEvent.NavigateToDetails -> navigateToDetails(it.id, it.type)
+    ObserveAsEvent(viewModel.uiState) { event ->
+        when (event) {
+            is DetailsUiEvent.NavigateToDetails -> navigateToDetails(event.id, event.type)
+            is DetailsUiEvent.NavigateToPerson -> navigateToPerson(event.id)
         }
     }
 
