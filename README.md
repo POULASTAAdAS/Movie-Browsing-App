@@ -24,16 +24,21 @@ mFlix is a movie browsing navite android application build using jetpack compose
 
 # Preview
 
-## Mobile
-
-[![Auth Preview](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/auth_mFlix.gif)](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/auth_mFlix.gif)
-[![Home Preview](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/home_mFlix.gif)](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/home_mFlix.gif)
-[![Preview](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif)](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif)
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/auth_mFlix.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/auth_mFlix.gif" width="200" height="400" alt="Auth Preview">
+</a>
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/home_mFlix.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/home_mFlix.gif" width="200" height="400" alt="Home Preview">
+</a>
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif" width="200" height="400" alt="Preview">
+</a>
 
 ## Tab
 
-[![Home Preview](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif)](https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif)
-
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif" width="300" height="300" alt="Tab Home Preview">
+</a>
 # Setup
 
 - Create an app on [Google Cloud Platform](https://console.cloud.google.com/welcome)
