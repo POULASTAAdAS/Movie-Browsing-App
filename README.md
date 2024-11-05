@@ -39,7 +39,8 @@ mFlix is a movie browsing navite android application build using jetpack compose
 <a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif">
     <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif" width="300" height="300" alt="Tab Home Preview">
 </a>
-# Setup
+
+## Setup
 
 - Create an app on [Google Cloud Platform](https://console.cloud.google.com/welcome)
 - add web and android OAuth Key
