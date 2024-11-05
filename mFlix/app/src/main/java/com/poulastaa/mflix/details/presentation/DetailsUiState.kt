@@ -9,8 +9,8 @@ data class DetailsUiState(
 
     val movie: UiMovieDetails = UiMovieDetails(),
     val collection: UiMovieCollection = UiMovieCollection(),
-    val cast: List<UiPerson> = emptyList(),
-    val crew: List<UiPerson> = emptyList(),
+    val cast: List<DetailsUiPerson> = emptyList(),
+    val crew: List<DetailsUiPerson> = emptyList(),
 
     val details: UiDetails = UiDetails(),
 ) {
@@ -39,7 +39,7 @@ data class UiMovieProductionCompany(
     val name: String = "",
 )
 
-data class UiPerson(
+data class DetailsUiPerson(
     val id: Long = -1,
     val name: String = "",
     val profilePath: String = "",
@@ -73,5 +73,5 @@ data class UiGenre(
 
 data class UiDetails(
     val isDetailsVisible: Boolean = false,
-    val list: List<UiPerson> = emptyList(),
+    val list: List<DetailsUiPerson> = emptyList(),
 )

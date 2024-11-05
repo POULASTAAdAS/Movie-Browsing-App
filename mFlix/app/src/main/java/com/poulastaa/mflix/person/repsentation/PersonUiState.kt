@@ -1,6 +1,7 @@
-package com.poulastaa.mflix.person
+package com.poulastaa.mflix.person.repsentation
 
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
+import com.poulastaa.mflix.person.data.model.UiGenderType
 
 data class PersonUiState(
     val person: UiPerson = UiPerson(),
@@ -13,10 +14,10 @@ data class UiPerson(
     val id: Long = -1,
     val name: String = "",
     val coverImage: String = "",
-    val birthDay: String = "",
-    val deathDay: String = "",
-    val gender: String = "",
-    val birthPlace: String = "",
+    val birthDay: String? = null,
+    val deathDay: String? = null,
+    val gender: UiGenderType = UiGenderType.MALE,
+    val birthPlace: String? = null,
     val popularity: Float = 0f,
     val role: String = "",
 )

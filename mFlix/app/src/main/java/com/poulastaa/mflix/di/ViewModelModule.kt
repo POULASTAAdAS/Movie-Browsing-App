@@ -9,6 +9,8 @@ import com.poulastaa.mflix.core.domain.repository.details.DetailsRepository
 import com.poulastaa.mflix.core.domain.repository.details.RemoteDetailsDataSource
 import com.poulastaa.mflix.core.domain.repository.home.HomeRepository
 import com.poulastaa.mflix.core.domain.repository.home.RemoteHomeDataSource
+import com.poulastaa.mflix.core.domain.repository.person.PersonRepository
+import com.poulastaa.mflix.core.domain.repository.person.RemotePersonDataSource
 import com.poulastaa.mflix.core.domain.repository.profile.ProfileRepository
 import com.poulastaa.mflix.core.domain.repository.profile.RemoteProfileDatasource
 import com.poulastaa.mflix.details.data.repository.OnlineFirstDetailsRepository
@@ -17,6 +19,8 @@ import com.poulastaa.mflix.details.network.OkHttpDetailsDataSource
 import com.poulastaa.mflix.home.data.repository.OnlineFirstHomeRepository
 import com.poulastaa.mflix.home.network.HomeMorePagerSource
 import com.poulastaa.mflix.home.network.OkHttpRemoteHomeDataSource
+import com.poulastaa.mflix.person.data.repository.OnlineFirstPersonRepository
+import com.poulastaa.mflix.person.network.OkHttpPersonDataSource
 import com.poulastaa.mflix.profile.data.OfflineFirstProfileRepository
 import com.poulastaa.mflix.profile.network.OkHttpProfileDataSource
 import dagger.Module
@@ -105,4 +109,17 @@ object ViewModelModule {
         remote: RemoteDetailsDataSource,
         scope: CoroutineScope,
     ): DetailsRepository = OnlineFirstDetailsRepository(remote, scope)
+
+    @Provides
+    @ViewModelScoped
+    fun providePersonRemoteDataSource(
+        client: OkHttpClient,
+    ): RemotePersonDataSource = OkHttpPersonDataSource(client)
+
+    @Provides
+    @ViewModelScoped
+    fun providePersonRepository(
+        remote: RemotePersonDataSource,
+        scope: CoroutineScope,
+    ): PersonRepository = OnlineFirstPersonRepository(remote, scope)
 }

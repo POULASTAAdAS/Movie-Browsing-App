@@ -2,7 +2,6 @@ package com.poulastaa.mflix.core.presentation
 
 import android.content.Context
 import android.provider.Settings
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -59,8 +58,8 @@ import com.poulastaa.mflix.details.presentation.DetailsRootScreen
 import com.poulastaa.mflix.details.presentation.DetailsViewModel
 import com.poulastaa.mflix.home.presentation.HomeRootScreen
 import com.poulastaa.mflix.home.presentation.HomeViewModel
-import com.poulastaa.mflix.person.PersonRootScreen
-import com.poulastaa.mflix.person.PersonViewModel
+import com.poulastaa.mflix.person.repsentation.PersonRootScreen
+import com.poulastaa.mflix.person.repsentation.PersonViewModel
 import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
 import com.poulastaa.mflix.profile.presentation.ProfileViewmodel
 import kotlinx.coroutines.flow.collectLatest
@@ -184,15 +183,16 @@ private fun CommonContent(
                 )
             }
 
-            composable<AppScreen.Person> {
+            composable<AppScreen.Person>(
+                enterTransition = { fadeIn(animationSpec = tween(400))  +  slideInVertically(animationSpec = tween(400)) },
+                exitTransition = { fadeOut(tween(400)) + slideOutVertically(tween(400)) }
+            ) {
                 val personViewModel = hiltViewModel<PersonViewModel>()
                 val payload = it.toRoute<AppScreen.Person>()
 
                 LaunchedEffect(payload) {
                     personViewModel.loadData(payload.id)
                 }
-
-                Log.d("personId", payload.id.toString())
 
                 PersonRootScreen(
                     viewModel = personViewModel,

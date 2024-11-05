@@ -36,4 +36,12 @@ sealed class EndPoints(val route: String) {
         val page: Int,
         val includeAdults: Boolean,
     ) : EndPoints(route = "/discover/movie?include_adult=$includeAdults&include_video=false&language=en-US&page=$page&primary_release_year=${LocalDate.now().year}&sort_by=popularity.desc&with_genres=$list")
+
+    data class PersonDetails(
+        val id: Long,
+    ) : EndPoints(route = "/person/$id?language=en-US")
+
+    data class PersonCombineCredit(
+        val id: Long,
+    ) : EndPoints(route = "/person/$id/combined_credits?language=en-US")
 }

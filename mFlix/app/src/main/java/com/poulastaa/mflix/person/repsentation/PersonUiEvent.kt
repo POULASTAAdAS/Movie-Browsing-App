@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.person
+package com.poulastaa.mflix.person.repsentation
 
 import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.presentation.designsystem.repository.UiText

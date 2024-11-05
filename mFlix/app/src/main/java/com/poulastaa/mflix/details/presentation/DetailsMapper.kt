@@ -49,7 +49,7 @@ fun CollectionItem.toUiCollectionItem() = UiCollectionItem(
 )
 
 
-fun Person.toUiPerson() = UiPerson(
+fun Person.toUiPerson() = DetailsUiPerson(
     id = id,
     name = name,
     profilePath = profilePath ?: "",

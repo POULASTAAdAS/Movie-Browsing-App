@@ -1,4 +1,4 @@
-package com.poulastaa.mflix.person
+package com.poulastaa.mflix.person.repsentation
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -7,9 +7,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
-import com.poulastaa.mflix.profile.presentation.ProfileExtendedScreen
-import com.poulastaa.mflix.profile.presentation.ProfileSmallExtendedScreen
-import com.poulastaa.mflix.profile.presentation.ProfileSmallScreen
 
 @Composable
 fun PersonRootScreen(
@@ -24,10 +21,18 @@ fun PersonRootScreen(
     AppScreenWindowSize(
         windowSizeClass = windowSizeClass,
         compactContent = {
-
+            PersonCompactScreen(
+                state = state,
+                onAction = viewModel::onAction,
+                navigateBack = navigateBack
+            )
         },
         mediumContent = {
-
+            PersonCompactScreen(
+                state = state,
+                onAction = viewModel::onAction,
+                navigateBack = navigateBack
+            )
         },
         expandedContent = {
 

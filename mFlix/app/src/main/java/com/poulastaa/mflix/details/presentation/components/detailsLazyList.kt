@@ -37,11 +37,11 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.poulastaa.mflix.core.presentation.designsystem.theme.DoubleArrowIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
-import com.poulastaa.mflix.details.presentation.UiPerson
+import com.poulastaa.mflix.details.presentation.DetailsUiPerson
 
 fun LazyGridScope.detailsLazyList(
     @StringRes title: Int,
-    list: List<UiPerson>,
+    list: List<DetailsUiPerson>,
     itemPadding: Dp,
     onClick: (id: Long) -> Unit,
     onViewDetailsClick: () -> Unit,
