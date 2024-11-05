@@ -32,13 +32,13 @@ class PersonViewModel @Inject constructor(
             initialValue = PersonUiState()
         )
 
-    private var _uiState = Channel<PersonUiEvent>()
-    val uiState = _uiState.receiveAsFlow()
+    private var _uiEvent = Channel<PersonUiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onAction(action: PersonUiAction) {
         when (action) {
             is PersonUiAction.OnItemClick -> viewModelScope.launch {
-                _uiState.send(PersonUiEvent.NavigateToDetails(action.id, action.type.toPrevItemType()))
+                _uiEvent.send(PersonUiEvent.NavigateToDetails(action.id, action.type.toPrevItemType()))
             }
         }
     }
@@ -48,13 +48,13 @@ class PersonViewModel @Inject constructor(
             when (val result = repo.getData(personId)) {
                 is Result.Error -> {
                     when (result.error) {
-                        DataError.Network.NO_INTERNET -> _uiState.send(
+                        DataError.Network.NO_INTERNET -> _uiEvent.send(
                             PersonUiEvent.EmitToast(
                                 UiText.StringResource(R.string.error_no_internet)
                             )
                         )
 
-                        else -> _uiState.send(
+                        else -> _uiEvent.send(
                             PersonUiEvent.EmitToast(
                                 UiText.StringResource(
                                     R.string.error_something_went_wrong

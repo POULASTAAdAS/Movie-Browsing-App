@@ -64,6 +64,8 @@ import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
 import com.poulastaa.mflix.profile.presentation.ProfileViewmodel
 import kotlinx.coroutines.flow.collectLatest
 
+const val DEFAULT_ANIMATION_TIME = 600
+
 @Composable
 fun CoreNavigation(
     windowSizeClass: WindowSizeClass,
@@ -152,12 +154,14 @@ private fun CommonContent(
 
             composable<AppScreen.Details>(
                 enterTransition = {
-                    fadeIn(animationSpec = tween(600)) +
-                            slideInVertically(animationSpec = tween(600), initialOffsetY = { it })
+                    fadeIn(animationSpec = tween(DEFAULT_ANIMATION_TIME)) +
+                            slideInVertically(
+                                animationSpec = tween(DEFAULT_ANIMATION_TIME),
+                                initialOffsetY = { it })
                 },
                 exitTransition = {
-                    fadeOut(animationSpec = tween(600)) +
-                            slideOutVertically(animationSpec = tween(600),
+                    fadeOut(animationSpec = tween(DEFAULT_ANIMATION_TIME)) +
+                            slideOutVertically(animationSpec = tween(DEFAULT_ANIMATION_TIME),
                                 targetOffsetY = { it })
                 }
             ) {
@@ -184,8 +188,18 @@ private fun CommonContent(
             }
 
             composable<AppScreen.Person>(
-                enterTransition = { fadeIn(animationSpec = tween(400))  +  slideInVertically(animationSpec = tween(400)) },
-                exitTransition = { fadeOut(tween(400)) + slideOutVertically(tween(400)) }
+                enterTransition = {
+                    fadeIn(animationSpec = tween(DEFAULT_ANIMATION_TIME)) + slideInVertically(
+                        animationSpec = tween(DEFAULT_ANIMATION_TIME)
+                    )
+                },
+                exitTransition = {
+                    fadeOut(tween(DEFAULT_ANIMATION_TIME)) + slideOutVertically(
+                        tween(
+                            DEFAULT_ANIMATION_TIME
+                        )
+                    )
+                }
             ) {
                 val personViewModel = hiltViewModel<PersonViewModel>()
                 val payload = it.toRoute<AppScreen.Person>()
@@ -233,10 +247,12 @@ private fun BoxScope.AnimatedBottomBar(
                 else Modifier
             )
             .navigationBarsPadding(),
-        enter = fadeIn(animationSpec = tween(600)) +
-                slideInVertically(animationSpec = tween(600), initialOffsetY = { it }),
-        exit = fadeOut(animationSpec = tween(600)) +
-                slideOutVertically(animationSpec = tween(600),
+        enter = fadeIn(animationSpec = tween(DEFAULT_ANIMATION_TIME)) +
+                slideInVertically(
+                    animationSpec = tween(DEFAULT_ANIMATION_TIME),
+                    initialOffsetY = { it }),
+        exit = fadeOut(animationSpec = tween(DEFAULT_ANIMATION_TIME)) +
+                slideOutVertically(animationSpec = tween(DEFAULT_ANIMATION_TIME),
                     targetOffsetY = { it })
     ) {
         AppBottomBar(
