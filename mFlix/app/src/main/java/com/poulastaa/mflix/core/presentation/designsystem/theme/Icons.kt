@@ -3,8 +3,10 @@ package com.poulastaa.mflix.core.presentation.designsystem.theme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -62,9 +64,13 @@ val FavoriteFillIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_favorite_fill)
 
-val SearchIcon: ImageVector
+val LargeSearchIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_search)
+
+val SmallSearchIcon: ImageVector
+    @Composable
+    get() = Icons.Rounded.Search
 
 val EditIcon: ImageVector
     @Composable
@@ -116,3 +122,16 @@ val PopularIcon: ImageVector
 val DoubleArrowIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_double_arrow)
+
+
+val CloseIcon: ImageVector
+    @Composable
+    get() = Icons.Rounded.Clear
+
+val GridIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_grid)
+
+val ListIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_list)

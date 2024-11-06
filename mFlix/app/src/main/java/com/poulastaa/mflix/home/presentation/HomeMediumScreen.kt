@@ -58,7 +58,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteEmptyIco
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteFillIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
-import com.poulastaa.mflix.core.presentation.designsystem.theme.SearchIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.LargeSearchIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.RatingCard
 import com.poulastaa.mflix.home.presentation.components.HomeLoadingScreen
@@ -194,7 +194,7 @@ fun LazyGridScope.spotlightMediumCard(
                             }
                         ) {
                             Icon(
-                                imageVector = SearchIcon,
+                                imageVector = LargeSearchIcon,
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.primary,
                             )

@@ -27,6 +27,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
 
+private const val LIVE_TIME = 6_00_000L
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val ds: DataStoreRepository,
@@ -41,7 +43,7 @@ class HomeViewModel @Inject constructor(
         }
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(6_00_000),
+            started = SharingStarted.WhileSubscribed(LIVE_TIME),
             initialValue = HomeUiState(),
         )
 
@@ -57,7 +59,7 @@ class HomeViewModel @Inject constructor(
         }
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(LIVE_TIME),
             initialValue = PagingData.empty()
         )
 

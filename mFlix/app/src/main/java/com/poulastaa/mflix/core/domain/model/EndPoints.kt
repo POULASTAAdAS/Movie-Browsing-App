@@ -44,4 +44,17 @@ sealed class EndPoints(val route: String) {
     data class PersonCombineCredit(
         val id: Long,
     ) : EndPoints(route = "/person/$id/combined_credits?language=en-US")
+
+    data class Search(
+        val page: Int,
+        val query: String,
+        val includeAdult: Boolean,
+        val type: String,
+    ) : EndPoints(route = "/search/$type?query=$query&include_adult=$includeAdult&language=en-US&page=$page") {
+        enum class SearchType(val type: String) {
+            MOVIE("movie"),
+            TV("tv"),
+            ALL("multi")
+        }
+    }
 }

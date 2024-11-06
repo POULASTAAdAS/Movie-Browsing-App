@@ -13,6 +13,8 @@ import com.poulastaa.mflix.core.domain.repository.person.PersonRepository
 import com.poulastaa.mflix.core.domain.repository.person.RemotePersonDataSource
 import com.poulastaa.mflix.core.domain.repository.profile.ProfileRepository
 import com.poulastaa.mflix.core.domain.repository.profile.RemoteProfileDatasource
+import com.poulastaa.mflix.core.domain.repository.search.RemoteSearchDatasource
+import com.poulastaa.mflix.core.domain.repository.search.SearchRepository
 import com.poulastaa.mflix.details.data.repository.OnlineFirstDetailsRepository
 import com.poulastaa.mflix.details.network.DetailsRecomPagerSource
 import com.poulastaa.mflix.details.network.OkHttpDetailsDataSource
@@ -23,6 +25,9 @@ import com.poulastaa.mflix.person.data.repository.OnlineFirstPersonRepository
 import com.poulastaa.mflix.person.network.OkHttpPersonDataSource
 import com.poulastaa.mflix.profile.data.OfflineFirstProfileRepository
 import com.poulastaa.mflix.profile.network.OkHttpProfileDataSource
+import com.poulastaa.mflix.search.data.OnlineFirstSearchRepository
+import com.poulastaa.mflix.search.network.OkHttpSearchDataSource
+import com.poulastaa.mflix.search.network.SearchPagerSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -122,4 +127,23 @@ object ViewModelModule {
         remote: RemotePersonDataSource,
         scope: CoroutineScope,
     ): PersonRepository = OnlineFirstPersonRepository(remote, scope)
+
+    @Provides
+    @ViewModelScoped
+    fun provideSearchPagerSource(
+        client: OkHttpClient,
+        ds: DataStoreRepository,
+    ): SearchPagerSource = SearchPagerSource(client, ds)
+
+    @Provides
+    @ViewModelScoped
+    fun provideSearchRemoteDataSource(
+        page: SearchPagerSource,
+    ): RemoteSearchDatasource = OkHttpSearchDataSource(page)
+
+    @Provides
+    @ViewModelScoped
+    fun provideSearchRepository(
+        remote: RemoteSearchDatasource,
+    ): SearchRepository = OnlineFirstSearchRepository(remote)
 }

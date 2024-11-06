@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.poulastaa.mflix.core.domain.model.PrevItemType
+import com.poulastaa.mflix.core.navigation.AppScreen
 import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
 import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 
@@ -17,10 +18,11 @@ fun HomeRootScreen(
     windowSizeClass: WindowSizeClass,
     viewModel: HomeViewModel,
     navigateToDetails: (Long, PrevItemType) -> Unit,
-    navigateToSearch: () -> Unit,
+    navigateToSearch: (type: AppScreen.SearchType) -> Unit,
 ) {
     val context = LocalContext.current
     val config = LocalConfiguration.current
+
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     ObserveAsEvent(viewModel.uiEvent) { event ->
@@ -33,7 +35,15 @@ fun HomeRootScreen(
 
             is HomeUiEvent.NavigateToDetails -> navigateToDetails(event.id, event.type)
 
-            HomeUiEvent.NavigateToSearch -> navigateToSearch()
+            HomeUiEvent.NavigateToSearch -> {
+                val searchType = when (state.filterType) {
+                    UiHomeFilterType.ALL -> AppScreen.SearchType.ALL
+                    UiHomeFilterType.MOVIE -> AppScreen.SearchType.MOVIE
+                    UiHomeFilterType.TV -> AppScreen.SearchType.TV_SHOW
+                }
+
+                navigateToSearch(searchType)
+            }
         }
     }
 

@@ -43,6 +43,7 @@ sealed interface AppScreen {
 
     enum class SearchType {
         MOVIE,
-        TV_SHOW
+        TV_SHOW,
+        ALL
     }
 }

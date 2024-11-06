@@ -52,7 +52,7 @@ import coil.request.ImageRequest
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
-import com.poulastaa.mflix.core.presentation.designsystem.theme.SearchIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.LargeSearchIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.PrevItemCard
 import com.poulastaa.mflix.home.presentation.HomeUiAction
@@ -100,7 +100,7 @@ fun ExpandedTopBar(
                     }
                 ) {
                     Icon(
-                        imageVector = SearchIcon,
+                        imageVector = LargeSearchIcon,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary,
                     )

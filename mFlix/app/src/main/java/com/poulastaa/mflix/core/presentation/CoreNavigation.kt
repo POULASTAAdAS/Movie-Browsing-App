@@ -62,6 +62,8 @@ import com.poulastaa.mflix.person.repsentation.PersonRootScreen
 import com.poulastaa.mflix.person.repsentation.PersonViewModel
 import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
 import com.poulastaa.mflix.profile.presentation.ProfileViewmodel
+import com.poulastaa.mflix.search.presentation.SearchRootScreen
+import com.poulastaa.mflix.search.presentation.SearchViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 const val DEFAULT_ANIMATION_TIME = 600
@@ -138,7 +140,7 @@ private fun CommonContent(
                         navController.navigate(AppScreen.Details(id, type))
                     },
                     navigateToSearch = {
-
+                        navController.navigate(AppScreen.Search(it))
                     }
                 )
             }
@@ -213,6 +215,26 @@ private fun CommonContent(
                     windowSizeClass = windowSizeClass,
                     navigateToDetails = { id, type ->
                         navController.navigate(AppScreen.Details(id, type))
+                    },
+                    navigateBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            composable<AppScreen.Search> {
+                val type = it.toRoute<AppScreen.Search>().type
+                val searchViewmodel = hiltViewModel<SearchViewModel>()
+
+                LaunchedEffect(type) {
+                    searchViewmodel.updateSearchType(type)
+                }
+
+                SearchRootScreen(
+                    viewModel = searchViewmodel,
+                    windowSizeClass = windowSizeClass,
+                    navigateToDetails = { id, t ->
+                        navController.navigate(AppScreen.Details(id, t))
                     },
                     navigateBack = {
                         navController.popBackStack()
