@@ -235,9 +235,6 @@ private fun CommonContent(
                     windowSizeClass = windowSizeClass,
                     navigateToDetails = { id, t ->
                         navController.navigate(AppScreen.Details(id, t))
-                    },
-                    navigateBack = {
-                        navController.popBackStack()
                     }
                 )
             }
