@@ -232,7 +232,6 @@ private fun CommonContent(
 
                 SearchRootScreen(
                     viewModel = searchViewmodel,
-                    windowSizeClass = windowSizeClass,
                     navigateToDetails = { id, t ->
                         navController.navigate(AppScreen.Details(id, t))
                     }

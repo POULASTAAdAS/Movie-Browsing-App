@@ -72,13 +72,10 @@ import kotlinx.coroutines.flow.flowOf
 
 @Stable
 @Composable
-fun getGridSize(window: WindowWidthSizeClass): Int {
-
-    return when (window) {
-        WindowWidthSizeClass.Medium -> 5
-        WindowWidthSizeClass.Expanded -> 6
-        else -> 3
-    }
+fun getGridSize(window: WindowWidthSizeClass): Int = when (window) {
+    WindowWidthSizeClass.Medium -> 5
+    WindowWidthSizeClass.Expanded -> 6
+    else -> 3
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)

@@ -8,12 +8,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.poulastaa.mflix.core.domain.model.PrevItemType
-import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
 import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 
 @Composable
 fun SearchRootScreen(
-    windowSizeClass: WindowSizeClass,
     viewModel: SearchViewModel,
     navigateToDetails: (Long, PrevItemType) -> Unit,
 ) {
@@ -33,28 +31,9 @@ fun SearchRootScreen(
         }
     }
 
-    AppScreenWindowSize(
-        windowSizeClass = windowSizeClass,
-        compactContent = {
-            SearchScreen(
-                state = state,
-                data = data,
-                onAction = viewModel::onAction,
-            )
-        },
-        mediumContent = {
-            SearchScreen(
-                state = state,
-                data = data,
-                onAction = viewModel::onAction,
-            )
-        },
-        expandedContent = {
-            SearchScreen(
-                state = state,
-                data = data,
-                onAction = viewModel::onAction,
-            )
-        }
+    SearchScreen(
+        state = state,
+        data = data,
+        onAction = viewModel::onAction,
     )
 }

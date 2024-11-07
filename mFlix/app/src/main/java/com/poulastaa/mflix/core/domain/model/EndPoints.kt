@@ -57,4 +57,6 @@ sealed class EndPoints(val route: String) {
             ALL("multi")
         }
     }
+
+    data object Proxy : EndPoints(route = "/tmdb/proxy")
 }
