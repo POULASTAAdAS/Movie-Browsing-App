@@ -98,7 +98,9 @@ fun HomeExpandedScreen(
                                         .fillMaxWidth()
                                         .height(cardHeight)
                                 ) {
-                                    ExpandedSpotlight(state)
+                                    ExpandedSpotlight(state.spotLight) {
+                                        onAction(it)
+                                    }
 
                                     Column(
                                         modifier = Modifier

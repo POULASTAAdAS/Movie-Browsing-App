@@ -3,6 +3,7 @@ package com.poulastaa.mflix.home.presentation.components
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -51,11 +52,12 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
-import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.LargeSearchIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.PrevItemCard
 import com.poulastaa.mflix.home.presentation.HomeUiAction
+import com.poulastaa.mflix.home.presentation.HomeUiEvent
 import com.poulastaa.mflix.home.presentation.HomeUiState
 import com.poulastaa.mflix.home.presentation.UiHomeFilterType
 
@@ -369,15 +371,25 @@ fun ExpandedFilterChip(
 }
 
 @Composable
-fun ExpandedSpotlight(state: HomeUiState) {
+fun ExpandedSpotlight(
+    spotlight: UiPrevItem,
+    onAction: (HomeUiAction.OnItemClick) -> Unit
+) {
     SubcomposeAsyncImage(
         modifier = Modifier
             .fillMaxSize()
-            .clip(MaterialTheme.shapes.small),
+            .clip(MaterialTheme.shapes.small)
+            .clickable(
+                interactionSource = null,
+                indication = null,
+                onClick = {
+                    onAction(HomeUiAction.OnItemClick(spotlight.id, spotlight.type))
+                }
+            ),
         contentScale = ContentScale.Crop,
         model = ImageRequest.Builder(LocalContext.current)
             .data(
-                state.spotLight.imageUrl.replace(
+                spotlight.imageUrl.replace(
                     oldValue = "https://image.tmdb.org/t/p/w500",
                     newValue = "https://image.tmdb.org/t/p/original"
                 )

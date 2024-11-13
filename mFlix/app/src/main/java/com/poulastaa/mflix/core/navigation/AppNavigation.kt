@@ -51,6 +51,10 @@ private fun NavGraphBuilder.authGraph(
             viewmodel = viewmodel,
             navigateToEmailLogIn = {
                 navController.navigate(Screen.EmailLogIn)
+            },
+            navigateToHome = {
+                navController.popBackStack()
+                navController.navigate(Screen.App)
             }
         )
     }

@@ -11,12 +11,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.poulastaa.mflix.BuildConfig
 import com.poulastaa.mflix.auth.presentation.intro.components.StartActivityForResult
 import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
+import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 
 @Composable
 fun IntroRootScreen(
     viewmodel: IntroViewmodel,
     windowSizeClass: WindowSizeClass,
     navigateToEmailLogIn: () -> Unit,
+    navigateToHome: () -> Unit
 ) {
     val state by viewmodel.state.collectAsStateWithLifecycle()
 
@@ -32,6 +34,7 @@ fun IntroRootScreen(
             ).show()
 
             IntroUiEvent.NavigateToEmailLogIn -> navigateToEmailLogIn()
+            IntroUiEvent.NavigateToHome -> navigateToHome()
         }
     }
 

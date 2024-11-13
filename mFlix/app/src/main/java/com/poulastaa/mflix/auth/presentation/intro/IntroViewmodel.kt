@@ -91,7 +91,9 @@ class IntroViewmodel @Inject constructor(
                                 )
                             )
 
-
+                            _uiEvent.send(
+                                IntroUiEvent.NavigateToHome
+                            )
                         }
                     }
 

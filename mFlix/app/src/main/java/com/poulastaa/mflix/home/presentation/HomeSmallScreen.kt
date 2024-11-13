@@ -2,6 +2,7 @@ package com.poulastaa.mflix.home.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -58,9 +59,9 @@ import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteEmptyIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FavoriteFillIcon
+import com.poulastaa.mflix.core.presentation.designsystem.theme.LargeSearchIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.MovieIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
-import com.poulastaa.mflix.core.presentation.designsystem.theme.LargeSearchIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.RatingCard
 import com.poulastaa.mflix.home.presentation.components.HomeLoadingScreen
@@ -132,7 +133,14 @@ private fun LazyGridScope.spotlightSmallCard(
         ) {
             SubcomposeAsyncImage(
                 modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .clickable(
+                        interactionSource = null,
+                        indication = null,
+                        onClick = {
+                            onAction(HomeUiAction.OnItemClick(spotlight.id, spotlight.type))
+                        }
+                    ),
                 contentScale = ContentScale.FillBounds,
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(spotlight.imageUrl)
