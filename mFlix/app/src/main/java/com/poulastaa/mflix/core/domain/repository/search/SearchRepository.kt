@@ -6,5 +6,9 @@ import com.poulastaa.mflix.core.domain.model.SearchPayload
 import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
-    fun searchResult(type: HomeDataType, query: String): Flow<PagingData<SearchPayload>>
+    fun searchResult(
+        type: HomeDataType,
+        query: String,
+        isUpcoming: Boolean
+    ): Flow<PagingData<SearchPayload>>
 }

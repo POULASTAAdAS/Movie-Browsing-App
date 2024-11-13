@@ -1,6 +1,5 @@
 package com.poulastaa.mflix.search.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -49,10 +48,14 @@ class SearchViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    fun updateSearchType(type: AppScreen.SearchType) {
+    fun updateSearchType(
+        type: AppScreen.SearchType,
+        isUpcoming: Boolean
+    ) {
         _state.update {
             it.copy(
-                searchType = type
+                searchType = type,
+                isUpcoming = isUpcoming
             )
         }
     }
@@ -128,7 +131,8 @@ class SearchViewModel @Inject constructor(
 
         repo.searchResult(
             type = _state.value.searchType.toHomeDataType(),
-            query = _state.value.query.trim()
+            query = _state.value.query.trim(),
+            isUpcoming = _state.value.isUpcoming
         ).cachedIn(viewModelScope).collectLatest { list ->
             _data.update {
                 list.map { it.toUiSearchQueryItem() }

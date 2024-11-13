@@ -11,6 +11,9 @@ import javax.inject.Inject
 class OnlineFirstSearchRepository @Inject constructor(
     private val remote: RemoteSearchDatasource,
 ) : SearchRepository {
-    override fun searchResult(type: HomeDataType, query: String): Flow<PagingData<SearchPayload>> =
-        remote.searchResult(type, query)
+    override fun searchResult(
+        type: HomeDataType,
+        query: String,
+        isUpcoming: Boolean
+    ): Flow<PagingData<SearchPayload>> = remote.searchResult(type, query,isUpcoming)
 }

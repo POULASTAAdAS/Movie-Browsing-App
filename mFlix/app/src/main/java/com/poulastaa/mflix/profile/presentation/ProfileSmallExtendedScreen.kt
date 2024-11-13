@@ -275,7 +275,9 @@ fun ProfileSmallExtendedScreen(
                         }
                     }
 
-                    ProfileTopBar(scroll)
+                    ProfileTopBar(scroll) {
+                        onAction(ProfileUiAction.OnSettingClick)
+                    }
                 }
 
                 false -> LoadingScreen(paddingValues, scroll)
@@ -402,6 +404,6 @@ private fun LoadingScreen(
                 }
             }
         }
-        ProfileTopBar(scroll)
+        ProfileTopBar(scroll) {}
     }
 }

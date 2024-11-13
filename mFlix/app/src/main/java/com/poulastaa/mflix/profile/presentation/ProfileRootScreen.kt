@@ -5,15 +5,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.presentation.designsystem.utils.AppScreenWindowSize
+import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 
 @Composable
 fun ProfileRootScreen(
     windowSizeClass: WindowSizeClass,
     viewmodel: ProfileViewmodel,
+    onNavigateToDetails: (Long, PrevItemType) -> Unit,
+    onNavigateToSearch: (type: PrevItemType) -> Unit,
+    onNavigateToSetting: () -> Unit
 ) {
     val config = LocalConfiguration.current
     val state by viewmodel.state.collectAsStateWithLifecycle()
+
+    ObserveAsEvent(viewmodel.uiEvent) { event ->
+        when (event) {
+            is ProfileUiEvent.OnItemClick -> onNavigateToDetails(event.id,event.type)
+            is ProfileUiEvent.OnUpComingTypeClick -> onNavigateToSearch(event.type)
+            ProfileUiEvent.NavigateToSetting -> onNavigateToSetting()
+        }
+    }
 
     AppScreenWindowSize(
         windowSizeClass = windowSizeClass,

@@ -7,6 +7,7 @@ import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -27,6 +28,10 @@ val ArrowBackIcon: ImageVector
 val CheckIcon: ImageVector
     @Composable
     get() = Icons.Rounded.Check
+
+val SettingIcon: ImageVector
+    @Composable
+    get() = Icons.Rounded.Settings
 
 val EyeOpenIcon: ImageVector
     @Composable
@@ -135,3 +140,7 @@ val GridIcon: ImageVector
 val ListIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.ic_list)
+
+val LogoutIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.ic_logout)

@@ -125,7 +125,9 @@ fun ProfileSmallScreen(
                             }
                         }
 
-                        ProfileTopBar(scroll)
+                        ProfileTopBar(scroll) {
+                            onAction(ProfileUiAction.OnSettingClick)
+                        }
 
                         Card(
                             modifier = Modifier
@@ -241,7 +243,7 @@ fun ProfileLoading(
                 }
             }
 
-            ProfileTopBar(scroll)
+            ProfileTopBar(scroll) {}
 
             Card(
                 modifier = Modifier

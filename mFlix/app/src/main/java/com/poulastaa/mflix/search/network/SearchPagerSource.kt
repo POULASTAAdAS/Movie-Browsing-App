@@ -1,6 +1,5 @@
 package com.poulastaa.mflix.search.network
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.poulastaa.mflix.core.data.network.get
@@ -22,10 +21,16 @@ class SearchPagerSource @Inject constructor(
     private var includeAdults = true
     private var searchType: HomeDataType = HomeDataType.ALL
     private var query: String = ""
+    private var isUpcoming: Boolean = false
 
-    fun init(query: String, searchType: HomeDataType) {
+    fun init(
+        query: String,
+        searchType: HomeDataType,
+        isUpcoming: Boolean,
+    ) {
         this.query = query
         this.searchType = searchType
+        this.isUpcoming = isUpcoming
     }
 
     override fun getRefreshKey(state: PagingState<Int, SearchPayload>): Int? = state.anchorPosition
@@ -43,7 +48,7 @@ class SearchPagerSource @Inject constructor(
                 ).route
             )
 
-            Log.d("result", result.toString())
+            // todo add upcoming
 
             if (result is Result.Success) {
                 when (searchType) {

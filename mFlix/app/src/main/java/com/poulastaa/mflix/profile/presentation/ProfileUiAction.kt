@@ -10,5 +10,5 @@ sealed interface ProfileUiAction {
     data object OnMoreUpcomingMovieClick : ProfileUiAction
     data object OnMoreUpcomingTvClick : ProfileUiAction
 
-    data object OnLogoutClick : ProfileUiAction
+    data object OnSettingClick : ProfileUiAction
 }

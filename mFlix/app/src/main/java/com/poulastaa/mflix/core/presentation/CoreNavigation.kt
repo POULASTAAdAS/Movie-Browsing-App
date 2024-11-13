@@ -47,6 +47,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.poulastaa.mflix.R
 import com.poulastaa.mflix.core.domain.model.BottomBarScreen
+import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.navigation.AppScreen
 import com.poulastaa.mflix.core.presentation.designsystem.theme.EmptyUserIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.FilledUserIcon
@@ -64,6 +65,8 @@ import com.poulastaa.mflix.profile.presentation.ProfileRootScreen
 import com.poulastaa.mflix.profile.presentation.ProfileViewmodel
 import com.poulastaa.mflix.search.presentation.SearchRootScreen
 import com.poulastaa.mflix.search.presentation.SearchViewModel
+import com.poulastaa.mflix.settings.SettingsRootScreen
+import com.poulastaa.mflix.settings.SettingsViewmodel
 import kotlinx.coroutines.flow.collectLatest
 
 const val DEFAULT_ANIMATION_TIME = 600
@@ -79,9 +82,9 @@ fun CoreNavigation(
     LaunchedEffect(navController.currentBackStackEntryFlow) {
         navController.currentBackStackEntryFlow.collectLatest { backStack ->
             viewmodel.update(
-                state = backStack.destination.route?.contains("Details")?.not() ?: false &&
-                        backStack.destination.route?.contains("Person")?.not() ?: false &&
-                        backStack.destination.route?.contains("Search")?.not() ?: false
+                state = backStack.destination.route?.contains("Details")?.not() == true &&
+                        backStack.destination.route?.contains("Person")?.not() == true &&
+                        backStack.destination.route?.contains("Search")?.not() == true
             )
         }
     }
@@ -109,11 +112,21 @@ fun CoreNavigation(
                         )
                 )
 
-                CommonContent(navController, viewmodel, windowSizeClass)
+                CommonContent(
+                    navController,
+                    viewmodel,
+                    windowSizeClass,
+                    onNavigateToRoot = logOut
+                )
             }
         }
 
-        else -> CommonContent(navController, viewmodel, windowSizeClass)
+        else -> CommonContent(
+            navController,
+            viewmodel,
+            windowSizeClass,
+            onNavigateToRoot = logOut
+        )
     }
 }
 
@@ -122,6 +135,7 @@ private fun CommonContent(
     navController: NavHostController,
     viewmodel: CoreViewmodel,
     windowSizeClass: WindowSizeClass,
+    onNavigateToRoot: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -150,7 +164,24 @@ private fun CommonContent(
 
                 ProfileRootScreen(
                     windowSizeClass = windowSizeClass,
-                    viewmodel = profileViewModel
+                    viewmodel = profileViewModel,
+                    onNavigateToDetails = { id, type ->
+                        navController.navigate(AppScreen.Details(id, type))
+                    },
+                    onNavigateToSearch = { type ->
+                        navController.navigate(
+                            AppScreen.Search(
+                                type = when (type) {
+                                    PrevItemType.MOVIE -> AppScreen.SearchType.MOVIE
+                                    PrevItemType.TV_SERIES -> AppScreen.SearchType.TV_SHOW
+                                },
+                                isUpcoming = true
+                            )
+                        )
+                    },
+                    onNavigateToSetting = {
+                        navController.navigate(AppScreen.Setting)
+                    }
                 )
             }
 
@@ -223,11 +254,11 @@ private fun CommonContent(
             }
 
             composable<AppScreen.Search> {
-                val type = it.toRoute<AppScreen.Search>().type
+                val payload = it.toRoute<AppScreen.Search>()
                 val searchViewmodel = hiltViewModel<SearchViewModel>()
 
-                LaunchedEffect(type) {
-                    searchViewmodel.updateSearchType(type)
+                LaunchedEffect(payload) {
+                    searchViewmodel.updateSearchType(payload.type, payload.isUpcoming)
                 }
 
                 SearchRootScreen(
@@ -235,6 +266,18 @@ private fun CommonContent(
                     navigateToDetails = { id, t ->
                         navController.navigate(AppScreen.Details(id, t))
                     }
+                )
+            }
+
+            composable<AppScreen.Setting> {
+                val settingViewmodel = hiltViewModel<SettingsViewmodel>()
+
+                SettingsRootScreen(
+                    viewmodel = settingViewmodel,
+                    navigateBack = {
+                        navController.popBackStack()
+                    },
+                    logOut = onNavigateToRoot
                 )
             }
         }

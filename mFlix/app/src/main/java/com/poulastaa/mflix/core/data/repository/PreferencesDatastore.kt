@@ -2,6 +2,7 @@ package com.poulastaa.mflix.core.data.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -26,6 +27,7 @@ class PreferencesDatastore @Inject constructor(
         val COOKIE = stringPreferencesKey(name = "cookie")
         val SIGN_IN_STATE = stringPreferencesKey(name = "sign_in_state")
         val LOCAL_USER = stringPreferencesKey(name = "local_user")
+        val IS_ADULT = booleanPreferencesKey(name = "is_adult")
     }
 
     override suspend fun storeCookie(cookie: String) {
@@ -77,4 +79,16 @@ class PreferencesDatastore @Inject constructor(
 
         return response?.toLocalUser() ?: LocalUser()
     }
+
+    override suspend fun updateAdult(state: Boolean) {
+        ds.edit {
+            it[PreferencesKeys.IS_ADULT] = state
+        }
+    }
+
+    override suspend fun readAdult(): Boolean = ds.data.catch {
+        emit(emptyPreferences())
+    }.map {
+        it[PreferencesKeys.IS_ADULT] == true
+    }.first()
 }

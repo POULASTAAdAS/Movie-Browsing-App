@@ -13,4 +13,7 @@ interface DataStoreRepository {
 
     suspend fun storeUser(user: LocalUser)
     suspend fun readUser(): LocalUser
+
+    suspend fun updateAdult(state: Boolean)
+    suspend fun readAdult(): Boolean
 }
