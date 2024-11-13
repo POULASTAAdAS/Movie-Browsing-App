@@ -39,7 +39,7 @@ class MainViewModel @Inject constructor(
                 Screen.ForgotPassword,
                 Screen.EmailSignUp,
                 Screen.Intro,
-                    -> RouteExt(Screen.Intro)
+                    -> RouteExt(Screen.App)
 
                 Screen.App -> RouteExt(Screen.App)
             }.let { route ->

@@ -36,6 +36,7 @@ import com.poulastaa.mflix.core.presentation.designsystem.theme.LogoutIcon
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
 import com.poulastaa.mflix.core.presentation.ui.AppBackButton
+import com.poulastaa.mflix.settings.components.SettingsFrontSpace
 import com.poulastaa.mflix.settings.components.SettingsHeading
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +44,7 @@ import com.poulastaa.mflix.settings.components.SettingsHeading
 fun SettingCompactScreen(
     state: SettingUiState,
     onAction: (SettingUiAction) -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -157,12 +158,6 @@ fun SettingCompactScreen(
         }
     }
 }
-
-@Composable
-fun SettingsFrontSpace() {
-    TODO("Not yet implemented")
-}
-
 
 @PreviewLightDark
 @Composable

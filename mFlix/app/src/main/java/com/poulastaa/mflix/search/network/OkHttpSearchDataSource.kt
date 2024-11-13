@@ -16,11 +16,10 @@ class OkHttpSearchDataSource @Inject constructor(
     override fun searchResult(
         type: HomeDataType,
         query: String,
-        isUpcoming: Boolean
     ): Flow<PagingData<SearchPayload>> {
-        if (query.isEmpty() && !isUpcoming) return emptyFlow()
+        if (query.isEmpty()) return emptyFlow()
 
-        page.init(query, type, isUpcoming)
+        page.init(query, type)
 
         return Pager(
             config = PagingConfig(pageSize = 10),

@@ -8,7 +8,6 @@ data class SearchUiState(
 
     val viewType: UiSearchItemViewType = UiSearchItemViewType.GRID,
     val query: String = "",
-    val isUpcoming: Boolean = false,
 )
 
 enum class UiSearchItemViewType {

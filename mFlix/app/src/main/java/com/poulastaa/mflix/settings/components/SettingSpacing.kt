@@ -12,7 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-private fun SettingsFrontSpace() {
+fun SettingsFrontSpace() {
     Spacer(
         Modifier
             .clip(CircleShape)

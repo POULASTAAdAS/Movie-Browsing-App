@@ -9,6 +9,5 @@ interface RemoteSearchDatasource {
     fun searchResult(
         type: HomeDataType,
         query: String,
-        isUpcoming: Boolean
     ): Flow<PagingData<SearchPayload>>
 }

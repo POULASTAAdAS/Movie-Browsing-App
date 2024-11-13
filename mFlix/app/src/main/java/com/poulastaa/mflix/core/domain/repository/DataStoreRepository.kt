@@ -15,5 +15,5 @@ interface DataStoreRepository {
     suspend fun readUser(): LocalUser
 
     suspend fun updateAdult(state: Boolean)
-    suspend fun readAdult(): Boolean
+    fun readAdult(): Flow<Boolean>
 }

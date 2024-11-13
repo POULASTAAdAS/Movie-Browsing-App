@@ -86,9 +86,9 @@ class PreferencesDatastore @Inject constructor(
         }
     }
 
-    override suspend fun readAdult(): Boolean = ds.data.catch {
+    override fun readAdult(): Flow<Boolean> = ds.data.catch {
         emit(emptyPreferences())
     }.map {
         it[PreferencesKeys.IS_ADULT] == true
-    }.first()
+    }
 }

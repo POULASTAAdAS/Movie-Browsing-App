@@ -2,7 +2,6 @@ package com.poulastaa.mflix.profile.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.poulastaa.mflix.core.domain.model.PrevItemType
 import com.poulastaa.mflix.core.domain.model.UiPrevItem
 import com.poulastaa.mflix.core.domain.model.UiPrevItemType
 import com.poulastaa.mflix.core.domain.model.UiUser
@@ -10,7 +9,6 @@ import com.poulastaa.mflix.core.domain.repository.DataStoreRepository
 import com.poulastaa.mflix.core.domain.repository.profile.ProfileRepository
 import com.poulastaa.mflix.core.domain.utils.Result
 import com.poulastaa.mflix.home.presentation.toPrevItemType
-import com.poulastaa.mflix.profile.presentation.ProfileUiEvent.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,7 +46,7 @@ class ProfileViewmodel @Inject constructor(
             is ProfileUiAction.OnItemClick -> {
                 viewModelScope.launch {
                     _uiEvent.send(
-                        OnItemClick(
+                        ProfileUiEvent.OnItemClick(
                             action.id,
                             action.type.toPrevItemType()
                         )
@@ -58,22 +56,6 @@ class ProfileViewmodel @Inject constructor(
 
             ProfileUiAction.OnEditClick -> {
 
-            }
-
-            ProfileUiAction.OnMoreUpcomingMovieClick -> {
-                viewModelScope.launch {
-                    _uiEvent.send(
-                        OnUpComingTypeClick(PrevItemType.MOVIE)
-                    )
-                }
-            }
-
-            ProfileUiAction.OnMoreUpcomingTvClick -> {
-                viewModelScope.launch {
-                    _uiEvent.send(
-                        OnUpComingTypeClick(PrevItemType.TV_SERIES)
-                    )
-                }
             }
 
             ProfileUiAction.OnSettingClick -> {

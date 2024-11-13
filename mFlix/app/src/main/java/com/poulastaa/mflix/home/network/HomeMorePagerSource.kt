@@ -30,8 +30,8 @@ class HomeMorePagerSource @Inject constructor(
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
-            ds.readCookie().collectLatest {
-                includeAdults = false
+            ds.readAdult().collectLatest {
+                includeAdults = it
             }
         }
     }

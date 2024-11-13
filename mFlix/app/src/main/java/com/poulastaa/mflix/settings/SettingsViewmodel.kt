@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -19,9 +20,9 @@ const val LIVE_TIME = 0L
 
 @HiltViewModel
 class SettingsViewmodel @Inject constructor(
-    private val ds: DataStoreRepository
+    private val ds: DataStoreRepository,
 ) : ViewModel() {
-    private val _state = MutableStateFlow<SettingUiState>(SettingUiState())
+    private val _state = MutableStateFlow(SettingUiState())
     val state = _state
         .onStart { loadAdultState() }
         .stateIn(
@@ -58,7 +59,7 @@ class SettingsViewmodel @Inject constructor(
 
     private fun loadAdultState() {
         viewModelScope.launch {
-            val state = ds.readAdult()
+            val state = ds.readAdult().first()
 
             _state.update {
                 it.copy(

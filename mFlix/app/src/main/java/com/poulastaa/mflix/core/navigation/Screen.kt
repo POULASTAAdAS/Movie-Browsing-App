@@ -39,7 +39,7 @@ sealed interface AppScreen {
     ) : AppScreen
 
     @Serializable
-    data class Search(val type: SearchType, val isUpcoming: Boolean = false) : AppScreen
+    data class Search(val type: SearchType) : AppScreen
 
     enum class SearchType {
         MOVIE,

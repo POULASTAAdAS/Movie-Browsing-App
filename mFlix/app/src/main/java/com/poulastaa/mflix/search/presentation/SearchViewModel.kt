@@ -49,13 +49,11 @@ class SearchViewModel @Inject constructor(
     private var searchJob: Job? = null
 
     fun updateSearchType(
-        type: AppScreen.SearchType,
-        isUpcoming: Boolean
+        type: AppScreen.SearchType
     ) {
         _state.update {
             it.copy(
-                searchType = type,
-                isUpcoming = isUpcoming
+                searchType = type
             )
         }
     }
@@ -132,7 +130,6 @@ class SearchViewModel @Inject constructor(
         repo.searchResult(
             type = _state.value.searchType.toHomeDataType(),
             query = _state.value.query.trim(),
-            isUpcoming = _state.value.isUpcoming
         ).cachedIn(viewModelScope).collectLatest { list ->
             _data.update {
                 list.map { it.toUiSearchQueryItem() }

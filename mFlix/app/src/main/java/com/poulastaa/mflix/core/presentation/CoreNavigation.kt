@@ -84,41 +84,40 @@ fun CoreNavigation(
             viewmodel.update(
                 state = backStack.destination.route?.contains("Details")?.not() == true &&
                         backStack.destination.route?.contains("Person")?.not() == true &&
-                        backStack.destination.route?.contains("Search")?.not() == true
+                        backStack.destination.route?.contains("Search")?.not() == true &&
+                        backStack.destination.route?.contains("Setting")?.not() == true,
             )
         }
     }
 
     when {
-        windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded -> {
-            Row(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                SideNavigationBar(viewmodel)
+        windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded -> Row(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            SideNavigationBar(viewmodel)
 
-                Spacer(
-                    modifier = Modifier
-                        .width(6.dp)
-                        .fillMaxHeight()
-                        .background(MaterialTheme.colorScheme.primary.copy(.5f))
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(
-                                    MaterialTheme.colorScheme.background,
-                                    MaterialTheme.colorScheme.background.copy(.6f),
-                                    Color.Transparent,
-                                )
+            Spacer(
+                modifier = Modifier
+                    .width(6.dp)
+                    .fillMaxHeight()
+                    .background(MaterialTheme.colorScheme.primary.copy(.5f))
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(
+                                MaterialTheme.colorScheme.background,
+                                MaterialTheme.colorScheme.background.copy(.6f),
+                                Color.Transparent,
                             )
                         )
-                )
+                    )
+            )
 
-                CommonContent(
-                    navController,
-                    viewmodel,
-                    windowSizeClass,
-                    onNavigateToRoot = logOut
-                )
-            }
+            CommonContent(
+                navController,
+                viewmodel,
+                windowSizeClass,
+                onNavigateToRoot = logOut
+            )
         }
 
         else -> CommonContent(
@@ -135,7 +134,7 @@ private fun CommonContent(
     navController: NavHostController,
     viewmodel: CoreViewmodel,
     windowSizeClass: WindowSizeClass,
-    onNavigateToRoot: () -> Unit
+    onNavigateToRoot: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -167,17 +166,6 @@ private fun CommonContent(
                     viewmodel = profileViewModel,
                     onNavigateToDetails = { id, type ->
                         navController.navigate(AppScreen.Details(id, type))
-                    },
-                    onNavigateToSearch = { type ->
-                        navController.navigate(
-                            AppScreen.Search(
-                                type = when (type) {
-                                    PrevItemType.MOVIE -> AppScreen.SearchType.MOVIE
-                                    PrevItemType.TV_SERIES -> AppScreen.SearchType.TV_SHOW
-                                },
-                                isUpcoming = true
-                            )
-                        )
                     },
                     onNavigateToSetting = {
                         navController.navigate(AppScreen.Setting)
@@ -222,16 +210,12 @@ private fun CommonContent(
 
             composable<AppScreen.Person>(
                 enterTransition = {
-                    fadeIn(animationSpec = tween(DEFAULT_ANIMATION_TIME)) + slideInVertically(
-                        animationSpec = tween(DEFAULT_ANIMATION_TIME)
-                    )
+                    fadeIn(animationSpec = tween(DEFAULT_ANIMATION_TIME)) +
+                            slideInVertically(animationSpec = tween(DEFAULT_ANIMATION_TIME))
                 },
                 exitTransition = {
-                    fadeOut(tween(DEFAULT_ANIMATION_TIME)) + slideOutVertically(
-                        tween(
-                            DEFAULT_ANIMATION_TIME
-                        )
-                    )
+                    fadeOut(tween(DEFAULT_ANIMATION_TIME)) +
+                            slideOutVertically(tween(DEFAULT_ANIMATION_TIME))
                 }
             ) {
                 val personViewModel = hiltViewModel<PersonViewModel>()
@@ -258,7 +242,7 @@ private fun CommonContent(
                 val searchViewmodel = hiltViewModel<SearchViewModel>()
 
                 LaunchedEffect(payload) {
-                    searchViewmodel.updateSearchType(payload.type, payload.isUpcoming)
+                    searchViewmodel.updateSearchType(payload.type)
                 }
 
                 SearchRootScreen(

@@ -21,16 +21,13 @@ class SearchPagerSource @Inject constructor(
     private var includeAdults = true
     private var searchType: HomeDataType = HomeDataType.ALL
     private var query: String = ""
-    private var isUpcoming: Boolean = false
 
     fun init(
         query: String,
         searchType: HomeDataType,
-        isUpcoming: Boolean,
     ) {
         this.query = query
         this.searchType = searchType
-        this.isUpcoming = isUpcoming
     }
 
     override fun getRefreshKey(state: PagingState<Int, SearchPayload>): Int? = state.anchorPosition

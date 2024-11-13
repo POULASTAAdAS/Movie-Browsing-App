@@ -14,6 +14,5 @@ class OnlineFirstSearchRepository @Inject constructor(
     override fun searchResult(
         type: HomeDataType,
         query: String,
-        isUpcoming: Boolean
-    ): Flow<PagingData<SearchPayload>> = remote.searchResult(type, query,isUpcoming)
+    ): Flow<PagingData<SearchPayload>> = remote.searchResult(type, query)
 }

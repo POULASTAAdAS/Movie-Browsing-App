@@ -14,7 +14,6 @@ fun ProfileRootScreen(
     windowSizeClass: WindowSizeClass,
     viewmodel: ProfileViewmodel,
     onNavigateToDetails: (Long, PrevItemType) -> Unit,
-    onNavigateToSearch: (type: PrevItemType) -> Unit,
     onNavigateToSetting: () -> Unit
 ) {
     val config = LocalConfiguration.current
@@ -23,7 +22,6 @@ fun ProfileRootScreen(
     ObserveAsEvent(viewmodel.uiEvent) { event ->
         when (event) {
             is ProfileUiEvent.OnItemClick -> onNavigateToDetails(event.id,event.type)
-            is ProfileUiEvent.OnUpComingTypeClick -> onNavigateToSearch(event.type)
             ProfileUiEvent.NavigateToSetting -> onNavigateToSetting()
         }
     }
