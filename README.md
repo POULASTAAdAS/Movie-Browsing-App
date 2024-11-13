@@ -29,23 +29,23 @@
 <a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/auth_mFlix.gif">
     <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/auth_mFlix.gif" width="200" height="400" alt="Auth Preview">
 </a>
-<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/home_mFlix.gif">
-    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/home_mFlix.gif" width="200" height="400" alt="Compact Home">
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/compact_home.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/compact_home.gif" width="200" height="400" alt="Compact Home">
 </a>
-<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif">
-    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif" width="200" height="400" alt="Compact Search">
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/compact_search.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/compact_search.gif" width="200" height="400" alt="Compact Search">
 </a>
-<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif">
-    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/preview.gif" width="200" height="400" alt="Compact Profile">
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/compact_profile.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/mobile/compact_profile.gif" width="200" height="400" alt="Compact Profile">
 </a>
 
 ### Expanded
 
-<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif">
-    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif"  alt="Tab Home">
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab_home.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab_home.gif"  alt="Tab Home">
 </a>
-<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif">
-    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab%20home.gif"  alt="Tab Search">
+<a href="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab_search.gif">
+    <img src="https://github.com/POULASTAAdAS/Movie-Browsing-App/blob/main/ss/tab/tab_search.gif"  alt="Tab Search">
 </a>
 
 ## Technology
