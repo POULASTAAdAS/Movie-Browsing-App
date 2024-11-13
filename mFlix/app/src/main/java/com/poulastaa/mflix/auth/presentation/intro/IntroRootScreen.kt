@@ -1,6 +1,8 @@
 package com.poulastaa.mflix.auth.presentation.intro
 
 import android.app.Activity
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,40 +19,50 @@ fun IntroRootScreen(
     navigateToEmailLogIn: () -> Unit,
 ) {
     val state by viewmodel.state.collectAsStateWithLifecycle()
-    val context = LocalContext.current as Activity
 
+    val context = LocalContext.current
+    val activity = context as Activity
+
+    ObserveAsEvent(viewmodel.uiEvent) {
+        when (it) {
+            is IntroUiEvent.EmitToast -> Toast.makeText(
+                context,
+                it.message.asString(context),
+                Toast.LENGTH_LONG
+            ).show()
+
+            IntroUiEvent.NavigateToEmailLogIn -> navigateToEmailLogIn()
+        }
+    }
 
     AppScreenWindowSize(
         windowSizeClass = windowSizeClass,
         compactContent = {
             IntroRootSmallScreen(
                 viewmodel = viewmodel,
-                navigateToEmailLogIn = navigateToEmailLogIn
             )
         },
         mediumContent = {
             IntroRootMediumScreen(
                 viewmodel = viewmodel,
-                navigateToEmailLogIn = navigateToEmailLogIn
             )
         },
         expandedContent = {
             IntroRootExpandedScreen(
                 viewmodel = viewmodel,
-                navigateToEmailLogIn = navigateToEmailLogIn
             )
         }
     )
 
     StartActivityForResult(
         key = state.isMakingApiCall,
-        activity = LocalContext.current as Activity,
+        activity = activity,
         clientId = BuildConfig.GOOGLE_CLIENT_ID,
         onSuccess = {
             viewmodel.onAction(
                 IntroUiAction.OnGoogleAuthSuccess(
                     token = it,
-                    activity = context
+                    activity = activity
                 )
             )
         },

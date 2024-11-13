@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.poulastaa.mflix.R
+import com.poulastaa.mflix.auth.presentation.intro.IntroMediumScreen
 import com.poulastaa.mflix.auth.presentation.intro.components.IntroButton
 import com.poulastaa.mflix.core.presentation.designsystem.theme.PrevThem
 import com.poulastaa.mflix.core.presentation.designsystem.theme.dimens
@@ -38,22 +39,8 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 @Composable
 fun IntroRootMediumScreen(
     viewmodel: IntroViewmodel,
-    navigateToEmailLogIn: () -> Unit,
 ) {
-    val context = LocalContext.current
     val state by viewmodel.state.collectAsState()
-
-    ObserveAsEvent(viewmodel.uiEvent) {
-        when (it) {
-            is IntroUiEvent.EmitToast -> Toast.makeText(
-                context,
-                it.message.asString(context),
-                Toast.LENGTH_LONG
-            ).show()
-
-            IntroUiEvent.NavigateToEmailLogIn -> navigateToEmailLogIn()
-        }
-    }
 
     IntroMediumScreen(
         state = state,

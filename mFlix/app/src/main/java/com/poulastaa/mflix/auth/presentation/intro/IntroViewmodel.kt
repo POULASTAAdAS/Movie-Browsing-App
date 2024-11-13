@@ -90,6 +90,8 @@ class IntroViewmodel @Inject constructor(
                                     UiText.StringResource(R.string.auth_success)
                                 )
                             )
+
+
                         }
                     }
 

@@ -38,22 +38,8 @@ import com.poulastaa.mflix.core.presentation.designsystem.utils.ObserveAsEvent
 @Composable
 fun IntroRootSmallScreen(
     viewmodel: IntroViewmodel,
-    navigateToEmailLogIn: () -> Unit,
 ) {
-    val context = LocalContext.current
     val state by viewmodel.state.collectAsState()
-
-    ObserveAsEvent(viewmodel.uiEvent) {
-        when (it) {
-            is IntroUiEvent.EmitToast -> Toast.makeText(
-                context,
-                it.message.asString(context),
-                Toast.LENGTH_LONG
-            ).show()
-
-            IntroUiEvent.NavigateToEmailLogIn -> navigateToEmailLogIn()
-        }
-    }
 
     IntroSmallScreen(
         state = state,
